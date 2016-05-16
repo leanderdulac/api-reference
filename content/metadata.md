@@ -10,6 +10,17 @@ Exemplos de uso:
 - Informações sobre clientes, como: Nome completo.
 - Informações sobre pedidos, como: Local de um evento ou horário.
 
+#### Exemplo:
+
+```json
+{
+	"metadata": {
+		"id_do_pedido": 1234,
+		"nome_do_cliente": "Richard Deschamps"
+	}
+}
+```
+
 ### Atenção
 
-Você precisa manter os tipos dos dados que você inserir.
+**Você precisa manter os tipos dos dados que você inserir.**
