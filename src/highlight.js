@@ -1,13 +1,17 @@
 import visit from 'unist-util-visit';
 
 import hljs from 'highlight.js/lib/highlight';
-import python from 'highlight.js/lib/languages/python';
-import javascript from 'highlight.js/lib/languages/javascript';
+import http from 'highlight.js/lib/languages/http';
+import ruby from 'highlight.js/lib/languages/ruby';
+import php from 'highlight.js/lib/languages/php';
+import csharp from 'highlight.js/lib/languages/cs';
 import json from 'highlight.js/lib/languages/json';
 import bash from 'highlight.js/lib/languages/bash';
 
-hljs.registerLanguage('python', python);
-hljs.registerLanguage('javascript', javascript);
+hljs.registerLanguage('ruby', ruby);
+hljs.registerLanguage('php', php);
+hljs.registerLanguage('csharp', csharp);
+hljs.registerLanguage('http', http);
 hljs.registerLanguage('json', json);
 hljs.registerLanguage('bash', bash);
 

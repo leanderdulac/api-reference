@@ -11,7 +11,7 @@ import qs from 'querystring';
 let slugger = new GithubSlugger();
 let slug = title => { slugger.reset(); return slugger.slug(title); };
 
-let languageOptions = ['cURL', 'Ruby', 'PHP', 'C#'];
+let languageOptions = ['cURL', 'Ruby', 'PHP', 'CSharp'];
 let defaultLanguage = 'cURL';
 
 let debouncedReplaceState = debounce(hash => {
@@ -174,7 +174,7 @@ var App = React.createClass({
       <div className={`fixed-top ${queryMatches.desktop && 'space-left16'}`}>
         <div className={`events fill-light bottom-shadow pad1 ${col1 ? '' : 'col6 pin-topright'} ${queryMatches.tablet ? 'dark fill-blue' : ''} ${queryMatches.mobile ? 'space-top5 fixed-topright' : ''}`}>
           <div className='space-right1 small quiet inline'>
-            Show examples in:
+            Mostrar exemplos em:
           </div>
           <RoundedToggle
             options={languageOptions}
