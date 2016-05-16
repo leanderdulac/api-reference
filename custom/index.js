@@ -19,7 +19,7 @@ module.exports.brandClasses = 'fill-orange coding';
 /**
  * Text for the link back to the linking website.
  */
-module.exports.backLink = 'Back to pagar.me';
+module.exports.backLink = 'Voltar para pagar.me';
 
 /**
  * Runs after highlighting code samples. You can use this
