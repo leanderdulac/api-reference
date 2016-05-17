@@ -21,8 +21,8 @@ Propriedade | Tipo | Descrição
 `request_id` | `string` | Id da requisição interna que disparou essa operação
 `rollbacked` | `boolean` | Indicador de operação desfeita
 `start_at` | `string` | Data de início do processamento da operação no formato Unix Timestamp
-`status` | `string` | Status da operação. **Valores possíveis:** `waiting`, `processing`, `deferred`, `failed`, `success`, `dropped`
-`type` | `string` | Tipo da operação. **Valores possíveis:** `analyze`, `authorize`, `capture`, `issue`, `conciliate`, `refund`
+`status` | `string` | Status da operação. **Valores possíveis:** `waiting`, `processing`, `deferred`, `failed`, `success` e `dropped`
+`type` | `string` | Tipo da operação. **Valores possíveis:** `analyze`, `authorize`, `capture`, `issue`, `conciliate` e `refund`
 
 #### Exemplo do objeto
 
