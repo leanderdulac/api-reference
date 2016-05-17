@@ -10,7 +10,12 @@ var fs = require('fs');
  * browser: the content is read ahead-of-time and included in bundle.js.
  */
 module.exports =
+  '# Introdução\n' +
   fs.readFileSync('./content/introduction.md', 'utf8') + '\n' +
+  '# Tópicos\n' +
   fs.readFileSync('./content/authentication.md', 'utf8') + '\n' +
   fs.readFileSync('./content/metadata.md', 'utf8') + '\n' +
-  fs.readFileSync('./content/errors.md', 'utf8')
+  fs.readFileSync('./content/errors.md', 'utf8') + '\n' +
+  '# Geral\n' +
+  fs.readFileSync('./content/customers.md', 'utf8') + '\n' +
+  fs.readFileSync('./content/zipcodes.md', 'utf8')
