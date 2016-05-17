@@ -16,6 +16,9 @@ module.exports =
   fs.readFileSync('./content/authentication.md', 'utf8') + '\n' +
   fs.readFileSync('./content/metadata.md', 'utf8') + '\n' +
   fs.readFileSync('./content/errors.md', 'utf8') + '\n' +
+  '# Transacional\n' +
+  fs.readFileSync('./content/operations.md', 'utf8') + '\n' +
+  fs.readFileSync('./content/antifraud.md', 'utf8') + '\n' +
   '# Recursos\n' +
   fs.readFileSync('./content/customers.md', 'utf8') + '\n' +
   '# Geral\n' +
