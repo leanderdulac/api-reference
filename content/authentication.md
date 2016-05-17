@@ -19,6 +19,6 @@ Todas as requisições devem ser feitas através de uma conexão [HTTPS](https:/
 curl -X POST -H "Authorization: Basic YWtfdGVzdF9lMVFHVTJnTDk4TURDSFp4SExKOXNvZlBVRko3dEg6eA==" https://api.pagar.me/1/transactions
 ```
 
-### Atenção
+**Atenção**
 
 **A sua API key é privada e não pode ser compartilhada em nenhum lugar além dos seus servidores e ambientes seguros. Qualquer ação da nossa API pode ser feita com sua API key, até mesmo estornar uma transação já feita e com produto entregue. Mantenha ela sempre em segredo e mostre para seus clientes que você se preocupa com a segurança deles.**
