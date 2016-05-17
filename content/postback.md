@@ -17,7 +17,7 @@ Propriedade | Tipo | Descrição
 ---|---|---
 `object` | `string` | Nome do tipo do objeto. **Valores possíveis:** `transaction`
 `old_status` | `string` | Status anterior desta transação. **Valores possíveis:** `processing`, `authorized`, `waiting_payment`, `pending_refund`
-`fingerprint` | `string` | Usado para validar a requisição vinda do Pagar.me
+`fingerprint` | `string` | **Deprecado**
 `event` | `string` | Nome do evento. **Valores possíveis:** `transaction_status_changed`
 `current_status` | `string` | Status atual da transação. **Valores possíveis:** `authorized`, `paid`, `refunded`, `waiting_payment`, `pending_refund`, `refused`
 `desired_status` | `string` | Status desejado desta transação se todo o fluxo for respeitado. **Valores possíveis:** `paid`
@@ -92,7 +92,7 @@ Propriedade | Tipo | Descrição
 ---|---|---
 `object` | `string` | Nome do tipo do objeto. **Valores possíveis:** `subscription`
 `old_status` | `string` | Status anterior desta assinatura. **Valores possíveis:** `trialing`, `unpaid`, `paid`, `pending_payment`
-`fingerprint` | `string` | Usado para validar a requisição vinda do Pagar.me
+`fingerprint` | `string` | **Deprecado**
 `event` | `string` | Nome do evento. **Valores possíveis:** `subscription_status_changed`
 `current_status` | `string` | Status atual da assinatura. **Valores possíveis:** `trialing`, `unpaid`, `paid`, `pending_payment`, `canceled`, `ended`
 `desired_status` | `string` | Status desejado desta assinatura se todo o fluxo for respeitado. **Valores possíveis:** `paid`
