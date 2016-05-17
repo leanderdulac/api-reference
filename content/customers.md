@@ -1,6 +1,6 @@
 ## Clientes
 
-### Objeto `customer`
+### Objeto customer
 
 Propriedade | Tipo | Descrição
 ---|---|---
