@@ -16,6 +16,8 @@ module.exports =
   fs.readFileSync('./content/authentication.md', 'utf8') + '\n' +
   fs.readFileSync('./content/metadata.md', 'utf8') + '\n' +
   fs.readFileSync('./content/errors.md', 'utf8') + '\n' +
-  '# Geral\n' +
+  '# Recursos\n' +
   fs.readFileSync('./content/customers.md', 'utf8') + '\n' +
-  fs.readFileSync('./content/zipcodes.md', 'utf8')
+  '# Geral\n' +
+  fs.readFileSync('./content/zipcodes.md', 'utf8') + '\n' +
+  fs.readFileSync('./content/elasticsearch.md', 'utf8')
