@@ -13,7 +13,7 @@ Propriedade | Tipo | Descrição
 `name` | `string` | Nome do antifraude utilizado
 `object` | `string` | Nome do tipo do objeto criado/modificado. **Valor retornado:** `antifraud_analysis`
 `score` | `string` | Pontuação de 0 a 100 da probabilidade de fraude na transação realizada
-`status` | `string` | Status da análise antifraude. **Valores possíveis:** `processing`, `approved`, `refused` e `failed`
+`status` | `string` | Status da análise antifraude. **Valores possíveis:** `processing`, `deferred`, `approved`, `refused` e `failed`
 
 #### Exemplo do objeto
 
