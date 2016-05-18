@@ -104,6 +104,7 @@ POST /customers
 #### Exemplo de requisição
 
 ```curl
+# Criando um cliente
 curl -X POST https://api.pagar.me/1/customers \
 -u "ak_test_e1QGU2gL98MDCHZxHLJ9sofPUFJ7tH:x" \
 -d "name=Richard Deschamps" \
@@ -125,6 +126,7 @@ curl -X POST https://api.pagar.me/1/customers \
 ```
 
 ```ruby
+# Criando um cliente
 require 'pagarme'
 
 PagarMe.api_key = "ak_test_e1QGU2gL98MDCHZxHLJ9sofPUFJ7tH"
@@ -156,6 +158,7 @@ customer.create
 ```
 
 ```php
+// Criando um cliente
 <?php
 
 require("pagarme-php/Pagarme.php");
@@ -189,6 +192,7 @@ $customer->create();
 ```
 
 ```csharp
+// Criando um cliente
 PagarMeService.DefaultApiKey = "ak_test_e1QGU2gL98MDCHZxHLJ9sofPUFJ7tH";
 
 Customer customer = new Customer();
@@ -273,11 +277,13 @@ GET /customers/{id}
 #### Exemplo de requisição
 
 ```curl
+# Retornando um cliente
 curl -X GET https://api.pagar.me/1/customers/64912 \
 -u "ak_test_e1QGU2gL98MDCHZxHLJ9sofPUFJ7tH:x"
 ```
 
 ```ruby
+# Retornando um cliente
 require 'pagarme'
 
 PagarMe.api_key = "ak_test_e1QGU2gL98MDCHZxHLJ9sofPUFJ7tH"
@@ -286,6 +292,7 @@ customer = PagarMe::Customer.find_by_id(64912)
 ```
 
 ```php
+// Retornando um cliente
 <?php
 
 require("pagarme-php/Pagarme.php");
@@ -296,7 +303,10 @@ $customer = PagarMe_Customer::findById(64912);
 ```
 
 ```csharp
-// Sem exemplo
+// Retornando um cliente
+PagarMeService.DefaultApiKey = "ak_test_e1QGU2gL98MDCHZxHLJ9sofPUFJ7tH";
+
+var customer = PagarMeService.GetDefaultService().Customers.Find(64912);
 ```
 
 #### Exemplo de resposta
@@ -354,11 +364,13 @@ GET /customers
 #### Exemplo de requisição
 
 ```curl
+# Retornando todos os clientes
 curl -X GET https://api.pagar.me/1/customers \
 -u "ak_test_e1QGU2gL98MDCHZxHLJ9sofPUFJ7tH:x"
 ```
 
 ```ruby
+# Retornando todos os clientes
 require 'pagarme'
 
 PagarMe.api_key = "ak_test_e1QGU2gL98MDCHZxHLJ9sofPUFJ7tH"
@@ -367,6 +379,7 @@ customer = PagarMe::Customer.all()
 ```
 
 ```php
+// Retornando todos os clientes
 <?php
 
 require("pagarme-php/Pagarme.php");
@@ -377,7 +390,10 @@ $customer = PagarMe_Customer::all();
 ```
 
 ```csharp
-// Sem exemplo
+// Retornando todos os clientes
+PagarMeService.DefaultApiKey = "ak_test_e1QGU2gL98MDCHZxHLJ9sofPUFJ7tH";
+
+var customer = PagarMeService.GetDefaultService().Customers.Find();
 ```
 
 #### Exemplo de resposta
