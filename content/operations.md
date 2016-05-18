@@ -73,6 +73,7 @@ GET /transactions/{transaction_id}/operations/{id}
 #### Exemplo de requisição
 
 ```curl
+# Retornando uma operação
 curl -X GET https://api.pagar.me/1/transactions/487720/operations/go_cioau9den01nr633s9hlg8t9y \
 -u "ak_test_e1QGU2gL98MDCHZxHLJ9sofPUFJ7tH:x"
 ```
@@ -137,6 +138,7 @@ GET /transactions/{transaction_id}/operations
 #### Exemplo de requisição
 
 ```curl
+# Retornando todas as operações
 curl -X GET https://api.pagar.me/1/transactions/487720/operations \
 -u "ak_test_e1QGU2gL98MDCHZxHLJ9sofPUFJ7tH:x"
 ```
