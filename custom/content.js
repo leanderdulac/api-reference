@@ -26,6 +26,6 @@ module.exports =
   '# Geral\n' +
   fs.readFileSync('./content/events.md', 'utf8') + '\n' +
   fs.readFileSync('./content/postback.md', 'utf8') + '\n' +
+  fs.readFileSync('./content/card_hash_key.md', 'utf8') + '\n' +
   fs.readFileSync('./content/zipcodes.md', 'utf8') + '\n' +
-  fs.readFileSync('./content/elasticsearch.md', 'utf8') + '\n' +
-  fs.readFileSync('./content/card_hash_key.md', 'utf8')
+  fs.readFileSync('./content/elasticsearch.md', 'utf8')
