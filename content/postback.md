@@ -199,6 +199,7 @@ GET /transactions/{transaction_id}/postbacks/{id}
 #### Exemplo de requisição
 
 ```curl
+# Retornando um POSTback de uma transação
 curl -X GET https://api.pagar.me/1/transactions/487720/postbacks/po_cioau9cfw0sdchs73o338jl41 \
 -u "ak_test_e1QGU2gL98MDCHZxHLJ9sofPUFJ7tH:x"
 ```
@@ -265,6 +266,7 @@ POST /transactions/{transaction_id}/postbacks/{id}/redeliver
 #### Exemplo de requisição
 
 ```curl
+# Reenviando um POSTback de uma transação
 curl -X POST https://api.pagar.me/1/transactions/487720/postbacks/po_cioau9cfw0sdchs73o338jl41/redeliver \
 -u "ak_test_e1QGU2gL98MDCHZxHLJ9sofPUFJ7tH:x"
 ```
@@ -342,6 +344,7 @@ GET /transactions/{transaction_id}/postbacks
 #### Exemplo de requisição
 
 ```curl
+# Retornando todos os POSTbacks de uma transação
 curl -X GET https://api.pagar.me/1/transactions/487720/postbacks \
 -u "ak_test_e1QGU2gL98MDCHZxHLJ9sofPUFJ7tH:x"
 ```
@@ -434,6 +437,7 @@ GET /subscriptions/{subscription_id}/postbacks/{id}
 #### Exemplo de requisição
 
 ```curl
+# Retornando um POSTback de uma assinatura
 curl -X GET https://api.pagar.me/1/subscriptions/57158/postbacks/po_cioayibct0si1hs73nzbfhmqm \
 -u "ak_test_e1QGU2gL98MDCHZxHLJ9sofPUFJ7tH:x"
 ```
@@ -500,6 +504,7 @@ POST /subscriptions/{transaction_id}/postbacks/{id}/redeliver
 #### Exemplo de requisição
 
 ```curl
+# Reenviando um POSTback de uma assinatura
 curl -X POST https://api.pagar.me/1/subscriptions/57158/postbacks/po_cioayibct0si1hs73nzbfhmqm/redeliver \
 -u "ak_test_e1QGU2gL98MDCHZxHLJ9sofPUFJ7tH:x"
 ```
@@ -577,6 +582,7 @@ GET /subscriptions/{subscription_id}/postbacks
 #### Exemplo de requisição
 
 ```curl
+# Retornando todos os POSTbacks de uma assinatura
 curl -X GET https://api.pagar.me/1/subscriptions/57158/postbacks \
 -u "ak_test_e1QGU2gL98MDCHZxHLJ9sofPUFJ7tH:x"
 ```
