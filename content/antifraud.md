@@ -46,6 +46,7 @@ GET /transactions/{transaction_id}/antifraud_analyses/{id}
 #### Exemplo de requisição
 
 ```curl
+# Retornando uma análise antifraude
 curl -X GET https://api.pagar.me/1/transactions/479099/antifraud_analyses/11106 \
 -u "ak_test_e1QGU2gL98MDCHZxHLJ9sofPUFJ7tH:x"
 ```
@@ -92,6 +93,7 @@ GET /transactions/{transaction_id}/antifraud_analyses
 #### Exemplo de requisição
 
 ```curl
+# Retornando todas as análises antifraude
 curl -X GET https://api.pagar.me/1/transactions/479099/antifraud_analyses \
 -u "ak_test_e1QGU2gL98MDCHZxHLJ9sofPUFJ7tH:x"
 ```
