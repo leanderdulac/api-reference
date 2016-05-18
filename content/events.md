@@ -1,5 +1,33 @@
 ## Eventos
 
+### Objeto events
+
+Propriedade | Tipo | Descrição
+---|---|---
+`id` | `string` | Id do evento
+`model` | `string` | Objeto associado a esse evento
+`model_id` | `string` | Id do objeto associado a esse evento
+`name` | `string` | Nome do evento
+`object` | `string` | Nome do tipo do objeto criado/modificado.
+`payload` | `object` | Objeto com status dos eventos
+
+#### Exemplo do objeto
+
+```json
+{
+    "id": "ev_cioau9cf60t0dhi73sqgecqd0",
+    "model": "transaction",
+    "model_id": "487720",
+    "name": "transaction_status_changed",
+    "object": "event",
+    "payload": {
+        "current_status": "paid",
+        "desired_status": "paid",
+        "old_status": "processing"
+    }
+}
+```
+
 ### Retornar um evento de uma transação
 
 Retorna um evento já criado dentro de uma transação. 
@@ -17,6 +45,7 @@ GET /transactions/{transaction_id}/events/{id}
 #### Exemplo de requisição
 
 ```curl
+# Retornando um evento de uma transação
 curl -X GET https://api.pagar.me/1/transactions/487720/events/ev_cioau9cf60t0dhi73sqgecqd0 \
 -u "ak_test_e1QGU2gL98MDCHZxHLJ9sofPUFJ7tH:x"
 ```
@@ -66,6 +95,7 @@ GET /transactions/{transaction_id}/events
 #### Exemplo de requisição
 
 ```curl
+# Retornando todos os eventos de uma transação
 curl -X GET https://api.pagar.me/1/transactions/487720/events \
 -u "ak_test_e1QGU2gL98MDCHZxHLJ9sofPUFJ7tH:x"
 ```
@@ -118,6 +148,7 @@ GET /subscriptions/{subscription_id}/events/{id}
 #### Exemplo de requisição
 
 ```curl
+# Retornando um evento de uma assinatura
 curl -X GET https://api.pagar.me/1/subscriptions/57158/events/ev_cioayibbn0si0hs73zf5h0exm \
 -u "ak_test_e1QGU2gL98MDCHZxHLJ9sofPUFJ7tH:x"
 ```
@@ -167,6 +198,7 @@ GET /subscriptions/{subscription_id}/events
 #### Exemplo de requisição
 
 ```curl
+# Retornando todos os eventos de uma assinatura
 curl -X GET https://api.pagar.me/1/subscriptions/57158/events \
 -u "ak_test_e1QGU2gL98MDCHZxHLJ9sofPUFJ7tH:x"
 ```
