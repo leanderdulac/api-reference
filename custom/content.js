@@ -19,6 +19,8 @@ module.exports =
   '# Transacional\n' +
   fs.readFileSync('./content/operations.md', 'utf8') + '\n' +
   fs.readFileSync('./content/antifraud.md', 'utf8') + '\n' +
+  '# Formas de Pagamento\n' +
+  fs.readFileSync('./content/cards.md', 'utf8') + '\n' +
   '# Recursos\n' +
   fs.readFileSync('./content/customers.md', 'utf8') + '\n' +
   '# Geral\n' +
