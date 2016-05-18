@@ -32,6 +32,7 @@ Propriedade | Tipo | Descrição
 `id` | `integer` | Id do telefone do cliente
 `number` | `string` | Telefone do cliente
 `object` | `string` | Nome do tipo do objeto criado/modificado.
+
 #### Exemplo do objeto
 
 ```json
