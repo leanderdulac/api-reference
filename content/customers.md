@@ -366,7 +366,7 @@ GET /customers
 ```curl
 # Retornando todos os clientes
 curl -X GET https://api.pagar.me/1/customers \
--u "ak_test_e1QGU2gL98MDCHZxHLJ9sofPUFJ7tH:x"
+-u "ak_test_e1QGU2gL98MDCHZxHLJ9sofPUFJ7tH:x" \
 -d "page=1" \
 -d "count=10"
 ```
