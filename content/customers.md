@@ -354,8 +354,8 @@ Retorna todos os clientes cadastrados em sua conta.
 
 Parâmetro | Descrição
 ---|---
-`count` (**Padrão: 10**) | Retorna `n` objetos de `customer`
 `page` (**Padrão: 1**) | Útil para implementação de uma paginação de resultados
+`count` (**Padrão: 10**) | Retorna `n` objetos de `customer`
 
 ```endpoint
 GET /customers
@@ -367,6 +367,8 @@ GET /customers
 # Retornando todos os clientes
 curl -X GET https://api.pagar.me/1/customers \
 -u "ak_test_e1QGU2gL98MDCHZxHLJ9sofPUFJ7tH:x"
+-d "page=1" \
+-d "count=10"
 ```
 
 ```ruby
@@ -375,7 +377,7 @@ require 'pagarme'
 
 PagarMe.api_key = "ak_test_e1QGU2gL98MDCHZxHLJ9sofPUFJ7tH"
 
-customer = PagarMe::Customer.all()
+customer = PagarMe::Customer.all(1, 10)
 ```
 
 ```php
@@ -386,14 +388,14 @@ require("pagarme-php/Pagarme.php");
 
 Pagarme::setApiKey("ak_test_e1QGU2gL98MDCHZxHLJ9sofPUFJ7tH");
 
-$customer = PagarMe_Customer::all();
+$customer = PagarMe_Customer::all(1, 10);
 ```
 
 ```csharp
 // Retornando todos os clientes
 PagarMeService.DefaultApiKey = "ak_test_e1QGU2gL98MDCHZxHLJ9sofPUFJ7tH";
 
-var customer = PagarMeService.GetDefaultService().Customers.Find();
+var customer = PagarMeService.GetDefaultService().Customers.FindAll(1, 10);
 ```
 
 #### Exemplo de resposta
