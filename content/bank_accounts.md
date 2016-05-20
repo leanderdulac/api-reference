@@ -11,12 +11,12 @@ Propriedade | Tipo | Descrição
 `conta` | `string` | Número da conta bancária
 `conta_dv` | `string` | Dígito verificador da conta bancária
 `date_created` | `string` | Data de criação da conta no formato ISODate
-`document_number` | `string` | Documento identificador do titular da conta (CPF ou CNPJ).
-`document_type` | `string` | Tipo do documento identificador do titular da conta.
+`document_number` | `string` | Documento identificador do titular da conta (CPF ou CNPJ)
+`document_type` | `string` | Tipo do documento identificador do titular da conta
 `holder_name` | `string` | Nome do portador do cartão
 `id` | `string` | Id da conta bancária
 `legal_name` | `string` | Nome completo (se pessoa física) ou razão social (se pessoa jurídica)
-`object` | `string` | Nome do tipo do objeto criado/modificado.
+`object` | `string` | Nome do tipo do objeto criado/modificado
 
 #### Exemplo do objeto
 
@@ -229,7 +229,7 @@ GET /bank_accounts
 ```curl
 # Retornando todas as contas bancárias
 curl -X GET https://api.pagar.me/1/bank_accounts \
--u "ak_test_e1QGU2gL98MDCHZxHLJ9sofPUFJ7tH:x"
+-u "ak_test_e1QGU2gL98MDCHZxHLJ9sofPUFJ7tH:x" \
 -d "page=1" \
 -d "count=10"
 ```
