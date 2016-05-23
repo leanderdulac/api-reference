@@ -106,6 +106,8 @@ curl -X GET https://api.pagar.me/1/payables/25786 \
 
 Retorna todos os recebíveis.
 
+Parâmetro | Descrição
+---|---
 `page` (**Padrão: 1**) | Útil para implementação de uma paginação de resultados
 `count` (**Padrão: 10**) | Retorna `n` objetos de `payable`
 
@@ -116,7 +118,7 @@ GET /payables
 #### Exemplo de requisição
 
 ```curl
-# Retornando um recebível
+# Retornando todos os recebíveis
 curl -X GET https://api.pagar.me/1/payables \
 -u "ak_test_e1QGU2gL98MDCHZxHLJ9sofPUFJ7tH:x" \
 -d "page=1" \
@@ -317,6 +319,123 @@ curl -X GET https://api.pagar.me/1/payables \
         "split_rule_id": null,
         "status": "waiting_funds",
         "transaction_id": 479095,
+        "type": "credit"
+    }
+]
+```
+
+### Retornar um recebível de uma transação
+
+Retorna um recebível de uma determinada transação.
+
+Parâmetro | Descrição
+---|---
+`id` (**Obrigatório**) | Id do recebível
+`transaction_id` (**Obrigatório**) | Id da transação
+
+```endpoint
+GET /transactions/{transaction_id}/payables/{id}
+```
+
+#### Exemplo de requisição
+
+```curl
+# Retornando um recebível de uma transação
+curl -X GET https://api.pagar.me/1/transactions/487720/payables/25781 \
+-u "ak_test_e1QGU2gL98MDCHZxHLJ9sofPUFJ7tH:x"
+```
+
+```ruby
+# Sem exemplo
+```
+
+```php
+// Sem exemplo
+```
+
+```csharp
+// Sem exemplo
+```
+
+#### Exemplo de resposta
+
+```json
+{
+    "amount": 3100,
+    "anticipation_fee": 0,
+    "bulk_anticipation_id": null,
+    "date_created": "2016-05-17T02:46:57.447Z",
+    "fee": 155,
+    "id": 25781,
+    "installment": 1,
+    "object": "payable",
+    "original_payment_date": null,
+    "payment_date": "2016-06-16T03:00:00.000Z",
+    "payment_method": "credit_card",
+    "recipient_id": "re_cim2ikkfy000hyg6dsfa3uotl",
+    "split_rule_id": null,
+    "status": "waiting_funds",
+    "transaction_id": 487720,
+    "type": "credit"
+}
+```
+
+### Retornar todos os recebíveis de uma transação
+
+Retorna todos os recebíveis de uma determinada transação.
+
+Parâmetro | Descrição
+---|---
+`transaction_id` (**Obrigatório**) | Id da transação
+`page` (**Padrão: 1**) | Útil para implementação de uma paginação de resultados
+`count` (**Padrão: 10**) | Retorna `n` objetos de `payable`
+
+```endpoint
+GET /transactions/{transaction_id}/payables
+```
+
+#### Exemplo de requisição
+
+```curl
+# Retornando todos os recebíveis de uma transação
+curl -X GET https://api.pagar.me/1/transactions/487720/payables \
+-u "ak_test_e1QGU2gL98MDCHZxHLJ9sofPUFJ7tH:x" \
+-d "page=1" \
+-d "count=2"
+```
+
+```ruby
+# Sem exemplo
+```
+
+```php
+// Sem exemplo
+```
+
+```csharp
+// Sem exemplo
+```
+
+#### Exemplo de resposta
+
+```json
+[
+    {
+        "amount": 3100,
+        "anticipation_fee": 0,
+        "bulk_anticipation_id": null,
+        "date_created": "2016-05-17T02:46:57.447Z",
+        "fee": 155,
+        "id": 25781,
+        "installment": 1,
+        "object": "payable",
+        "original_payment_date": null,
+        "payment_date": "2016-06-16T03:00:00.000Z",
+        "payment_method": "credit_card",
+        "recipient_id": "re_cim2ikkfy000hyg6dsfa3uotl",
+        "split_rule_id": null,
+        "status": "waiting_funds",
+        "transaction_id": 487720,
         "type": "credit"
     }
 ]
