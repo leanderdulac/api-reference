@@ -25,8 +25,9 @@ module.exports =
   '# Formas de Pagamento\n' +
   fs.readFileSync('./content/cards.md', 'utf8') + '\n' +
   '# Recursos\n' +
-  fs.readFileSync('./content/balance.md', 'utf8') + '\n' +
   fs.readFileSync('./content/customers.md', 'utf8') + '\n' +
+  fs.readFileSync('./content/balance.md', 'utf8') + '\n' +
+  fs.readFileSync('./content/balance_operations.md', 'utf8') + '\n' +
   '# Geral\n' +
   fs.readFileSync('./content/events.md', 'utf8') + '\n' +
   fs.readFileSync('./content/postback.md', 'utf8') + '\n' +
