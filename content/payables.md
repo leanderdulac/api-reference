@@ -122,7 +122,7 @@ GET /payables
 curl -X GET https://api.pagar.me/1/payables \
 -u "ak_test_e1QGU2gL98MDCHZxHLJ9sofPUFJ7tH:x" \
 -d "page=1" \
--d "count=10"
+-d "count=1"
 ```
 
 ```ruby
@@ -157,168 +157,6 @@ curl -X GET https://api.pagar.me/1/payables \
         "split_rule_id": null,
         "status": "paid",
         "transaction_id": 487740,
-        "type": "credit"
-    },
-    {
-        "amount": 3100,
-        "anticipation_fee": 0,
-        "bulk_anticipation_id": null,
-        "date_created": "2016-05-17T02:46:57.447Z",
-        "fee": 155,
-        "id": 25781,
-        "installment": 1,
-        "object": "payable",
-        "original_payment_date": null,
-        "payment_date": "2016-06-16T03:00:00.000Z",
-        "payment_method": "credit_card",
-        "recipient_id": "re_cim2ikkfy000hyg6dsfa3uotl",
-        "split_rule_id": null,
-        "status": "waiting_funds",
-        "transaction_id": 487720,
-        "type": "credit"
-    },
-    {
-        "amount": 1000,
-        "anticipation_fee": 0,
-        "bulk_anticipation_id": null,
-        "date_created": "2016-05-06T05:35:42.754Z",
-        "fee": 50,
-        "id": 23505,
-        "installment": 1,
-        "object": "payable",
-        "original_payment_date": null,
-        "payment_date": "2016-06-07T03:00:00.000Z",
-        "payment_method": "credit_card",
-        "recipient_id": "re_cim2ikkfy000hyg6dsfa3uotl",
-        "split_rule_id": null,
-        "status": "waiting_funds",
-        "transaction_id": 479106,
-        "type": "credit"
-    },
-    {
-        "amount": -1000,
-        "anticipation_fee": 0,
-        "bulk_anticipation_id": null,
-        "date_created": "2016-05-06T05:35:39.118Z",
-        "fee": -50,
-        "id": 23504,
-        "installment": null,
-        "object": "payable",
-        "original_payment_date": null,
-        "payment_date": "2016-05-06T03:00:00.000Z",
-        "payment_method": "credit_card",
-        "recipient_id": "re_cim2ikkfy000hyg6dsfa3uotl",
-        "split_rule_id": null,
-        "status": "paid",
-        "transaction_id": 479103,
-        "type": "refund"
-    },
-    {
-        "amount": 1000,
-        "anticipation_fee": 0,
-        "bulk_anticipation_id": null,
-        "date_created": "2016-05-06T05:35:38.401Z",
-        "fee": 50,
-        "id": 23503,
-        "installment": 1,
-        "object": "payable",
-        "original_payment_date": null,
-        "payment_date": "2016-05-06T03:00:00.000Z",
-        "payment_method": "credit_card",
-        "recipient_id": "re_cim2ikkfy000hyg6dsfa3uotl",
-        "split_rule_id": null,
-        "status": "paid",
-        "transaction_id": 479103,
-        "type": "credit"
-    },
-    {
-        "amount": 1000,
-        "anticipation_fee": 0,
-        "bulk_anticipation_id": null,
-        "date_created": "2016-05-06T05:35:37.629Z",
-        "fee": 50,
-        "id": 23502,
-        "installment": 1,
-        "object": "payable",
-        "original_payment_date": null,
-        "payment_date": "2016-06-07T03:00:00.000Z",
-        "payment_method": "credit_card",
-        "recipient_id": "re_cim2ikkfy000hyg6dsfa3uotl",
-        "split_rule_id": null,
-        "status": "waiting_funds",
-        "transaction_id": 479102,
-        "type": "credit"
-    },
-    {
-        "amount": 1000,
-        "anticipation_fee": 0,
-        "bulk_anticipation_id": null,
-        "date_created": "2016-05-06T05:35:36.797Z",
-        "fee": 50,
-        "id": 23501,
-        "installment": 1,
-        "object": "payable",
-        "original_payment_date": null,
-        "payment_date": "2016-06-07T03:00:00.000Z",
-        "payment_method": "credit_card",
-        "recipient_id": "re_cim2ikkfy000hyg6dsfa3uotl",
-        "split_rule_id": null,
-        "status": "waiting_funds",
-        "transaction_id": 479101,
-        "type": "credit"
-    },
-    {
-        "amount": 1000,
-        "anticipation_fee": 0,
-        "bulk_anticipation_id": null,
-        "date_created": "2016-05-06T05:35:35.955Z",
-        "fee": 50,
-        "id": 23500,
-        "installment": 1,
-        "object": "payable",
-        "original_payment_date": null,
-        "payment_date": "2016-06-07T03:00:00.000Z",
-        "payment_method": "credit_card",
-        "recipient_id": "re_cim2ikkfy000hyg6dsfa3uotl",
-        "split_rule_id": null,
-        "status": "waiting_funds",
-        "transaction_id": 479100,
-        "type": "credit"
-    },
-    {
-        "amount": 1000,
-        "anticipation_fee": 0,
-        "bulk_anticipation_id": null,
-        "date_created": "2016-05-06T05:35:35.097Z",
-        "fee": 50,
-        "id": 23499,
-        "installment": 1,
-        "object": "payable",
-        "original_payment_date": null,
-        "payment_date": "2016-06-07T03:00:00.000Z",
-        "payment_method": "credit_card",
-        "recipient_id": "re_cim2ikkfy000hyg6dsfa3uotl",
-        "split_rule_id": null,
-        "status": "waiting_funds",
-        "transaction_id": 479099,
-        "type": "credit"
-    },
-    {
-        "amount": 1000,
-        "anticipation_fee": 0,
-        "bulk_anticipation_id": null,
-        "date_created": "2016-05-06T04:53:25.524Z",
-        "fee": 50,
-        "id": 23498,
-        "installment": 1,
-        "object": "payable",
-        "original_payment_date": null,
-        "payment_date": "2016-06-07T03:00:00.000Z",
-        "payment_method": "credit_card",
-        "recipient_id": "re_cim2ikkfy000hyg6dsfa3uotl",
-        "split_rule_id": null,
-        "status": "waiting_funds",
-        "transaction_id": 479095,
         "type": "credit"
     }
 ]
@@ -401,7 +239,7 @@ GET /transactions/{transaction_id}/payables
 curl -X GET https://api.pagar.me/1/transactions/487720/payables \
 -u "ak_test_e1QGU2gL98MDCHZxHLJ9sofPUFJ7tH:x" \
 -d "page=1" \
--d "count=2"
+-d "count=1"
 ```
 
 ```ruby
