@@ -231,7 +231,7 @@ GET /bank_accounts
 curl -X GET https://api.pagar.me/1/bank_accounts \
 -u "ak_test_e1QGU2gL98MDCHZxHLJ9sofPUFJ7tH:x" \
 -d "page=1" \
--d "count=10"
+-d "count=1"
 ```
 
 ```ruby
@@ -240,7 +240,7 @@ require 'pagarme'
 
 PagarMe.api_key = "ak_test_e1QGU2gL98MDCHZxHLJ9sofPUFJ7tH"
 
-account = PagarMe::BankAccount.all(1, 10)
+account = PagarMe::BankAccount.all(1, 1)
 ```
 
 ```php
@@ -251,31 +251,33 @@ require("pagarme-php/Pagarme.php");
 
 Pagarme::setApiKey("ak_test_e1QGU2gL98MDCHZxHLJ9sofPUFJ7tH");
 
-$account = PagarMe_Bank_Account::all(1, 10);
+$account = PagarMe_Bank_Account::all(1, 1);
 ```
 
 ```csharp
 // Retornando todas as contas bancárias
 PagarMeService.DefaultApiKey = "ak_test_e1QGU2gL98MDCHZxHLJ9sofPUFJ7tH";
 
-var account = PagarMeService.GetDefaultService().BankAccounts.FindAll(1, 10);
+var account = PagarMeService.GetDefaultService().BankAccounts.FindAll(1, 1);
 ```
 
 #### Exemplo de resposta
 
 ```json
-[{
-    "agencia": "0808",
-    "agencia_dv": "8",
-    "bank_code": "184",
-    "charge_transfer_fees": true,
-    "conta": "08808",
-    "conta_dv": "8",
-    "date_created": "2016-05-18T21:14:30.762Z",
-    "document_number": "80802694594",
-    "document_type": "cpf",
-    "id": 13459415,
-    "legal_name": "RICHARD DESCHAMPS",
-    "object": "bank_account"
-}]
+[
+    {
+        "agencia": "0808",
+        "agencia_dv": "8",
+        "bank_code": "184",
+        "charge_transfer_fees": true,
+        "conta": "08808",
+        "conta_dv": "8",
+        "date_created": "2016-05-18T21:14:30.762Z",
+        "document_number": "80802694594",
+        "document_type": "cpf",
+        "id": 13459415,
+        "legal_name": "RICHARD DESCHAMPS",
+        "object": "bank_account"
+    }
+]
 ```
