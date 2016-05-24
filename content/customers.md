@@ -368,7 +368,7 @@ GET /customers
 curl -X GET https://api.pagar.me/1/customers \
 -u "ak_test_e1QGU2gL98MDCHZxHLJ9sofPUFJ7tH:x" \
 -d "page=1" \
--d "count=10"
+-d "count=1"
 ```
 
 ```ruby
@@ -377,7 +377,7 @@ require 'pagarme'
 
 PagarMe.api_key = "ak_test_e1QGU2gL98MDCHZxHLJ9sofPUFJ7tH"
 
-customer = PagarMe::Customer.all(1, 10)
+customer = PagarMe::Customer.all(1, 1)
 ```
 
 ```php
@@ -388,52 +388,54 @@ require("pagarme-php/Pagarme.php");
 
 Pagarme::setApiKey("ak_test_e1QGU2gL98MDCHZxHLJ9sofPUFJ7tH");
 
-$customer = PagarMe_Customer::all(1, 10);
+$customer = PagarMe_Customer::all(1, 1);
 ```
 
 ```csharp
 // Retornando todos os clientes
 PagarMeService.DefaultApiKey = "ak_test_e1QGU2gL98MDCHZxHLJ9sofPUFJ7tH";
 
-var customer = PagarMeService.GetDefaultService().Customers.FindAll(1, 10);
+var customer = PagarMeService.GetDefaultService().Customers.FindAll(1, 1);
 ```
 
 #### Exemplo de resposta
 
 ```json
-[{
-    "addresses": [
-        {
-            "city": "Richardland",
-            "complementary": "Apartamento 8",
-            "country": "Lordaeron",
-            "id": 30264,
-            "neighborhood": "Bairro do Richard",
-            "object": "address",
-            "state": "Lordaeron",
-            "street": "Rua do Richard",
-            "street_number": "808",
-            "zipcode": "80808080"
-        }
-    ],
-    "born_at": "2015-11-22T02:00:00.000Z",
-    "date_created": "2016-05-16T21:04:33.218Z",
-    "document_number": "80802694594",
-    "document_type": "cpf",
-    "email": "richard.deschamps@example.com",
-    "gender": "M",
-    "id": 64912,
-    "name": "Richard Deschamps",
-    "object": "customer",
-    "phones": [
-        {
-            "ddd": "88",
-            "ddi": "88",
-            "id": 29717,
-            "number": "808080808",
-            "object": "phone"
-        }
-    ]
-}]
+[
+    {
+        "addresses": [
+            {
+                "city": "Richardland",
+                "complementary": "Apartamento 8",
+                "country": "Lordaeron",
+                "id": 30265,
+                "neighborhood": "Bairro do Richard",
+                "object": "address",
+                "state": "Lordaeron",
+                "street": "Rua do Richard",
+                "street_number": "808",
+                "zipcode": "80808080"
+            }
+        ],
+        "born_at": "1970-01-01T00:38:12.015Z",
+        "date_created": "2016-05-16T21:07:43.748Z",
+        "document_number": "80802694594",
+        "document_type": "cpf",
+        "email": "richard.deschamps@example.com",
+        "gender": "M",
+        "id": 64913,
+        "name": "Richard Deschamps",
+        "object": "customer",
+        "phones": [
+            {
+                "ddd": "88",
+                "ddi": "88",
+                "id": 29718,
+                "number": "808080808",
+                "object": "phone"
+            }
+        ]
+    }
+]
 ```
 
