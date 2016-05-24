@@ -11,7 +11,7 @@ Propriedade | Tipo | Descrição
 `amount` | `integer` | Valor em centados do que foi pago
 `anticipation_fee` | `integer` | Valor em centavos que foi cobrado pela antecipação (taxa)
 `date_created` | `string` | Data de criação da operação no formato ISODate
-`fee` | integer | Valor em centavos que foi cobrado pela transação (taxa)
+`fee` | `integer` | Valor em centavos que foi cobrado pela transação (taxa)
 `id` | `integer` | Id do recebível
 `installment` | `integer` | Número da parcela
 `object` | `string` | Nome do tipo do objeto criado/modificado
