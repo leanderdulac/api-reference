@@ -14,7 +14,7 @@ Propriedade | Tipo | Descrição
 `object` | `string` | Nome do tipo do objeto criado/modificado
 `status` | `string` | Estado da transferência. **Valores possíveis:** `pending_transfer`, `transferred`, `failed`, `processing` e `canceled`
 `transaction_id` | `integer` | Id da transação estornada no caso de estorno de boleto
-`type` | `string` | Tipo de transferência. **Valores possíveis:** `ted`, `doc`, `credito_em_conta`
+`type` | `string` | Tipo de transferência. **Valores possíveis:** `ted`, `doc` e `credito_em_conta`
 
 #### Exemplo do objeto
 
