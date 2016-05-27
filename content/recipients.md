@@ -418,13 +418,13 @@ curl -X GET https://api.pagar.me/1/recipients/re_cim2ikkfy000hyg6dsfa3uotl/balan
 }
 ```
 
-### Retornar uma movimentação de um recebedor
+### Retornar uma operação de saldo de um recebedor
 
-Retorna uma movimentação financeira de um recebedor específico
+Retorna uma operação de saldo de um recebedor específico
 
 Parâmetro | Descrição
 ---|---
-`id` (**Obrigatório**) | Id da movimentação
+`id` (**Obrigatório**) | Id da operação de saldo
 `recipient_id` (**Obrigatório**) | Id da transação
 
 
@@ -435,7 +435,7 @@ GET /recipients/{recipient_id}/balance/operations/{id}
 #### Exemplo de requisição
 
 ```curl
-# Retornando uma movimentação de um recebedor
+# Retornando uma operação de saldo de um recebedor
 curl -X GET https://api.pagar.me/1/recipients/re_cim2ikkfy000hyg6dsfa3uotl/balance/operations/46490 \
 -u "ak_test_e1QGU2gL98MDCHZxHLJ9sofPUFJ7tH:x"
 ```
@@ -486,9 +486,9 @@ curl -X GET https://api.pagar.me/1/recipients/re_cim2ikkfy000hyg6dsfa3uotl/balan
 }
 ```
 
-### Retornar todas as movimentações de um recebedor
+### Retornar todas as operações de saldo de um recebedor
 
-Retorna todas as movimentações financeiras de um recebedor específico.
+Retorna todas as operações de saldo de um recebedor específico.
 
 Parâmetro | Descrição
 ---|---
@@ -503,7 +503,7 @@ GET /recipients/{recipient_id}/balance/operations
 #### Exemplo de requisição
 
 ```curl
-# Retornando todas as movimentações de um recebedor
+# Retornando todas as operações de saldo de um recebedor
 curl -X GET https://api.pagar.me/1/recipients/re_cim2ikkfy000hyg6dsfa3uotl/balance/operations \
 -u "ak_test_e1QGU2gL98MDCHZxHLJ9sofPUFJ7tH:x" \
 -d "page=1" \
