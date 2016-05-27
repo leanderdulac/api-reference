@@ -1,19 +1,19 @@
-## Movimentações financeiras
+## Operações de saldo
 
-### Objeto balance_operations
+### Objeto balance_operation
 
 Propriedade | Tipo | Descrição
 ---|---|---
 `amount` | `integer` | Valor em centavos transacionado para a conta
 `balance_amount` | `integer` | **Deprecado**
 `balance_old_amount` | `integer` | **Deprecado**
-`date_created` | `string` | Data de criação da movimentação no formato ISODate
+`date_created` | `string` | Data de criação da operação de saldo no formato ISODate
 `fee` | `integer` | Valor em centavos que foi cobrado pela transação (taxa)
-`id` | `integer` | Id da movimentação financeira
-`movement_object` | `object` | Objeto da origem da movimentação. [Saiba mais](/#objeto-payable)
+`id` | `integer` | Id da operação de saldo
+`movement_object` | `object` | Objeto da origem da operação de saldo. [Saiba mais](/#objeto-payable)
 `object` | `string` | Nome do tipo do objeto criado/modificado
 `status` | `string` | Estado do saldo da conta. **Valores possíveis:** `waiting_funds`, `available` e `transferred`
-`type` | `string` | Tipo de objeto que gerou a movimentação
+`type` | `string` | Tipo de objeto que gerou a operação de saldo
 
 #### Exemplo do objeto
 
@@ -49,13 +49,13 @@ Propriedade | Tipo | Descrição
 }
 ```
 
-### Retornar uma movimentação
+### Retornar uma operação de saldo
 
-Retorna uma movimentação financeira específica
+Retorna uma operação de saldo específica
 
 Parâmetro | Descrição
 ---|---
-`id` (**Obrigatório**) | Id da movimentação
+`id` (**Obrigatório**) | Id da operação de saldo
 
 ```endpoint
 GET /balance/operations/{id}
@@ -64,7 +64,7 @@ GET /balance/operations/{id}
 #### Exemplo de requisição
 
 ```curl
-# Retornando uma movimentação
+# Retornando uma operação de saldo
 curl -X GET https://api.pagar.me/1/balance/operations/49333 \
 -u "ak_test_e1QGU2gL98MDCHZxHLJ9sofPUFJ7tH:x"
 ```
@@ -115,14 +115,14 @@ curl -X GET https://api.pagar.me/1/balance/operations/49333 \
 }
 ```
 
-### Retornar todas as movimentações
+### Retornar todas as operações de saldo
 
-Retorna todas as movimentações financeiras.
+Retorna todas as operações de saldo.
 
 Parâmetro | Descrição
 ---|---
 `page` (**Padrão: 1**) | Útil para implementação de uma paginação de resultados
-`count` (**Padrão: 10**) | Retorna `n` objetos de `payable`
+`count` (**Padrão: 10**) | Retorna `n` objetos de `balance_operation`
 
 ```endpoint
 GET /balance/operations
@@ -131,7 +131,7 @@ GET /balance/operations
 #### Exemplo de requisição
 
 ```curl
-# Retornando todas as movimentações
+# Retornando todas as operações de saldo
 curl -X GET https://api.pagar.me/1/balance/operations \
 -u "ak_test_e1QGU2gL98MDCHZxHLJ9sofPUFJ7tH:x" \
 -d "page=1" \
