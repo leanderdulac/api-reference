@@ -20,30 +20,30 @@ Propriedade | Tipo | Descrição
 
 ```json
 {
-    "amount": 100,
+    "anticipatable_volume_percentage": 0,
+    "automatic_anticipation_enabled": false,
     "bank_account": {
-        "agencia": "0000",
-        "agencia_dv": null,
-        "bank_code": "000",
+        "agencia": "0808",
+        "agencia_dv": "8",
+        "bank_code": "184",
         "charge_transfer_fees": true,
-        "conta": "00000",
-        "conta_dv": "0",
-        "date_created": "2016-03-21T21:38:10.166Z",
+        "conta": "08808",
+        "conta_dv": "8",
+        "date_created": "2016-05-27T17:47:03.531Z",
         "document_number": "00000000000000",
         "document_type": "cnpj",
-        "id": 12109080,
-        "legal_name": "CONTA BANCARIA DE TESTES",
+        "id": 13709856,
+        "legal_name": "RICHARD DESCHAMPS",
         "object": "bank_account"
     },
-    "date_created": "2016-05-25T17:17:59.941Z",
-    "fee": 367,
-    "funding_date": null,
-    "funding_estimated_date": "2016-05-26T03:00:00.000Z",
-    "id": 3017,
-    "object": "transfer",
-    "status": "pending_transfer",
-    "transaction_id": null,
-    "type": "ted"
+    "date_created": "2016-03-21T21:38:10.175Z",
+    "date_updated": "2016-05-27T17:47:54.204Z",
+    "id": "re_cim2ikkfy000hyg6dsfa3uotl",
+    "last_transfer": null,
+    "object": "recipient",
+    "transfer_day": null,
+    "transfer_enabled": false,
+    "transfer_interval": null
 }
 ```
 
@@ -68,7 +68,7 @@ POST /transfers
 curl -X POST https://api.pagar.me/1/transfers \
 -u "ak_test_e1QGU2gL98MDCHZxHLJ9sofPUFJ7tH:x" \
 -d "amount=100" \
--d "bank_account_id=12109080"
+-d "bank_account_id=13709856"
 
 # Criando uma transferência a partir de um recebedor específico
 curl -X POST https://api.pagar.me/1/transfers \
@@ -95,24 +95,24 @@ curl -X POST https://api.pagar.me/1/transfers \
 {
     "amount": 100,
     "bank_account": {
-        "agencia": "0000",
-        "agencia_dv": null,
-        "bank_code": "000",
+        "agencia": "0808",
+        "agencia_dv": "8",
+        "bank_code": "184",
         "charge_transfer_fees": true,
-        "conta": "00000",
-        "conta_dv": "0",
-        "date_created": "2016-03-21T21:38:10.166Z",
+        "conta": "08808",
+        "conta_dv": "8",
+        "date_created": "2016-05-27T17:47:03.531Z",
         "document_number": "00000000000000",
         "document_type": "cnpj",
-        "id": 12109080,
-        "legal_name": "CONTA BANCARIA DE TESTES",
+        "id": 13709856,
+        "legal_name": "RICHARD DESCHAMPS",
         "object": "bank_account"
     },
-    "date_created": "2016-05-25T17:17:59.941Z",
+    "date_created": "2016-05-27T17:49:49.145Z",
     "fee": 367,
     "funding_date": null,
-    "funding_estimated_date": "2016-05-26T03:00:00.000Z",
-    "id": 3017,
+    "funding_estimated_date": "2016-05-28T03:00:00.000Z",
+    "id": 3050,
     "object": "transfer",
     "status": "pending_transfer",
     "transaction_id": null,
@@ -136,7 +136,7 @@ GET /transfers/{id}
 
 ```curl
 # Retornando uma transferência
-curl -X GET https://api.pagar.me/1/transfers/3017 \
+curl -X GET https://api.pagar.me/1/transfers/3050 \
 -u "ak_test_e1QGU2gL98MDCHZxHLJ9sofPUFJ7tH:x"
 ```
 
@@ -158,24 +158,24 @@ curl -X GET https://api.pagar.me/1/transfers/3017 \
 {
     "amount": 100,
     "bank_account": {
-        "agencia": "0000",
-        "agencia_dv": null,
-        "bank_code": "000",
+        "agencia": "0808",
+        "agencia_dv": "8",
+        "bank_code": "184",
         "charge_transfer_fees": true,
-        "conta": "00000",
-        "conta_dv": "0",
-        "date_created": "2016-03-21T21:38:10.166Z",
+        "conta": "08808",
+        "conta_dv": "8",
+        "date_created": "2016-05-27T17:47:03.531Z",
         "document_number": "00000000000000",
         "document_type": "cnpj",
-        "id": 12109080,
-        "legal_name": "CONTA BANCARIA DE TESTES",
+        "id": 13709856,
+        "legal_name": "RICHARD DESCHAMPS",
         "object": "bank_account"
     },
-    "date_created": "2016-05-25T17:17:59.941Z",
+    "date_created": "2016-05-27T17:49:49.145Z",
     "fee": 367,
     "funding_date": null,
-    "funding_estimated_date": "2016-05-26T03:00:00.000Z",
-    "id": 3017,
+    "funding_estimated_date": "2016-05-28T03:00:00.000Z",
+    "id": 3050,
     "object": "transfer",
     "status": "pending_transfer",
     "transaction_id": null,
@@ -225,24 +225,24 @@ curl -X GET https://api.pagar.me/1/transfers \
     {
         "amount": 100,
         "bank_account": {
-            "agencia": "0000",
-            "agencia_dv": null,
-            "bank_code": "000",
+            "agencia": "0808",
+            "agencia_dv": "8",
+            "bank_code": "184",
             "charge_transfer_fees": true,
-            "conta": "00000",
-            "conta_dv": "0",
-            "date_created": "2016-03-21T21:38:10.166Z",
+            "conta": "08808",
+            "conta_dv": "8",
+            "date_created": "2016-05-27T17:47:03.531Z",
             "document_number": "00000000000000",
             "document_type": "cnpj",
-            "id": 12109080,
-            "legal_name": "CONTA BANCARIA DE TESTES",
+            "id": 13709856,
+            "legal_name": "RICHARD DESCHAMPS",
             "object": "bank_account"
         },
-        "date_created": "2016-05-25T17:17:59.941Z",
+        "date_created": "2016-05-27T17:49:49.145Z",
         "fee": 367,
         "funding_date": null,
-        "funding_estimated_date": "2016-05-26T03:00:00.000Z",
-        "id": 3017,
+        "funding_estimated_date": "2016-05-28T03:00:00.000Z",
+        "id": 3050,
         "object": "transfer",
         "status": "pending_transfer",
         "transaction_id": null,
@@ -267,7 +267,7 @@ POST /transfers/{id}/cancel
 
 ```curl
 # Cancelando uma transferência
-curl -X POST https://api.pagar.me/1/transfers/3017/cancel \
+curl -X POST https://api.pagar.me/1/transfers/3050/cancel \
 -u "ak_test_e1QGU2gL98MDCHZxHLJ9sofPUFJ7tH:x"
 ```
 
@@ -289,24 +289,24 @@ curl -X POST https://api.pagar.me/1/transfers/3017/cancel \
 {
     "amount": 100,
     "bank_account": {
-        "agencia": "0000",
-        "agencia_dv": null,
-        "bank_code": "000",
+        "agencia": "0808",
+        "agencia_dv": "8",
+        "bank_code": "184",
         "charge_transfer_fees": true,
-        "conta": "00000",
-        "conta_dv": "0",
-        "date_created": "2016-03-21T21:38:10.166Z",
+        "conta": "08808",
+        "conta_dv": "8",
+        "date_created": "2016-05-27T17:47:03.531Z",
         "document_number": "00000000000000",
         "document_type": "cnpj",
-        "id": 12109080,
-        "legal_name": "CONTA BANCARIA DE TESTES",
+        "id": 13709856,
+        "legal_name": "RICHARD DESCHAMPS",
         "object": "bank_account"
     },
-    "date_created": "2016-05-25T17:17:59.941Z",
+    "date_created": "2016-05-27T17:49:49.145Z",
     "fee": 367,
     "funding_date": null,
-    "funding_estimated_date": "2016-05-26T03:00:00.000Z",
-    "id": 3017,
+    "funding_estimated_date": "2016-05-28T03:00:00.000Z",
+    "id": 3050,
     "object": "transfer",
     "status": "canceled",
     "transaction_id": null,
