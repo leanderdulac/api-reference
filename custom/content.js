@@ -20,6 +20,8 @@ module.exports =
   fs.readFileSync('./content/operations.md', 'utf8') + '\n' +
   fs.readFileSync('./content/antifraud.md', 'utf8') + '\n' +
   fs.readFileSync('./content/payables.md', 'utf8') + '\n' +
+  '# Recorrência\n' +
+  fs.readFileSync('./content/plans.md', 'utf8') + '\n' +
   '# Market Place\n' +
   fs.readFileSync('./content/bank_accounts.md', 'utf8') + '\n' +
   fs.readFileSync('./content/recipients.md', 'utf8') + '\n' +
