@@ -53,7 +53,7 @@ Com essa rota você consegue criar um recebedor, definindo o período que ele ir
 
 Parâmetro | Descrição
 ---|---
-`transfer_interval` (**Obrigatório**) | Frequência na qual o recebedor irá ser pago. **Valores possíveis:** `daily`, `weekly`, `monthly`
+`transfer_interval` (**Obrigatório**) | Frequência na qual o recebedor irá ser pago. **Valores possíveis:** `daily`, `weekly` e `monthly`
 `transfer_day` (**Obrigatório**) | Dia no qual o recebedor vai ser pago
 `transfer_enabled` | Indica se o recebedor pode receber os pagamentos automaticamente
 `bank_account_id` | Id de uma conta bancária previamente criada. Caso você não tenha essa informação, você pode passar os parâmetros necessários para [criação de uma conta bancária](/#criar-uma-conta-bancária)
@@ -290,7 +290,7 @@ Após criar um recebedor, você pode atualizar todas as configurações do mesmo
 Parâmetro | Descrição
 ---|---
 `id` (**Obrigatório**) | Id do recebedor
-`transfer_interval` | Frequência na qual o recebedor irá ser pago. **Valores possíveis:** `daily`, `weekly`, `monthly`
+`transfer_interval` | Frequência na qual o recebedor irá ser pago. **Valores possíveis:** `daily`, `weekly` e `monthly`
 `transfer_day` | Dia no qual o recebedor vai ser pago
 `transfer_enabled` | Indica se o recebedor pode receber os pagamentos automaticamente
 `bank_account_id` | Id de uma conta bancária previamente criada
@@ -309,9 +309,9 @@ PUT /recipients/{id}
 
 ```curl
 # Atualizando um recebedor com uma outra conta bancária existente
-curl -X PUT https://api.pagar.me/1/recipients/re_cionevq7g003sxr6dbcngs1xe \
+curl -X PUT https://api.pagar.me/1/recipients/re_cim2ikkfy000hyg6dsfa3uotl \
 -u "ak_test_e1QGU2gL98MDCHZxHLJ9sofPUFJ7tH:x" \
--d "bank_account_id=12109080"
+-d "bank_account_id=13709856"
 
 # Atualizando um recebedor para usar antecipação automática
 curl -X PUT https://api.pagar.me/1/recipients/re_cionevq7g003sxr6dbcngs1xe \
