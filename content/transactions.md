@@ -2,9 +2,9 @@
 
 Através da rota `/transactions` e suas derivadas, você pode criar transações, estornar, capturar, dentre outras atividades relacionadas a estas.
 
-Ao criar ou atualizar uma transação, este será o objeto que você irá receber como resposta em cada etapa do processo de efetivação da transação.
-
 ### Objeto transaction
+
+Ao criar ou atualizar uma transação, este será o objeto que você irá receber como resposta em cada etapa do processo de efetivação da transação.
 
 Propriedade | Tipo | Descrição
 ---|---|---
@@ -14,7 +14,7 @@ Propriedade | Tipo | Descrição
 `status_reason` | `String` | Adquirente responsável pelo processamento da transação.<br />**Valores possíveis: **`development` (em ambiente de testes), `pagarme` (adquirente Pagar.me), `stone`, `cielo`, `rede`, `mundipagg`
 `acquirer_response_code` | `String` | Mensagem de resposta do adquirente referente ao status da transação.
 `authorization_code` | `String` | Código de autorização retornado pela bandeira.
-`soft_descriptor` | `String` | Texto que irá aparecer na fatura do cliente depois do nome da loja.<br />**OBS: **Limite de 13 caracteres.
+`soft_descriptor` | `String` | Texto que irá aparecer na fatura do cliente depois do nome da loja.<br />**OBS: **Limite de 13 caracteres sem caracteres especiais.
 `tid` | `Ìnteger` | Código que identifica a transação no adquirente.
 `nsu` | `Ìnteger` | Código que identifica a transação no adquirente.
 `date_created` | `String` | Data de criação da transação no formato ISODate
@@ -30,11 +30,11 @@ Propriedade | Tipo | Descrição
 `referer` | `String` | Mostra de onde a transação foi criada.**Valores :**`api_key` ou `encryption_key`.
 `ip` | `String` | IP de origem que criou a transção, podendo ser ou do seu cliente (quando criado via checkout ou utilizando card_hash) ou do servidor.
 `subscription_id` | `Integer` | Código da assinatura
-`phone` | `Object` | Objeto do tipo `phone`.<br />	Mais informações em: [Phone](/#phone) 
-`address` | `Object` | Objeto do tipo `address`.<br />	Mais informações em: [Address](/#address) 
-`customer` | `Object` | Objeto do tipo `customer`.<br />	Mais informações em: [Customer](/#customer) 
-`card` | `Object` | Objeto do tipo `card`.<br />	Mais informações em: [Card](/#card) 
-`metadata` | `Object` | Objeto do tipo `metadata`.<br />	Mais informações em: [Metadata](/#metadata)
+`phone` | `Object` | Objeto do tipo `phone`.<br />Mais informações em: [Phone](/#phone) 
+`address` | `Object` | Objeto do tipo `address`.<br />Mais informações em: [Address](/#address) 
+`customer` | `Object` | Objeto do tipo `customer`.<br />Mais informações em: [Customer](/#clientes) 
+`card` | `Object` | Objeto do tipo `card`.<br />Mais informações em: [Card](/#cartões) 
+`metadata` | `Object` | Objeto do tipo `metadata`.<br />Mais informações em: [Metadata](/#metadata)
 
 #### Exemplo:
 
@@ -46,7 +46,7 @@ Propriedade | Tipo | Descrição
 	"status_reason": "acquirer",
 	"acquirer_response_code": null,
 	"authorization_code": null,
-	"soft_descriptor": "devLindo",
+	"soft_descriptor": "ApiPagarMe",
 	"tid": null,
 	"nsu": null,
 	"date_created": "2015-02-25T21:54:56.000Z",
@@ -68,20 +68,478 @@ Propriedade | Tipo | Descrição
 	"address": null,
 	"customer": null,
 	"card": {
-	"object": "card",
-	"id": "card_ci6l9fx8f0042rt16rtb477gj",
-	"date_created": "2015-02-25T21:54:56.000Z",
-	"date_updated": "2015-02-25T21:54:56.000Z",
-	"brand": "mastercard",
-	"holder_name": "Richard Deschamps",
-	"first_digits": "548045",
-	"last_digits": "3123",
-	"fingerprint": "HSiLJan2nqwn",
-	"valid": null
+		"object": "card",
+		"id": "card_ci6l9fx8f0042rt16rtb477gj",
+		"date_created": "2015-02-25T21:54:56.000Z",
+		"date_updated": "2015-02-25T21:54:56.000Z",
+		"brand": "mastercard",
+		"holder_name": "Richard",
+		"first_digits": "548045",
+		"last_digits": "3123",
+		"fingerprint": "HSiLJan2nqwn",
+		"valid": null
 	},
-		"metadata": {
-		"nomeData": "Devlindo",
-		"idData": 13
+	"metadata": {
+		"nome": "Richard",
+		"id": 13
 	}
 }
 ```
+
+### Criando uma transação
+
+Para fazer uma cobrança, você deve usar a rota `/transactions` para criar sua transação, que pode ser feita por cartão de crédito ou por boleto bancário.
+
+Propriedade | Tipo | Descrição
+---|---|---
+`api_key`<br />**obrigatório** | `String` | Chave da API
+`amount`<br />**obrigatório** | `Integer` | Valor a ser cobrado. Deve ser passado em centavos.<br />**Ex: **R$ 10,00 = 1000
+`card_hash`<br />**obrigatório** | `String` | Informações do cartão do cliente criptografadas no navegador.<br />**OBS: **Apenas para transações de **cartão de crédito** você deve passar ou o `card_hash` ou o `card_id`
+`card_id`<br />**obrigatório** | `String` | Ao realizar uma transação, retornamos o `card_id` do cartão para que nas próximas transações desse cartão possa ser utilizado esse identificador ao invés do `card_hash`
+`payment_method` | `String` | Aceita dois tipos de pagamentos/valores: `credit_card` e `boleto`.<br />**Valor padrão: **`credit_card`
+`postback_url` | `String` | Endpoint do seu sistema que receberá informações a cada atualização da transação. Caso você defina este parâmetro, o processamento da transação se tornará assíncrono.
+`async` | `Boolean` | Utilize `false` caso queira utilizar POSTbacks e manter o processamento síncrono de uma transação.<br />**Valor padrão:** `false` ou `true` caso `postback_url` tenha sido informado.
+`installment` | `Integer` | Se `payment_method` for `boleto`, o valor padrão será 1.<br />**Valor mínimo: **1<br />**Valor máximo: **12
+`boleto_expiration_date` | `String` | Prazo limite para pagamento do boleto em formato ISODate.<br />**Valor padrão: **Data atual + 7 dias
+`soft_descriptor` | `String` | Descrição que aparecerá na fatura depois do nome da loja. Máximo de 13 caracteres sem caracteres especiais.
+`capture` | `Boolean` | Após a autorização de uma transação, você pode escolher se irá capturar ou adiar a captura do valor. Caso opte por postergar a captura, atribuir o valor `false`.<br />**Valor padrão: **`true`
+`metadata` | `Object` | Você pode passar dados adicionais na criação da transação para posteriormente filtrar estas na nossa dashboard.<br />**Exemplo: **`metadata[idProduto]=13933139`
+`customer[name]`<br />**obrigatório (com antifraude)** | `String` | Nome completo ou razão social do cliente que está realizando a transação
+`customer[document_number]`<br />**obrigatório (com antifraude)** | `String` | CPF ou CNPJ do cliente, sem separadores
+`customer[email]`<br />**obrigatório (com antifraude)** | `String` | E-mail do cliente
+`customer[address][street]`<br />**obrigatório (com antifraude)** | `String` | Logradouro (Rua, Avenida, etc) do cliente
+`customer[address][street_number]`<br />**obrigatório (com antifraude)** | `String` | Número da residência/estabelecimento do cliente
+`customer[address][complementary]` | `String` | Complemento do endereço do cliente
+`customer[address][neighborhood]`<br />**obrigatório (com antifraude)** | `String` | Bairro de localização do cliente
+`customer[address][zipcode]`<br />**obrigatório (com antifraude)** | `String` | CEP do imóvel do cliente, sem separadores
+`customer[phone][ddd]`<br />**obrigatório (com antifraude)** | `String` | DDD do telefone do cliente
+`customer[phone][number]`<br />**obrigatório (com antifraude)** | `String` | Número de telefone do cliente
+`customer[sex]` | `String` | Sexo do cliente.<br />**Valores possíveis: **M ou F (letras maiúsculas)
+`customer[born_at]` | `String` | Data de nascimento do cliente.<br />**Formato: **`MM-DD-AAAA`<br />**Exemplo: **11-02-1985
+`split_rules` | `Array` | Esse parâmetro é um `Array` que irá conter as regras da divisão do valor transacionado.<br />**OBS: **Caso você deseje incluir mais regras, passe os parâmetros abaixo alterando o índice em +1 para cada nova regra/recebedor
+`split_rules[n][recipient_id]` | `String` | Identificador do recebedor.<br />Mais informações sobre [Recebedor](#recebedores)
+`split_rules[n][charge_processing_fee]` | `Boolean` | Indica se o recebedor vinculado a essa regra de divisão será cobrado pelas taxas da transação.<br />**Valor padrão: **`true`
+`split_rules[n][liable]` | `Boolean` | Indica se o recebedor vinculado a essa regra de divisão assumirá o risco da transação, ou seja, possíveis estornos (chargeback).<br />**Valor padrão: **`true`
+`split_rules[n][percentage]`<br />**obrigatório** | `Double` | Define a porcentagem a ser recebida pelo recebedor configurado na regra.<br />**OBS: se for utilizado a propriedade percentage, a propriedade amount não será necessária**
+`split_rules[n][amount]`<br />**obrigatório** | `Integer` | Define o valor a ser recebido pelo recebedor configurado na regra.<br />**OBS: se for utilizado a propriedade amount, a propriedade percentage não será necessária**
+**OBS: Caso você vá usar o recurso antifraude, é obrigatório passar os dados do cliente na hora da criação da transação, como explicado nesse link: https://pagar.me/docs/transactions/#customer-data.**
+
+
+```endpoint
+POST /transactions
+```
+
+#### Exemplo de requisição:
+```curl
+curl -X POST https://api.pagar.me/1/transactions \
+-d 'api_key=ak_test_grXijQ4GicOa2BLGZrDRTR5qNQxJW0' \
+-d 'amount=3100' \
+-d 'card_id=card_ci6l9fx8f0042rt16rtb477gj' \
+-d 'postback_url=http://requestb.in/pkt7pgpk' \
+-d 'metadata[idProduto]=13933139'
+```
+
+```ruby
+require "pagarme"
+
+PagarMe.api_key = "ak_test_e1QGU2gL98MDCHZxHLJ9sofPUFJ7tH"
+
+transaction = PagarMe::Transaction.new({
+	amount: 3100,
+	card_id: "card_ci6l9fx8f0042rt16rtb477gj",
+	postback_url: "http://requestb.in/pkt7pgpk",
+	metadata: {
+		idProduto: 13933139
+	}
+})
+transaction.create()
+```
+
+```php
+require("pagarme-php/Pagarme.php");
+
+PagarMe::setApiKey("ak_test_e1QGU2gL98MDCHZxHLJ9sofPUFJ7tH");
+
+$transaction = new PagarMe_Transaction(array(
+	"amount" => 3100,
+	"card_id" => "card_ci6l9fx8f0042rt16rtb477gj",
+	"postback_url" =>  "http://requestb.in/pkt7pgpk",
+	"metadata" => array(
+		"idProduto" => 13933139
+	)
+));
+$transaction->create();
+```
+
+```csharp
+using PagarMe;
+
+PagarMeService.DefaultApiKey = "ak_test_e1QGU2gL98MDCHZxHLJ9sofPUFJ7tH";
+
+Transaction transaction = new Transaction()
+{
+	Amount = 3100,
+	CardId = "card_ci6l9fx8f0042rt16rtb477gj",
+	PostbackUrl = "http://requestb.in/pkt7pgpk",
+	Metadata = null
+};
+transaction.Save();
+```
+
+#### Exemplo de resposta:
+
+```json
+{
+  "object": "transaction",
+  "status": "processing",
+  "refuse_reason": null,
+  "status_reason": "acquirer",
+  "acquirer_response_code": null,
+  "authorization_code": null,
+  "soft_descriptor": "testeDeAPI",
+  "tid": null,
+  "nsu": null,
+  "date_created": "2015-02-25T21:54:56.000Z",
+  "date_updated": "2015-02-25T21:54:56.000Z",
+  "amount": 310000,
+  "installments": 5,
+  "id": 184220,
+  "cost": 0,
+  "postback_url": "http://requestb.in/pkt7pgpk",
+  "payment_method": "credit_card",
+  "antifraud_score": null,
+  "boleto_url": null,
+  "boleto_barcode": null,
+  "boleto_expiration_date": null,
+  "referer": "api_key",
+  "ip": "189.8.94.42",
+  "subscription_id": null,
+  "phone": null,
+  "address": null,
+  "customer": null,
+  "card": {
+    "object": "card",
+    "id": "card_ci6l9fx8f0042rt16rtb477gj",
+    "date_created": "2015-02-25T21:54:56.000Z",
+    "date_updated": "2015-02-25T21:54:56.000Z",
+    "brand": "mastercard",
+    "holder_name": "Api Customer",
+    "first_digits": "548045",
+    "last_digits": "3123",
+    "fingerprint": "HSiLJan2nqwn",
+    "valid": null
+  },
+  "metadata": {
+    "idProduto": "13933139"
+  }
+}
+```
+
+### Retornando uma transação
+
+Retorna os dados de uma transação realizada.
+
+Propriedade | Tipo | Descrição
+---|---|---
+`api_key` | `String` | Chave da API
+`{id}` | `String` | id da transação previamente criada
+
+```endpoint
+GET /transactions/{id}
+```
+
+#### Exemplo de requisição
+```curl
+# Retornando uma transação
+curl -X GET https://api.pagar.me/1/transactions/184270 \
+-u "ak_test_e1QGU2gL98MDCHZxHLJ9sofPUFJ7tH:x"
+```
+
+```ruby
+require "pagarme"
+
+PagarMe.api_key = "ak_test_e1QGU2gL98MDCHZxHLJ9sofPUFJ7tH"
+
+transaction = PagarMe::Transaction.find_by_id("184270")
+```
+
+```php
+require("pagarme-php/Pagarme.php");
+
+PagarMe::setApiKey("ak_test_e1QGU2gL98MDCHZxHLJ9sofPUFJ7tH");
+
+$transaction = PagarMe_Transaction->findById("184270");
+```
+
+```csharp
+using PagarMe;
+
+PagarMeService.DefaultApiKey = "ak_test_e1QGU2gL98MDCHZxHLJ9sofPUFJ7tH";
+
+Transaction transaction = PagarMeService.GetDefaultService().Transactions.Find("184270");
+```
+
+#### Exemplo de resposta 
+```json
+{
+    "object": "transaction",
+    "status": "paid",
+    "refuse_reason": null,
+    "status_reason": "acquirer",
+    "acquirer_response_code": null,
+    "acquirer_name": "development",
+    "authorization_code": null,
+    "soft_descriptor": null,
+    "tid": null,
+    "nsu": null,
+    "date_created": "2015-02-26T15:35:32.000Z",
+    "date_updated": "2015-02-26T15:35:47.000Z",
+    "amount": 25000,
+    "installments": 1,
+    "id": 184270,
+    "cost": 115,
+    "postback_url": null,
+    "payment_method": "boleto",
+    "antifraud_score": null,
+    "boleto_url": "https://pagar.me",
+    "boleto_barcode": "1234 5678",
+    "boleto_expiration_date": "2015-03-02T03:00:00.000Z",
+    "referer": "session_id",
+    "ip": "189.8.94.42",
+    "subscription_id": null,
+    "phone": null,
+    "address": null,
+    "customer": null,
+    "card": null,
+	"metadata": {}
+}
+```
+
+### Retornando transações
+
+Retorna um `array` contendo objetos de transações, ordenadas a partir da transação realizada mais recente
+
+Propriedade | Tipo | Descrição
+---|---|---
+`api_key` | `String` | Chave da API
+`count` | `Integer` | Retorna `n` objetos de transação.<br />**Valor padrão: **`10`
+`page` | `Integer` | Útil para implementação de uma paginação de resultados.<br />**Valor padrão: **`1`
+
+**OBS: Você pode passar qualquer propriedade e valor presentes nos objetos `transaction` como parâmetro de busca/filtro nesta rota. Ex: `card_last_digits=4242`**
+
+```endpoint
+PUT /transactions/{id}
+```
+
+#### Exemplo de requisição
+```curl
+# Retornando uma transação
+curl -X GET https://api.pagar.me/1/transactions \
+-u "ak_test_e1QGU2gL98MDCHZxHLJ9sofPUFJ7tH:x" \
+-u "count=3" \
+-u "page=3"
+```
+
+```ruby
+require "pagarme"
+
+PagarMe.api_key = "ak_test_e1QGU2gL98MDCHZxHLJ9sofPUFJ7tH"
+
+transaction = PagarMe::Transaction.all(3, 3)
+```
+
+```php
+require("pagarme-php/Pagarme.php");
+
+PagarMe::setApiKey("ak_test_e1QGU2gL98MDCHZxHLJ9sofPUFJ7tH");
+
+$transaction = PagarMe_Transaction->all(3, 3);
+```
+
+```csharp
+using PagarMe;
+
+PagarMeService.DefaultApiKey = "ak_test_e1QGU2gL98MDCHZxHLJ9sofPUFJ7tH";
+
+Transaction transaction = PagarMeService.GetDefaultService().Transactions.All(3, 3);
+```
+
+#### Exemplo de resposta 
+```json
+{
+    "object": "transaction",
+    "status": "paid",
+    "refuse_reason": null,
+    "status_reason": "acquirer",
+    "acquirer_response_code": null,
+    "acquirer_name": "development",
+    "authorization_code": null,
+    "soft_descriptor": null,
+    "tid": null,
+    "nsu": null,
+    "date_created": "2015-02-26T15:35:32.000Z",
+    "date_updated": "2015-02-26T15:35:47.000Z",
+    "amount": 25000,
+    "installments": 1,
+    "id": 184270,
+    "cost": 115,
+    "postback_url": null,
+    "payment_method": "boleto",
+    "antifraud_score": null,
+    "boleto_url": "https://pagar.me",
+    "boleto_barcode": "1234 5678",
+    "boleto_expiration_date": "2015-03-02T03:00:00.000Z",
+    "referer": "session_id",
+    "ip": "189.8.94.42",
+    "subscription_id": null,
+    "phone": null,
+    "address": null,
+    "customer": null,
+    "card": null,
+	"metadata": {}
+}
+```
+
+### Gerando uma nova chave para encriptação do `card_hash`
+
+Caso você queira/precise criar o `card_hash` manualmente, essa rota deverá ser utilizada para obtenção de uma chave pública de encriptação dos dados do cartão de seu cliente.
+
+Saiba mais sobre como criar um `card_hash` [aqui](https://pagar.me/docs/capturing-card-data/#capturando-os-dados-em-uma-pgina-web).
+
+**Atenção: Utilizar apenas em ambiente de teste!!!**
+
+```endpoint
+GET /transactions/card_hash_key
+```
+
+Propriedade | Tipo | Descrição
+---|---|---
+`encryption_key`<br />**obrigatório** | `String` | Chave de criptografia
+
+#### Exemplo de requisição:
+
+```curl
+curl -X GET https://api.pagar.me/1/transactions/card_hash_key \
+-d 'encryption_key=ek_test_grXijQ4GicOa2BLGZrDRTR5qNQxJW0'
+```
+
+```ruby
+require "pagarme"
+
+// Getting response
+card_hash_key = PagarMe::Transaction.generate_card_hash('ek_test_grXijQ4GicOa2BLGZrDRTR5qNQxJW0')
+
+print(card_hash_key) 
+```
+
+```php
+require('pagarme-php/Pagarme.php');
+
+$transaction = new PagarMe_Transaction(array(
+	 "amount" => 3100,
+     "card_id" => "card_ci6l9fx8f0042rt16rtb477gj",
+     "postback_url" => "http://requestb.in/1ahq78t1",
+     "metadata" => array(
+     	"idProduto" => 13933139
+	 )
+));
+
+// Getting public_key Property
+$card_hash_key = $transaction->generateCardHash();
+
+var_dump($card_hash_key);
+```
+
+```csharp
+using PagarMe;
+
+PagarMeService.DefaultEncryptionKey = "ek_test_grXijQ4GicOa2BLGZrDRTR5qNQxJW0";
+
+CardHash cardHash = new CardHash()
+{
+	CardNumber = "4242424242424242",
+    CardExpirationDate = "0933",
+    CardHolderName = "Teste PagarMe",
+    CardCvv = "123"
+};
+
+// Getting public_key Property
+String key = cardHash.Generate();
+
+Console.Write(key);
+```
+
+#### Exemplo de resposta:
+```json
+{
+    "date_created": "2015-02-27T15:44:26.000Z",
+    "id": 111111,
+    "ip": "000.0.00.00",
+    "public_key": "-----BEGIN PUBLIC KEY-----\ -----END PUBLIC KEY-----\ "
+}
+```
+
+### Retornando as regras de divisão de uma transação
+
+Retorna os dados das regras de divisão do valor transacionado.
+
+```endpoint
+GET /transactions/{transaction_id}/split_rules
+```
+
+Propriedade | Tipo | Descrição
+---|---|---
+`api_key`<br />**obrigatório** | `String` | Chave da api
+`transaction_id`<br />**obrigatório** | `Integer` | Id da transação previamente criada
+
+#### Exemplo de requisição:
+
+```curl
+curl -X GET https://api.pagar.me/1/transactions/189164/split_rules \
+-d 'api_key=ak_test_grXijQ4GicOa2BLGZrDRTR5qNQxJW0'
+```
+
+```ruby
+require "pagarme"
+
+PagarMe.api_key = "ak_test_grXijQ4GicOa2BLGZrDRTR5qNQxJW0"
+
+transaction = PagarMe::Transaction.find_by_id(189164)
+split_rules = transaction.split_rules()
+
+print(split_rules)
+```
+
+```php
+```
+
+```csharp
+```
+
+#### Exemplo de retorno:
+
+```json
+[{
+    "object": "split_rule",
+    "id": "sr_ci7ntawl1001s2m164zrbp7tz",
+    "recipient_id": "re_ci7nhf1ay0007n016wd5t22nl",
+    "charge_processing_fee": true,
+    "liable": true,
+    "percentage": 30,
+    "amount": null,
+    "date_created": "2015-03-24T21:26:09.000Z",
+    "date_updated": "2015-03-24T21:26:09.000Z"
+}, {
+    "object": "split_rule",
+    "id": "sr_ci7ntawl1001t2m1606u3e0uw",
+    "recipient_id": "re_ci7nheu0m0006n016o5sglg9t",
+    "charge_processing_fee": true,
+    "liable": false,
+    "percentage": 70,
+    "amount": null,
+    "date_created": "2015-03-24T21:26:09.000Z",
+    "date_updated": "2015-03-24T21:26:09.000Z"
+}]
+```
+
+
