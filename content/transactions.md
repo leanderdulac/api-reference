@@ -361,7 +361,7 @@ using PagarMe;
 
 PagarMeService.DefaultApiKey = "ak_test_e1QGU2gL98MDCHZxHLJ9sofPUFJ7tH";
 
-Transaction transaction = PagarMeService.GetDefaultService().Transactions.All(3, 3);
+Transaction transaction PagarMeService.GetDefaultService().Transactions.FindAll();
 ```
 
 #### Exemplo de resposta 
@@ -511,6 +511,18 @@ print(split_rules)
 ```
 
 ```php
+<?php
+
+require("pagarme-php/Pagarme.php");
+
+PagarMe::setApiKey("ak_test_qtDOZfF5K0VDn17k04NxnQPIZ3r5wV");
+
+$TransactionCommon = new PagarMe_TransactionCommon();
+$split_rules = $TransactionCommon->getSplitRules(543065);
+
+print_r($split_rules);
+
+?>
 ```
 
 ```csharp
@@ -542,4 +554,699 @@ print(split_rules)
 }]
 ```
 
+### Retornando uma regra de divisão específica
+
+Retorna os dados de uma regra de divisão de uma determinada transaçào.
+
+```endpoint
+GET /transactions/{transaction_id}/split_rules/{id}
+```
+
+Propriedade | Tipo | Descrição
+---|---|---
+`api_key`<br />**obrigatório** | `String` | Chave da api
+`transaction_id`<br />**obrigatório** | `Integer` | Id da transação previamente criada
+`id`<br />**obrigatório** | `Integer` | Id da regra de split previamente criada
+
+#### Exemplo de requisição:
+
+```curl
+curl -X GET https://api.pagar.me/1/transactions/189164/split_rules/sr_ci7ntawl1001s2m164zrbp7tz \
+-d 'api_key=ak_test_grXijQ4GicOa2BLGZrDRTR5qNQxJW0'
+```
+
+```ruby
+```
+
+```php
+```
+
+```csharp
+```
+
+#### Exemplo de resposta:
+
+```json
+{
+    "object": "split_rule",
+    "id": "sr_ci7ntawl1001s2m164zrbp7tz",
+    "recipient_id": "re_ci7nhf1ay0007n016wd5t22nl",
+    "charge_processing_fee": true,
+    "liable": true,
+    "percentage": 30,
+    "amount": null,
+    "date_created": "2015-03-24T21:26:09.000Z",
+    "date_updated": "2015-03-24T21:26:09.000Z"
+}
+```
+
+### Retornando pagamentos da transação
+
+```endpoint
+GET /transactions/{transaction_id}/payables
+```
+
+Propriedade | Tipo | Descrição
+---|---|---
+`api_key`<br />**obrigatório** | `String` | Chave da api
+`transaction_id`<br />**obrigatório** | `Integer` | Id da transação previamente criada
+
+#### Exemplo de requisição:
+
+```curl
+curl -X GET https://api.pagar.me/1/transactions/192669/payables \
+-d 'api_key=ak_test_grXijQ4GicOa2BLGZrDRTR5qNQxJW0'
+```
+
+```ruby
+```
+
+```php
+```
+
+```csharp
+```
+
+#### Exemplo de resposta:
+
+```json
+[{
+    "object": "payable",
+    "id": 1485,
+    "status": "paid",
+    "amount": 39000,
+    "fee": 115,
+    "installment": null,
+    "transaction_id": 192669,
+    "split_rule_id": "sr_ci87hce8o00083016bkniqems",
+    "payment_date": "2015-04-07T03:00:00.000Z",
+    "type": "credit",
+    "payment_method": "boleto",
+    "date_created": "2015-04-07T15:47:48.000Z"
+}, {
+    "object": "payable",
+    "id": 1486,
+    "status": "paid",
+    "amount": 91000,
+    "fee": 0,
+    "installment": null,
+    "transaction_id": 192669,
+    "split_rule_id": "sr_ci87hce8o00093016fin8p6ll",
+    "payment_date": "2015-04-07T03:00:00.000Z",
+    "type": "credit",
+    "payment_method": "boleto",
+    "date_created": "2015-04-07T15:47:48.000Z"
+}]
+```
+
+### Retornando um pagamento da transação
+
+Retorna um objeto `payable` informando os dados de um pagamento referente a uma determinada transação.
+
+```endpoint
+GET /transactions/{transaction_id}/payables/{id}
+```
+
+Propriedade | Tipo | Descrição
+---|---|---
+`api_key`<br />**obrigatório** | `String` | Chave da api
+`transaction_id`<br />**obrigatório** | `Integer` | Id da transação previamente criada
+`id`<br />**obrigatório** | `Integer` | Identificador do objeto `payable`
+
+#### Exemplo de requisição:
+
+```curl
+curl -X GET https://api.pagar.me/1/transactions/192669/payables/1485 \
+-d 'api_key=ak_test_grXijQ4GicOa2BLGZrDRTR5qNQxJW0'
+```
+
+```ruby
+```
+
+```php
+```
+
+```csharp
+```
+
+#### Exemplo de resposta:
+
+```json
+{
+    "object": "payable",
+    "id": 1485,
+    "status": "paid",
+    "amount": 39000,
+    "fee": 115,
+    "installment": null,
+    "transaction_id": 192669,
+    "split_rule_id": "sr_ci87hce8o00083016bkniqems",
+    "payment_date": "2015-04-07T03:00:00.000Z",
+    "type": "credit",
+    "payment_method": "boleto",
+    "date_created": "2015-04-07T15:47:48.000Z"
+}
+```
+
+### Retornando todas as análises antifraude
+
+Retorna todas as análises antifraude realizadas em uma transação.
+
+```endpoint
+GET /transactions/{transaction_id}/antifraud_analyses
+```
+
+Propriedade | Tipo | Descrição
+---|---|---
+`api_key`<br />**obrigatório** | `String` | Chave da api
+`transaction_id`<br />**obrigatório** | `Integer` | Id da transação previamente criada
+
+#### Exemplo de requisição:
+
+```curl
+curl -X GET https://api.pagar.me/1/transactions/314578/antifraud_analyses \
+-d 'api_key=ak_test_grXijQ4GicOa2BLGZrDRTR5qNQxJW0'
+```
+
+```ruby
+```
+
+```php
+```
+
+```csharp
+```
+
+#### Exemplo de resposta:
+
+```json
+[{
+    "object": "antifraud_analysis",
+    "name": "name",
+    "score": "score",
+    "cost": "cost",
+    "status": "status",
+    "date_created": "date_created",
+    "date_updated": "date_updated",
+    "id": "id"
+}]
+```
+### Retornando uma análise antifraude
+
+Retorna uma análise antifraude específica realizada em uma transação.
+
+```endpoint
+GET /transactions/{transaction_id}/antifraud_analyses/{id}
+```
+
+Propriedade | Tipo | Descrição
+---|---|---
+`api_key`<br />**obrigatório** | `String` | Chave da api
+`transaction_id`<br />**obrigatório** | `Integer` | Id da transação previamente criada
+`id`<br />**obrigatório** | `Integer` | Id da análise previamente feita
+
+#### Exemplo de requisição:
+
+```curl
+curl -X GET https://api.pagar.me/1/transactions/314578/antifraud_analyses/913456 \
+-d 'api_key=ak_test_grXijQ4GicOa2BLGZrDRTR5qNQxJW0'
+```
+
+```ruby
+```
+
+```php
+```
+
+```csharp
+```
+
+#### Exemplo de resposta:
+
+```json
+{
+    "object": "antifraud_analysis",
+    "name": "name",
+    "score": "score",
+    "cost": "cost",
+    "status": "status",
+    "date_created": "date_created",
+    "date_updated": "date_updated",
+    "id": "id"
+}
+```
+
+### Retornando todos os POSTbacks
+
+Retorna todos os POSTbacks enviados relacionados a transação.
+
+```endpoint
+GET /transactions/{transaction_id}/postbacks
+```
+
+Propriedade | Tipo | Descrição
+---|---|---
+`api_key`<br />**obrigatório** | `String` | Chave da api
+`transaction_id`<br />**obrigatório** | `Integer` | Id da transação previamente criada
+
+#### Exemplo de requisição:
+
+```curl
+curl -X GET https://api.pagar.me/1/transactions/314578/postbacks \
+-d 'api_key=ak_test_grXijQ4GicOa2BLGZrDRTR5qNQxJW0'
+```
+
+```ruby
+```
+
+```php
+```
+
+```csharp
+```
+
+#### Exemplo de resposta:
+
+```json
+[{
+	"date_created": "2015-06-12T05:41:57.000Z", 
+	"date_updated": "2015-06-12T05:42:07.000Z", 
+	"deliveries":
+	[
+		{
+			 "date_created": "2015-06-12T05:42:06.000Z", 
+	         "date_updated": "2015-06-12T05:42:07.000Z", 
+	         "id": "pd_ciat6szv2002yk06nyhacqmr4", 
+	         "object": "postback_delivery", 
+	         "response_body": "", 
+	         "response_headers": "{\"cache-control\":\"no-cache\",\"pragma\":\"no-cache\",\"content-length\":\"0\",\"expires\":\"-1\",\"server\":\"Microsoft-IIS/8.0\",\"x-aspnet-version\":\"4.0.30319\",\"x-powered-by\":\"ASP.NET\",\"set-cookie\":[\"ARRAffinity=663d85223525d21e72aebd941082ca482841f5719c27124196939b3de6204504;Path=/;Domain=requestb.in\"],\"date\":\"Fri, 12 Jun 2015 05:42:06 GMT\",\"connection\":\"close\"}", 
+	         "response_time": 516, 
+	         "status": "success", 
+	         "status_code": "200", 
+	         "status_reason": "http_status_code"
+		}
+	], 
+	"headers": "{\"Content-Type\":\"application/x-www-form-urlencoded\",\"X-PagarMe-Event\":\"transaction_status_changed\",\"X-Hub-Signature\":\"sha1=d825b60eee7f3034484be584ccca20d3f7bb8c5b\",\"User-Agent\":\"PagarMe-Hookshot/1.0\"}", 
+	"id": "po_ciat6ssga0022k06ng8vxg", 
+	"model": "transaction", 
+	"model_id": "674579", 
+	"next_retry": null, 
+	"object": "postback", 
+	"payload": "id=674579&fingerprint=05112b2b5d756a1501d994027c95d3202c7b&event=transaction_status_changed&old_status=authorized&desired_status=paid&current_status=refused&object=transaction", 
+	"request_url": "http://requestb.in/1azqnq81?inspect", 
+	"retries": 0, 
+	"signature": "d825b60eee7f3034484be584d3f7bb8c5b", 
+	"status": "success"
+}]
+```
+### Retornando um POSTback
+
+Retorna um POSTback específico enviado relacionado a transação.
+
+```endpoint
+GET /transactions/{transaction_id}/postbacks/{id}
+```
+
+Propriedade | Tipo | Descrição
+---|---|---
+`api_key`<br />**obrigatório** | `String` | Chave da api
+`transaction_id`<br />**obrigatório** | `Integer` | Id da transação previamente criada
+`id`<br />**obrigatório** | `Integer` | id do POSTback
+
+#### Exemplo de requisição:
+
+```curl
+curl -X GET https://api.pagar.me/1/transactions/314578/postbacks/po_ciat6ssga0022k06ng8vxg \
+-d 'api_key=ak_test_grXijQ4GicOa2BLGZrDRTR5qNQxJW0'
+```
+
+```ruby
+```
+
+```php
+```
+
+```csharp
+```
+
+#### Exemplo de resposta:
+
+```json
+{
+	"date_created": "2015-06-12T05:41:57.000Z", 
+	"date_updated": "2015-06-12T05:42:07.000Z", 
+	"deliveries":
+	[
+		{
+			 "date_created": "2015-06-12T05:42:06.000Z", 
+	         "date_updated": "2015-06-12T05:42:07.000Z", 
+	         "id": "pd_ciat6szv2002yk06nyhacqmr4", 
+	         "object": "postback_delivery", 
+	         "response_body": "", 
+	         "response_headers": "{\"cache-control\":\"no-cache\",\"pragma\":\"no-cache\",\"content-length\":\"0\",\"expires\":\"-1\",\"server\":\"Microsoft-IIS/8.0\",\"x-aspnet-version\":\"4.0.30319\",\"x-powered-by\":\"ASP.NET\",\"set-cookie\":[\"ARRAffinity=663d85223525d21e72aebd941082ca482841f5719c27124196939b3de6204504;Path=/;Domain=requestb.in\"],\"date\":\"Fri, 12 Jun 2015 05:42:06 GMT\",\"connection\":\"close\"}", 
+	         "response_time": 516, 
+	         "status": "success", 
+	         "status_code": "200", 
+	         "status_reason": "http_status_code"
+		}
+	], 
+	"headers": "{\"Content-Type\":\"application/x-www-form-urlencoded\",\"X-PagarMe-Event\":\"transaction_status_changed\",\"X-Hub-Signature\":\"sha1=d825b60eee7f3034484be584ccca20d3f7bb8c5b\",\"User-Agent\":\"PagarMe-Hookshot/1.0\"}", 
+	"id": "po_ciat6ssga0022k06ng8vxg", 
+	"model": "transaction", 
+	"model_id": "674579", 
+	"next_retry": null, 
+	"object": "postback", 
+	"payload": "id=674579&fingerprint=05112b2b5d756a1501d994027c95d3202c7b&event=transaction_status_changed&old_status=authorized&desired_status=paid&current_status=refused&object=transaction", 
+	"request_url": "http://requestb.in/1azqnq81?inspect", 
+	"retries": 0, 
+	"signature": "d825b60eee7f3034484be584d3f7bb8c5b", 
+	"status": "success"
+}
+```
+
+### Retornando todos os eventos de uma transação
+
+Retorna todos os eventos já criados dentro de uma transação. 
+**Ex: **mudanças de status.
+
+```endpoint
+GET /transactions/{transaction_id}/events
+```
+
+Propriedade | Tipo | Descrição
+---|---|---
+`api_key`<br />**obrigatório** | `String` | Chave da api
+`transaction_id`<br />**obrigatório** | `Integer` | Id da transação previamente criada
+
+#### Exemplo de requisição:
+
+```curl
+curl -X GET https://api.pagar.me/1/transactions/314578/events \
+-d 'api_key=ak_test_grXijQ4GicOa2BLGZrDRTR5qNQxJW0'
+```
+
+```ruby
+```
+
+```php
+```
+
+```csharp
+```
+
+#### Exemplo de resposta:
+
+```json
+[
+	{
+		"id": "ev_cift4mmt800t7z55z343v6xto", 
+      	"model": "transaction", 
+       	"model_id": "314578", 
+       	"name": "transaction_status_changed", 
+       	"object": "event", 
+       	"payload":
+	   	{
+	   		"current_status": "paid", 
+       		"desired_status": "paid", 
+       		"old_status": "processing"
+       	}
+	}, 
+	{
+		"id": "ev_cift4nz1200t8zda33zh7zilzkt", 
+		"model": "transaction", 
+		"model_id": "314578", 
+		"name": "transaction_status_changed", 
+		"object": "event", 
+		"payload":
+		{
+			"current_status": "refunded", 
+			"desired_status": "refunded", 
+			"old_status": "paid"
+		}
+	}
+]
+```
+
+### Retornando todo histórico de uma transação
+
+Retorna todo o histórico de uma transaçnao, ou seja, toda e qualquer operação que já aconteceu com ela.
+
+**Ex: **autorização, análise antifraude, captura, estorno, chargeback, emissão de boleto, conciliação, etc.
+
+```endpoint
+GET /transactions/{transaction_id}/operations
+```
+
+Propriedade | Tipo | Descrição
+---|---|---
+`api_key`<br />**obrigatório** | `String` | Chave da api
+`transaction_id`<br />**obrigatório** | `Integer` | Id da transação previamente criada
+
+#### Exemplo de requisição:
+
+```curl
+curl -X GET https://api.pagar.me/1/transactions/314578/operations \
+-d 'api_key=ak_test_grXijQ4GicOa2BLGZrDRTR5qNQxJW0'
+```
+
+```ruby
+```
+
+```php
+```
+
+```csharp
+```
+
+#### Exemplo de resposta:
+
+```json
+[
+	{
+		"date_created": "2015-10-16T03:59:40.000Z", 
+		"date_updated": "2015-10-16T03:59:42.000Z", 
+		"ended_at": 1444967982134, 
+		"fail_reason": null, 
+		"group_id": "gog_cift4ml505xsfce3ff9o8xgyv", 
+		"id": "go_cift4ml505xsece3fqltn2ok0", 
+		"metadata":
+		{
+		    "environment": {}
+		}, 
+		"model": "transaction", 
+		"model_id": "314578", 
+		"next_group_id": "gog_cift4nxyp5mj9on3ehfthtxiy", 
+		"processor": "pagarme", 
+		"processor_response_code": null, 
+		"request_id": "gr_cift4ml3c5xsdce3fistg0u6q", 
+		"rollbacked": false, 
+		"started_at": 1444967981743, 
+		"status": "success", 
+		"type": "capture"
+	}, 
+	{
+		"date_created": "2015-10-16T03:59:40.000Z", 
+		"date_updated": "2015-10-16T03:59:41.000Z", 
+		"ended_at": 1444967981722, 
+		"fail_reason": null, 
+		"group_id": "gog_cift4ml5k5xshce3fqqjaeijr", 
+		"id": "go_cift4ml5k5xsgce3fjelkr3c6", 
+		"metadata":
+		{
+		    "environment": {
+		        "authorization_code": "07482", 
+		        "nsu": "314578", 
+		        "response_code": "0000", 
+		        "tid": "314578"
+		    }
+		}, 
+		"model": "transaction", 
+		"model_id": "314578", 
+		"next_group_id": "gog_cift4ml505xsfce3ff9o8xgyv", 
+		"processor": "pagarme", 
+		"processor_response_code": "0000", 
+		"request_id": "gr_cift4ml3c5xsdce3fistg0u6q", 
+		"rollbacked": false, 
+		"started_at": 1444967980241, 
+		"status": "success", 
+		"type": "authorize"
+	}, 
+	{
+		"date_created": "2015-10-16T04:00:43.000Z", 
+		"date_updated": "2015-10-16T04:00:44.000Z", 
+		"ended_at": 1444968044662, 
+		"fail_reason": null, 
+		"group_id": "gog_cift4nxyp5mj9on3ehfthtxiy", 
+		"id": "go_cift4nxyp5mj8on3e6e2k1d6t", 
+		"metadata":
+		{
+		    "environment": {}
+		}, 
+		"model": "transaction", 
+		"model_id": "314578", 
+		"next_group_id": null, 
+		"processor": "pagarme", 
+		"processor_response_code": null, 
+		"request_id": "gr_cift4nxy15mj7on3edu9sf4fj", 
+		"rollbacked": false, 
+		"started_at": 1444968043510, 
+		"status": "success", 
+		"type": "refund"
+	}
+]
+```
+
+#### Notificando cliente sobre boleto a ser pago
+
+Envia o link de um boleto pendente para o cliente.
+
+**OBS: **Essa rota não funciona em ambiente de testes.
+
+```endpoint
+POST /transactions/{id}/collect_payment
+```
+
+Propriedade | Tipo | Descrição
+---|---|---
+`api_key`<br />**obrigatório** | `String` | Chave da api
+`id`<br />**obrigatório** | `Integer` | Id da transação previamente criada
+`email`<br />**obrigatório** | `String` | Email a ser enviado o link do boleto
+
+#### Exemplo de requisição:
+```curl
+curl -X POST https://api.pagar.me/1/transactions/314578/collect_payment \
+-d 'api_key=ak_live_grXijQ4GicOa2BLGZrDRTR5qNQxJW0' \
+-d 'email=seu@email.com'
+```
+
+```ruby
+```
+
+```php
+```
+
+```csharp
+```
+
+#### Exemplo de resposta
+```json
+{}
+```
+
+### Capturando uma transação posteriormente
+
+Você pode capturar o valor de uma transação após a autorização desta, no prazo máximo de 5 dias após a autorização.
+
+Propriedade | Tipo | Descrição
+---|---|---
+`api_key`<br />**obrigatório** | `String` | Chave da api
+`id`<br />**obrigatório** | `Integer` | Id da transação previamente criada
+
+#### Exemplo de requisição:
+```curl
+curl -X POST https://api.pagar.me/1/transactions/314578/capture \
+-d 'api_key=ak_live_grXijQ4GicOa2BLGZrDRTR5qNQxJW0' \
+-d 'email=seu@email.com'
+```
+
+```ruby
+require 'pagarme'
+
+PagarMe.api_key = "ak_test_grXijQ4GicOa2BLGZrDRTR5qNQxJW0"
+
+transaction = PagarMe::Transaction.find_by_id("1234")
+
+transaction.capture({:amount => 1000})
+```
+
+```php
+<?php
+    require("pagarme-php/Pagarme.php");
+
+    Pagarme::setApiKey("ak_test_grXijQ4GicOa2BLGZrDRTR5qNQxJW0");
+
+    $t = new PagarMe_Transaction(array(
+      "amount" => 3100,
+      "card_id" => "card_ci6l9fx8f0042rt16rtb477gj",
+      "postback_url" => "http://requestb.in/1ahq78t1",
+      "capture" => "false",
+      "metadata" => array(
+        "idProduto" => 13933139
+      )
+    ));
+
+    $t->charge();
+
+    $t->capture(3100);
+?>
+```
+
+```csharp
+PagarMeService.DefaultApiKey = "ak_test_grXijQ4GicOa2BLGZrDRTR5qNQxJW0";
+
+Transaction transaction = new Transaction();
+
+transaction.Amount = 3100;
+transaction.CardId = "card_ci6l9fx8f0042rt16rtb477gj";
+transaction.PostbackUrl = "http://requestb.in/pkt7pgpk";
+transaction.Metadata = new AbstractModel(PagarMeService.GetDefaultService())
+{
+	["IdProduto"] = 13933139
+};
+transaction.Save();
+
+transaction.Capture(3100);
+```
+
+#### Exemplo de resposta
+```json
+{
+	"object": "transaction",
+	"status": "authorized",
+	"refuse_reason": null,
+	"status_reason": "acquirer",
+	"acquirer_response_code": "00",
+	"acquirer_name": "development",
+	"authorization_code": "132534",
+	"soft_descriptor": "testeDeApi",
+	"tid": "1425302906112",
+	"nsu": "1425302906112",
+	"date_created": "2015-03-02T13:28:25.000Z",
+	"date_updated": "2015-03-02T13:28:26.000Z",
+	"amount": 130000,
+	"installments": 1,
+	"id": 184622,
+	"cost": 0,
+	"postback_url": "http://requestb.in/pkt7pgpk",
+	"payment_method": "credit_card",
+	"antifraud_score": null,
+	"boleto_url": null,
+	"boleto_barcode": null,
+	"boleto_expiration_date": null,
+	"referer": "api_key",
+	"ip": "189.8.94.42",
+	"subscription_id": null,
+	"phone": null,
+	"address": null,
+	"customer": null,
+	"card":
+	{
+		"object": "card",
+		"id": "card_ci6l9fx8f0042rt16rtb477gj",
+		"date_created": "2015-02-25T21:54:56.000Z",
+		"date_updated": "2015-02-25T21:54:57.000Z",
+		"brand": "mastercard",
+		"holder_name": "Api Customer",
+		"first_digits": "548045",
+		"last_digits": "3123",
+		"fingerprint": "HSiLJan2nqwn",
+		"valid": true
+	},
+	"metadata":
+	{
+		"nomeData": "API Doc test",
+		"idData": "13"
+	}
+}
+```
 
