@@ -14,7 +14,7 @@ Propriedade | Tipo | Descrição
 `status_reason` | `String` | Adquirente responsável pelo processamento da transação.<br />**Valores possíveis: **`development` (em ambiente de testes), `pagarme` (adquirente Pagar.me), `stone`, `cielo`, `rede`, `mundipagg`
 `acquirer_response_code` | `String` | Mensagem de resposta do adquirente referente ao status da transação.
 `authorization_code` | `String` | Código de autorização retornado pela bandeira.
-`soft_descriptor` | `String` | Texto que irá aparecer na fatura do cliente depois do nome da loja.<br />**OBS: **Limite de 13 caracteres sem caracteres especiais.
+`soft_descriptor` | `String` | Texto que irá aparecer na fatura do cliente depois do nome da loja.<br />**OBS: **Limite de 13 caracteres, apenas letras e números.
 `tid` | `Ìnteger` | Código que identifica a transação no adquirente.
 `nsu` | `Ìnteger` | Código que identifica a transação no adquirente.
 `date_created` | `String` | Data de criação da transação no formato ISODate
@@ -22,7 +22,7 @@ Propriedade | Tipo | Descrição
 `amount` | `Integer` | Valor em centados do que foi pago
 `installments` | `Integer` | Número de parcelas/prestações a serem cobradas
 `id` | `Integer` | Código de identificação da transação
-`postback_url` | `String` | URL (endpoint) do sistema integrado a Pagar.me que receberá as respostas a cada atualização do processamento da transação
+`postback_url` | `String` | URL para onde são enviadada as notificações de alteração de status
 `payment_method` | `String` | Método de pagamento possíveis: `credit_card` e `boleto`
 `boleto_url` | `String` | URL do boleto para ser impresso
 `boleto_barcode` | `String` | Código de barras do boleto gerado na transação
@@ -94,14 +94,14 @@ Propriedade | Tipo | Descrição
 ---|---|---
 `api_key`<br />**obrigatório** | `String` | Chave da API
 `amount`<br />**obrigatório** | `Integer` | Valor a ser cobrado. Deve ser passado em centavos.<br />**Ex: **R$ 10,00 = 1000
-`card_hash`<br />**obrigatório** | `String` | Informações do cartão do cliente criptografadas no navegador.<br />**OBS: **Apenas para transações de **cartão de crédito** você deve passar ou o `card_hash` ou o `card_id`
-`card_id`<br />**obrigatório** | `String` | Ao realizar uma transação, retornamos o `card_id` do cartão para que nas próximas transações desse cartão possa ser utilizado esse identificador ao invés do `card_hash`
+`card_hash`<br />**obrigatório** | `String` | String com informações do cartão do cliente criptografadas.<br />**OBS: **Apenas em transações de **cartão de crédito** você deve passar ou o `card_hash` ou o `card_id`
+`card_id`<br />**obrigatório** | `String` | Identificação de um cartão.<br />Ao realizar uma transação, retornamos o `card_id` do cartão para que nas próximas transações desse cartão possa ser utilizado esse identificador ao invés do `card_hash`
 `payment_method` | `String` | Aceita dois tipos de pagamentos/valores: `credit_card` e `boleto`.<br />**Valor padrão: **`credit_card`
-`postback_url` | `String` | Endpoint do seu sistema que receberá informações a cada atualização da transação. Caso você defina este parâmetro, o processamento da transação se tornará assíncrono.
+`postback_url` | `String` | URL para onde são enviadada as notificações de alteração de status
 `async` | `Boolean` | Utilize `false` caso queira utilizar POSTbacks e manter o processamento síncrono de uma transação.<br />**Valor padrão:** `false` ou `true` caso `postback_url` tenha sido informado.
 `installment` | `Integer` | Se `payment_method` for `boleto`, o valor padrão será 1.<br />**Valor mínimo: **1<br />**Valor máximo: **12
 `boleto_expiration_date` | `String` | Prazo limite para pagamento do boleto em formato ISODate.<br />**Valor padrão: **Data atual + 7 dias
-`soft_descriptor` | `String` | Descrição que aparecerá na fatura depois do nome da loja. Máximo de 13 caracteres sem caracteres especiais.
+`soft_descriptor` | `String` | Descrição que aparecerá na fatura depois do nome da loja.<br />**OBS: **Limite de 13 caracteres, apenas letras e números.
 `capture` | `Boolean` | Após a autorização de uma transação, você pode escolher se irá capturar ou adiar a captura do valor. Caso opte por postergar a captura, atribuir o valor `false`.<br />**Valor padrão: **`true`
 `metadata` | `Object` | Você pode passar dados adicionais na criação da transação para posteriormente filtrar estas na nossa dashboard.<br />**Exemplo: **`metadata[idProduto]=13933139`
 `customer[name]`<br />**obrigatório (com antifraude)** | `String` | Nome completo ou razão social do cliente que está realizando a transação
@@ -404,7 +404,7 @@ Transaction transaction PagarMeService.GetDefaultService().Transactions.FindAll(
 
 Caso você queira/precise criar o `card_hash` manualmente, essa rota deverá ser utilizada para obtenção de uma chave pública de encriptação dos dados do cartão de seu cliente.
 
-Saiba mais sobre como criar um `card_hash` [aqui](https://pagar.me/docs/capturing-card-data/#capturando-os-dados-em-uma-pgina-web).
+Saiba mais sobre como criar um `card_hash` [aqui](https://pagar.me/docs/capturing-card-data/#capturando-os-dados-em-uma-pagina-web).
 
 **Atenção: Utilizar apenas em ambiente de teste!!!**
 
