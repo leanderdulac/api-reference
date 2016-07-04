@@ -22,7 +22,7 @@ Propriedade | Tipo | Descrição
 `amount` | `Integer` | Valor em centados do que foi pago
 `installments` | `Integer` | Número de parcelas/prestações a serem cobradas
 `id` | `Integer` | Código de identificação da transação
-`postback_url` | `String` | URL para onde são enviadada as notificações de alteração de status
+`postback_url` | `String` | URL para onde são enviadas as notificações de alteração de status
 `payment_method` | `String` | Método de pagamento possíveis: `credit_card` e `boleto`
 `boleto_url` | `String` | URL do boleto para ser impresso
 `boleto_barcode` | `String` | Código de barras do boleto gerado na transação
@@ -73,14 +73,14 @@ Propriedade | Tipo | Descrição
 		"date_created": "2015-02-25T21:54:56.000Z",
 		"date_updated": "2015-02-25T21:54:56.000Z",
 		"brand": "mastercard",
-		"holder_name": "Richard",
+		"holder_name": "Teste PagarMe",
 		"first_digits": "548045",
 		"last_digits": "3123",
 		"fingerprint": "HSiLJan2nqwn",
 		"valid": null
 	},
 	"metadata": {
-		"nome": "Richard",
+		"nome": "Teste PagarMe",
 		"id": 13
 	}
 }
@@ -97,7 +97,7 @@ Propriedade | Tipo | Descrição
 `card_hash`<br />**obrigatório** | `String` | String com informações do cartão do cliente criptografadas.<br />**OBS: **Apenas em transações de **cartão de crédito** você deve passar ou o `card_hash` ou o `card_id`
 `card_id`<br />**obrigatório** | `String` | Identificação de um cartão.<br />Ao realizar uma transação, retornamos o `card_id` do cartão para que nas próximas transações desse cartão possa ser utilizado esse identificador ao invés do `card_hash`
 `payment_method` | `String` | Aceita dois tipos de pagamentos/valores: `credit_card` e `boleto`.<br />**Valor padrão: **`credit_card`
-`postback_url` | `String` | URL para onde são enviadada as notificações de alteração de status
+`postback_url` | `String` | URL para onde são enviadas as notificações de alteração de status
 `async` | `Boolean` | Utilize `false` caso queira utilizar POSTbacks e manter o processamento síncrono de uma transação.<br />**Valor padrão:** `false` ou `true` caso `postback_url` tenha sido informado.
 `installment` | `Integer` | Se `payment_method` for `boleto`, o valor padrão será 1.<br />**Valor mínimo: **1<br />**Valor máximo: **12
 `boleto_expiration_date` | `String` | Prazo limite para pagamento do boleto em formato ISODate.<br />**Valor padrão: **Data atual + 7 dias
@@ -181,7 +181,10 @@ Transaction transaction = new Transaction()
 	Amount = 3100,
 	CardId = "card_ci6l9fx8f0042rt16rtb477gj",
 	PostbackUrl = "http://requestb.in/pkt7pgpk",
-	Metadata = null
+	Metadata = new AbstractModel(PagarMeService.GetDefaultService())
+	{
+		["idProduto"] = 13933139
+	}
 };
 transaction.Save();
 ```
@@ -361,7 +364,7 @@ using PagarMe;
 
 PagarMeService.DefaultApiKey = "ak_test_e1QGU2gL98MDCHZxHLJ9sofPUFJ7tH";
 
-Transaction transaction PagarMeService.GetDefaultService().Transactions.FindAll();
+List<Transaction> transactions = PagarMeService.GetDefaultService().Transactions.FindAll();
 ```
 
 #### Exemplo de resposta 
