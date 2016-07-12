@@ -364,7 +364,7 @@ using PagarMe;
 
 PagarMeService.DefaultApiKey = "ak_test_e1QGU2gL98MDCHZxHLJ9sofPUFJ7tH";
 
-List<Transaction> transactions  PagarMeService.GetDefaultService().Transactions.FindAll();
+List<Transaction> transactions = PagarMeService.GetDefaultService().Transactions.FindAll();
 ```
 
 #### Exemplo de resposta 
@@ -1174,6 +1174,7 @@ transaction.Capture(3100);
 }
 ```
 
+<<<<<<< HEAD
 ### Estorno de transação
 
 Essa rota é utilizada quando se deseja estornar uma transação, realizada por uma cobrança via cartão de crédito ou boleto bancário.
