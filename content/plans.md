@@ -6,36 +6,35 @@ Através dessas rotas você pode gerenciar todos os planos do seu negócio, para
 
 Propriedade | Tipo | Descrição
 ---|---|---
-`amount` | `integer` | Valor do plano em centavos
-`charges` | `integer` | Número de cobranças que podem ser feitas em uma assinatura
-`color` | `string` | **Deprecado**
-`date_created` | `date` | Data de criação do plano no formato ISODate
-`days` | `integer` | Dias para efetuação da próxima cobrança da assinatura atrelada ao plano
-`id` | `integer` | Id do plano
-`installments` | `integer` | Informa em quantas vezes o pagamento será parcelado entre cada cobrança
-`name` | `string` | Nome do plano
-`object` | `string` | Nome do tipo do objeto criado/modificado
-`payment_methods` | `array` | Formas de pagamento aceitas no plano
-`trial_days` | `integer` | Dias que o usuário poderá testar o serviço gratuitamente
+`object` | `String` | Nome do tipo do objeto criado/modificado
+`id` | `Integer` | Id do plano
+`amount` | `Integer` | Valor do plano em centavos
+`days` | `Integer` | Dias para efetuação da próxima cobrança da assinatura atrelada ao plano
+`name` | `String` | Nome do plano
+`trial_days` | `Integer` | Dias que o usuário poderá testar o serviço gratuitamente
+`date_created` | `String` | Data da criação do plano (ISODate)
+`payment_methods` | `Array` | Formas de pagamento aceitas no plano
+`color` | `String` | **Deprecado**
+`charges` | `Integer` | Número de cobranças que podem ser feitas em uma assinatura <br />OBS: No caso de pagamento com cartão de crédito, esse valor **não inclui a cobrança feita na criação da assinatura**.<br /> **Ex**.:  Plano anual com no máximo 3 cobranças, days = 365 e charges = 2 (cartão de crédito) ou charges = 3 (boleto) 
+`installments` | `Integer` | Informa em quantas vezes o pagamento será parcelado entre cada cobrança
 
 #### Exemplo do objeto
 
 ```json
 {
-    "amount": 8000,
-    "charges": null,
-    "color": null,
-    "date_created": "2016-05-31T02:34:29.442Z",
-    "days": 30,
-    "id": 40648,
-    "installments": 1,
-    "name": "Plano do Richard",
     "object": "plan",
+    "id": 13731,
+    "amount": 31000,
+    "days": 30,
+    name": "Plano Diamond",
+    "trial_days": 7,
+    "date_created": "2015-03-03T17:31:47.000Z",
     "payment_methods": [
-        "credit_card",
         "boleto"
     ],
-    "trial_days": 0
+    "color": "gold",
+    "charges": null,
+    "installments": 1
 }
 ```
 
@@ -43,15 +42,16 @@ Propriedade | Tipo | Descrição
 
 Através dessa rota você poderá criar um plano para ser usado para criar uma assinatura.
 
-Parâmetro | Descrição
----|---
-`amount` (**Obrigatório**) | Valor em centavos a ser cobrado recorrentemente
-`days` (**Obrigatório**) | Prazo em dias para cobrança das parcelas
-`name` (**Obrigatório**) | Nome do plano
-`payment_methods` | Formas de pagamento aceitas nesse plano. **Valores possíveis:** `credit_card`, `boleto` e `credit_card,boleto`
-`trial_days` (**Padrão: 0**) | Dias para teste gratuito da assinatura. O valor começará a ser cobrado no dia `trial_days + 1`
-`charges` | Número de cobranças que poderão ser feitas nesse plano. **Ex:** Plano cobrado 1x por ano, válido por no máximo 3 anos. Nesse caso, nossos parâmetros serão: `days=365`, `installments=1`, `charges=2` (cartão de crédito) ou `charges=3` (boleto).
-`installments` | Número de parcelas entre cada `charge`. **Ex:** Plano anual, válido por 2 anos, podendo ser divido em até 12 vezes. Nesse caso, nossos parâmetros serão: `days=30`, `installments=12`, `charges=2` (cartão de crédito) ou `charges=3` (boleto).
+Parâmetro | Tipo | Descrição
+--- | --- | ---
+`api_key` | `String` | Chave de API, que está disponivel na dashboard
+`amount` <br />**Obrigatório** | `Integer` | Valor em centavos a ser cobrado recorrentemente, em centavos. <br /> `Ex`.: R$ 49,90 = 4990
+`days`<br /> **Obrigatório** | `Integer` | Prazo em dias para cobrança das parcelas
+`name`<br /> **Obrigatório** | `String` |  Nome do plano
+`payment_methods` | `Array`| Formas de pagamento aceitas nesse plano.<br /> **Valores possíveis:** `credit_card`, `boleto` e `credit_card,boleto`
+`trial_days` <br />**Padrão: 0** | `Integer` | Dias para teste gratuito da assinatura. O valor começará a ser cobrado no dia `trial_days + 1`
+`charges` | `Integer`| Número de cobranças que poderão ser feitas nesse plano.<br /> **Ex:** Plano cobrado 1x por ano, válido por no máximo 3 anos. Nesse caso, nossos parâmetros serão: `days=365`, `installments=1`, `charges=2` (cartão de crédito) ou `charges=3` (boleto).
+`installments` | `Integer` | Número de parcelas entre cada `charge`.<br /> **Ex:** Plano anual, válido por 2 anos, podendo ser divido em até 12 vezes. Nesse caso, nossos parâmetros serão: `days=30`, `installments=12`, `charges=2` (cartão de crédito) ou `charges=3` (boleto).
 
 **Atenção**
 
@@ -73,7 +73,7 @@ curl -X POST https://api.pagar.me/1/plans \
 -u "ak_test_e1QGU2gL98MDCHZxHLJ9sofPUFJ7tH:x" \
 -d "amount=8000" \
 -d "days=30" \
--d "name=Plano do Richard" \
+-d "name=Plano de Teste" \
 -d "payment_methods[]=credit_card,boleto"
 
 # Criando um plano com 14 dias de teste grátis
@@ -81,7 +81,7 @@ curl -X POST https://api.pagar.me/1/plans \
 -u "ak_test_e1QGU2gL98MDCHZxHLJ9sofPUFJ7tH:x" \
 -d "amount=8000" \
 -d "days=30" \
--d "name=Plano do Richard" \
+-d "name=Plano de teste de 14 dias" \
 -d "payment_methods[]=credit_card" \
 -d "trial_days=14"
 
@@ -90,7 +90,7 @@ curl -X POST https://api.pagar.me/1/plans \
 -u "ak_test_e1QGU2gL98MDCHZxHLJ9sofPUFJ7tH:x" \
 -d "amount=8000" \
 -d "days=365" \
--d "name=Plano Anual do Richard" \
+-d "name=Plano de três anos" \
 -d "payment_methods[]=boleto" \
 -d "installments=1" \
 -d "charges=3"
@@ -100,7 +100,7 @@ curl -X POST https://api.pagar.me/1/plans \
 -u "ak_test_e1QGU2gL98MDCHZxHLJ9sofPUFJ7tH:x" \
 -d "amount=8000" \
 -d "days=30" \
--d "name=Plano Anual Parcelado do Richard" \
+-d "name=Plano Anual Parcelado" \
 -d "payment_methods[]=boleto" \
 -d "installments=12" \
 -d "charges=3"
@@ -115,7 +115,7 @@ PagarMe.api_key = "ak_test_e1QGU2gL98MDCHZxHLJ9sofPUFJ7tH"
 plan = PagarMe::Plan.new({
    "amount" => 8000,
    "days" => 30,
-   "name" => "Plano do Richard",
+   "name" => "Plano de teste",
    "payment_methods" => ['credit_card', 'boleto']
 })
 
@@ -125,7 +125,7 @@ plan.create
 plan = PagarMe::Plan.new({
    "amount" => 8000,
    "days" => 30,
-   "name" => "Plano do Richard",
+   "name" => "Plano de teste de 14 dias",
    "payment_methods" => ['credit_card'],
    "trial_days" => 14
 })
@@ -136,7 +136,7 @@ plan.create
 plan = PagarMe::Plan.new({
    "amount" => 8000,
    "days" => 365,
-   "name" => "Plano Anual do Richard",
+   "name" => "Plano Anual",
    "payment_methods" => ['boleto'],
    "installments" => 1,
    "charges" => 3
@@ -148,7 +148,7 @@ plan.create
 plan = PagarMe::Plan.new({
    "amount" => 8000,
    "days" => 30,
-   "name" => "Plano Anual do Richard",
+   "name" => "Plano parcelado de três anos",
    "payment_methods" => ['boleto'],
    "installments" => 12,
    "charges" => 3
@@ -168,7 +168,7 @@ Pagarme::setApiKey("ak_test_e1QGU2gL98MDCHZxHLJ9sofPUFJ7tH");
 $plan = new PagarMe_Plan(array(
    "amount" => 8000,
    "days" => 30,
-   "name" => "Plano do Richard",
+   "name" => "Plano de teste",
    "payment_methods" => array('credit_card', 'boleto')
 ));
 
@@ -178,7 +178,7 @@ $plan->create();
 $plan = new PagarMe_Plan(array(
    "amount" => 8000,
    "days" => 30,
-   "name" => "Plano do Richard",
+   "name" => "Plano de teste de 14 dias",
    "payment_methods" => array('credit_card'),
    "trial_days" => 14
 ));
@@ -189,7 +189,7 @@ $plan->create();
 $plan = new PagarMe_Plan(array(
    "amount" => 8000,
    "days" => 365,
-   "name" => "Plano Anual do Richard",
+   "name" => "Plano Anual de teste",
    "payment_methods" => array('boleto'),
    "installments" => 1,
    "charges" => 3
@@ -201,7 +201,7 @@ $plan->create();
 $plan = new PagarMe_Plan(array(
    "amount" => 8000,
    "days" => 30,
-   "name" => "Plano Anual do Richard",
+   "name" => "Plano Anual parcelado de três anos",
    "payment_methods" => array('boleto'),
    "installments" => 12,
    "charges" => 3
@@ -211,6 +211,7 @@ $plan->create();
 ```
 
 ```csharp
+
 // Criando um plano
 PagarMeService.DefaultApiKey = "ak_test_e1QGU2gL98MDCHZxHLJ9sofPUFJ7tH";
 
@@ -218,7 +219,7 @@ Plan plan = new Plan();
 
 plan.Amount = 8000;
 plan.Days = 30;
-plan.Name = "Plano do Richard";
+plan.Name = "Plano de teste";
 plan.PaymentMethod = new PaymentMethod[] { 'credit_card', 'boleto' }
 
 plan.Save();
@@ -229,7 +230,7 @@ Plan plan = new Plan();
 
 plan.Amount = 8000;
 plan.Days = 30;
-plan.Name = "Plano do Richard";
+plan.Name = "Plano de teste de 14 dias";
 plan.PaymentMethod = new PaymentMethod[] { 'credit_card' }
 plan.TrialDays = 14
 
@@ -241,7 +242,7 @@ Plan plan = new Plan();
 
 plan.Amount = 8000;
 plan.Days = 365;
-plan.Name = "Plano Anual do Richard";
+plan.Name = "Plano Anual de teste";
 plan.PaymentMethod = new PaymentMethod[] { 'boleto' }
 plan.Installments = 1;
 plan.Charges = 3;
@@ -254,32 +255,33 @@ Plan plan = new Plan();
 
 plan.Amount = 8000;
 plan.Days = 30;
-plan.Name = "Plano Anual do Richard";
+plan.Name = "Plano Anual de Teste";
 plan.PaymentMethod = new PaymentMethod[] { 'boleto' }
 plan.Installments = 12;
 plan.Charges = 3;
 
 plan.Save();
+
 ```
 
 #### Exemplo de resposta
 
 ```json
 {
-    "amount": 8000,
-    "charges": null,
-    "color": null,
-    "date_created": "2016-05-31T02:34:29.442Z",
-    "days": 30,
-    "id": 40648,
-    "installments": 1,
-    "name": "Plano do Richard",
     "object": "plan",
+    "id": 40648,
+    "amount": 8000,
+    "days": 30,
+    "name": "Plano de teste",
+    "trial_days": 0
+    "date_created": "2016-05-31T02:34:29.442Z",
     "payment_methods": [
         "credit_card",
         "boleto"
     ],
-    "trial_days": 0
+    "charges": null,
+    "color": null,
+    "installments": 1,
 }
 ```
 
@@ -287,9 +289,10 @@ plan.Save();
 
 Retorna um plano.
 
-Parâmetro | Descrição
----|---
-`id` (**Obrigatório**) | Id do plano
+Parâmetro | Tipo | Descrição
+---|---|---
+`api_key` <br /> **Obrigatório** | `String` | Chave de API
+`id` <br /> **Obrigatório** | `Integer` | Id do plano
 
 ```endpoint
 GET /plans/{id}
@@ -341,7 +344,7 @@ var plan = PagarMeService.GetDefaultService().Plans.Find(4064);
     "days": 30,
     "id": 40648,
     "installments": 1,
-    "name": "Plano do Richard",
+    "name": "Plano de teste",
     "object": "plan",
     "payment_methods": [
         "credit_card",
@@ -356,9 +359,10 @@ var plan = PagarMeService.GetDefaultService().Plans.Find(4064);
 Retorna todos os planos cadastrados em sua conta.
 
 Parâmetro | Descrição
----|---
-`page` (**Padrão: 1**) | Útil para implementação de uma paginação de resultados
-`count` (**Padrão: 10**) | Retorna `n` objetos de `plan`
+---|---|---
+`api_key` <br /> **Obrigatório** | `String` | Chave de API
+`page` <br /> **Padrão: 1** | `Integer` | Útil para implementação de uma paginação de resultados
+`count` <br /> **Padrão: 10** | `Integer` | Retorna `n` objetos de `plan`
 
 ```endpoint
 GET /plans
@@ -413,7 +417,7 @@ var plans = PagarMeService.GetDefaultService().Plans.FindAll(1, 1);
         "days": 30,
         "id": 40651,
         "installments": 12,
-        "name": "Plano Anual Parcelado do Richard",
+        "name": "Plano Anual Parcelado de teste",
         "object": "plan",
         "payment_methods": [
             "boleto"
@@ -427,11 +431,12 @@ var plans = PagarMeService.GetDefaultService().Plans.FindAll(1, 1);
 
 Após criar um plano, você pode atualizar o nome e os dias de teste.
 
-Parâmetro | Descrição
----|---
-`id` (**Obrigatório**) | Id do recebedor
-`name` | Nome do plano
-`trial_days` | Dias para teste gratuito da assinatura. O valor começará a ser cobrado no dia `trial_days + 1`
+Parâmetro | Tipo | Descrição
+---|---|---
+`api_key` <br /> **Obrigatório** | `String` | Chave de API
+`id` <br /> **Obrigatório** | `Integer` | Id do recebedor
+`name`<br /> **Pode ser alterado** | `String` | Nome do plano
+`trial_days`<br /> **Pode ser alterado** | `Integer` | Dias para teste gratuito da assinatura. O valor começará a ser cobrado no dia `trial_days + 1`
 
 ```endpoint
 PUT /plans/{id}
@@ -443,7 +448,7 @@ PUT /plans/{id}
 # Atualizando um plano
 curl -X PUT https://api.pagar.me/1/plans/40648 \
 -u "ak_test_e1QGU2gL98MDCHZxHLJ9sofPUFJ7tH:x" \
--d "name=Plano de Teste do Richard" \
+-d "name=Plano de Teste de Teste" \
 -d "trial_days=8"
 ```
 
@@ -455,7 +460,7 @@ PagarMe.api_key = "ak_test_e1QGU2gL98MDCHZxHLJ9sofPUFJ7tH"
 
 plan = PagarMe::Plan.find_by_id("40648")
 
-plan.name = "Plano de Teste do Richard"
+plan.name = "Plano de Teste de Teste"
 plan.trial_days = 8
 
 plan.save
@@ -471,7 +476,7 @@ Pagarme::setApiKey("ak_test_e1QGU2gL98MDCHZxHLJ9sofPUFJ7tH");
 
 $plan = PagarMe_Plan::findById("40648");
 
-$plan->setName("Plano de Teste do Richard");
+$plan->setName("Plano de Teste de Teste");
 $plan->setTrialDays(8);
 
 $plan->save();
@@ -483,7 +488,7 @@ PagarMeService.DefaultApiKey = "ak_test_e1QGU2gL98MDCHZxHLJ9sofPUFJ7tH";
 
 var plan = PagarMeService.GetDefaultService().Plans.Find(4064);
 
-plan.Name = "Plano de Teste do Richard"
+plan.Name = "Plano de Teste de Teste"
 plan.TrialDays = 8
 
 plan.Save()
@@ -493,19 +498,19 @@ plan.Save()
 
 ```json
 {
-    "amount": 8000,
-    "charges": null,
-    "color": null,
-    "date_created": "2016-05-31T02:34:29.442Z",
-    "days": 30,
-    "id": 40648,
-    "installments": 1,
-    "name": "Plano de Teste do Richard",
     "object": "plan",
+    "id": 40648,
+    "amount": 8000,
+    "days": 30,
+    "name": "Plano de Teste de Teste",
+    "trial_days": 8,
+    "date_created": "2016-05-31T02:34:29.442Z",
     "payment_methods": [
         "credit_card",
         "boleto"
     ],
-    "trial_days": 8
+    "charges": null,
+    "color": null,
+    "installments": 1
 }
 ```
