@@ -23,12 +23,12 @@ Propriedade | Tipo | Descrição
 ```json
 {
     "object": "plan",
-    "id": 13731,
+    "id": 40651,
     "amount": 31000,
     "days": 30,
     name": "Plano Diamond",
     "trial_days": 7,
-    "date_created": "2015-03-03T17:31:47.000Z",
+    "date_created": "2016-03-03T17:31:47.000Z",
     "payment_methods": [
         "boleto"
     ],
@@ -69,17 +69,7 @@ POST /plans
 
 ```curl
 # Criando um plano
-curl -X POST https://api.pagar.me/1/plans \
--u "ak_test_e1QGU2gL98MDCHZxHLJ9sofPUFJ7tH:x" \
--d "amount=8000" \
--d "days=30" \
--d "name=Plano de Teste" \
--d "payment_methods[]=credit_card,boleto"
-
-# Criando um plano com 14 dias de teste grátis
-curl -X POST https://api.pagar.me/1/plans \
--u "ak_test_e1QGU2gL98MDCHZxHLJ9sofPUFJ7tH:x" \
--d "amount=8000" \
+curl -X POST https://api.pagar.m\
 -d "days=30" \
 -d "name=Plano de teste de 14 dias" \
 -d "payment_methods[]=credit_card" \
@@ -100,7 +90,7 @@ curl -X POST https://api.pagar.me/1/plans \
 -u "ak_test_e1QGU2gL98MDCHZxHLJ9sofPUFJ7tH:x" \
 -d "amount=8000" \
 -d "days=30" \
--d "name=Plano Anual Parcelado" \
+-d "name=Plano Anual Parcelado por três anos com boleto" \
 -d "payment_methods[]=boleto" \
 -d "installments=12" \
 -d "charges=3"
@@ -417,7 +407,7 @@ var plans = PagarMeService.GetDefaultService().Plans.FindAll(1, 1);
         "days": 30,
         "id": 40651,
         "installments": 12,
-        "name": "Plano Anual Parcelado de teste",
+        "name": "Plano Anual Parcelado de teste no boleto",
         "object": "plan",
         "payment_methods": [
             "boleto"
