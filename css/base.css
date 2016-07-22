@@ -967,6 +967,7 @@ pre {
   pre code {
     background:transparent;
     padding:0;
+	max-height: 500px;
     }
 
 .pre-scrollable {
