@@ -26,7 +26,7 @@ Propriedade | Tipo | Descrição
     "id": 40651,
     "amount": 31000,
     "days": 30,
-    name": "Plano Diamond",
+    name": "Plano de teste",
     "trial_days": 7,
     "date_created": "2016-03-03T17:31:47.000Z",
     "payment_methods": [
@@ -89,7 +89,7 @@ curl -X POST https://api.pagar.me/1/plans \
 curl -X POST https://api.pagar.me/1/plans \
 -u "ak_test_e1QGU2gL98MDCHZxHLJ9sofPUFJ7tH:x" \
 -d "amount=8000" \
--d "days=30" \
+-d "days=365" \
 -d "name=Plano Anual Parcelado por três anos com boleto" \
 -d "payment_methods[]=boleto" \
 -d "installments=12" \
@@ -114,7 +114,7 @@ plan.create
 # Criando um plano com 14 dias de teste grátis
 plan = PagarMe::Plan.new({
    "amount" => 8000,
-   "days" => 30,
+   "days" => 365,
    "name" => "Plano de teste de 14 dias",
    "payment_methods" => ['credit_card'],
    "trial_days" => 14
