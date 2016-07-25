@@ -26,7 +26,7 @@ Propriedade | Tipo | Descrição
     "id": 40651,
     "amount": 31000,
     "days": 30,
-    name": "Plano de teste",
+    "name": "Plano de teste",
     "trial_days": 7,
     "date_created": "2016-03-03T17:31:47.000Z",
     "payment_methods": [
@@ -103,45 +103,45 @@ require 'pagarme'
 PagarMe.api_key = "ak_test_e1QGU2gL98MDCHZxHLJ9sofPUFJ7tH"
 
 plan = PagarMe::Plan.new({
-   "amount" => 8000,
-   "days" => 30,
-   "name" => "Plano de teste",
-   "payment_methods" => ['credit_card', 'boleto']
+   amount: 8000,
+   days: 30,
+   name: "Plano de teste",
+   payment_methods: ['credit_card', 'boleto']
 })
 
 plan.create
 
 # Criando um plano com 14 dias de teste grátis
 plan = PagarMe::Plan.new({
-   "amount" => 8000,
-   "days" => 365,
-   "name" => "Plano de teste de 14 dias",
-   "payment_methods" => ['credit_card'],
-   "trial_days" => 14
+   amount: 8000,
+   days: 365,
+   name: "Plano de teste de 14 dias",
+   payment_methods: ['credit_card'],
+   trial_days: 14
 })
 
 plan.create
 
 # Criando um plano anual válido por 3 anos com boleto
 plan = PagarMe::Plan.new({
-   "amount" => 8000,
-   "days" => 365,
-   "name" => "Plano Anual",
-   "payment_methods" => ['boleto'],
-   "installments" => 1,
-   "charges" => 3
+   amount: 8000,
+   days: 365,
+   name: "Plano Anual",
+   payment_methods: ['boleto'],
+   installments: 1,
+   charges: 3
 })
 
 plan.create
 
 # Criando um plano anual parcelado válido por 3 anos com boleto
 plan = PagarMe::Plan.new({
-   "amount" => 8000,
-   "days" => 30,
-   "name" => "Plano parcelado de três anos",
-   "payment_methods" => ['boleto'],
-   "installments" => 12,
-   "charges" => 3
+   amount: 8000,
+   days: 30,
+   name: "Plano parcelado de três anos",
+   payment_methods: ['boleto'],
+   installments: 12,
+   charges: 3
 })
 
 plan.create
@@ -263,7 +263,7 @@ plan.Save();
     "amount": 8000,
     "days": 30,
     "name": "Plano de teste",
-    "trial_days": 0
+    "trial_days": 0,
     "date_created": "2016-05-31T02:34:29.442Z",
     "payment_methods": [
         "credit_card",
@@ -271,7 +271,7 @@ plan.Save();
     ],
     "charges": null,
     "color": null,
-    "installments": 1,
+    "installments": 1
 }
 ```
 
