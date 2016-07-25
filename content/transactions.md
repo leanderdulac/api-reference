@@ -41,48 +41,85 @@ Propriedade | Tipo | Descrição
 ```json
 {
 	"object": "transaction",
-	"status": "processing",
+	"status": "paid",
 	"refuse_reason": null,
 	"status_reason": "acquirer",
-	"acquirer_response_code": null,
-	"authorization_code": null,
-	"soft_descriptor": "ApiPagarMe",
-	"tid": null,
-	"nsu": null,
-	"date_created": "2015-02-25T21:54:56.000Z",
-	"date_updated": "2015-02-25T21:54:56.000Z",
-	"amount": 310000,
-	"installments": 5,
-	"id": 184220,
-	"cost": 0,
-	"postback_url": "http://requestb.in/pkt7pgpk",
+	"acquirer_response_code": "00",
+	"acquirer_name": "pagarme",
+	"authorization_code": "496703",
+	"soft_descriptor": null,
+	"tid": 586425,
+	"nsu": 586425,
+	"date_created": "2016-07-25T01:11:21.760Z",
+	"date_updated": "2016-07-25T01:11:22.260Z",
+	"amount": 1000,
+	"authorized_amount": 1000,
+	"paid_amount": 1000,
+	"refunded_amount": 0,
+	"installments": 1,
+	"id": 586425,
+	"cost": 50,
+	"card_holder_name": "Teste PagarMe",
+	"card_last_digits": "4242",
+	"card_first_digits": "424242",
+	"card_brand": "visa",
+	"postback_url": null,
 	"payment_method": "credit_card",
+	"capture_method": "ecommerce",
 	"antifraud_score": null,
 	"boleto_url": null,
 	"boleto_barcode": null,
 	"boleto_expiration_date": null,
 	"referer": "api_key",
-	"ip": "189.8.94.42",
+	"ip": "191.5.241.176",
 	"subscription_id": null,
-	"phone": null,
-	"address": null,
-	"customer": null,
+	"phone": {
+		"object": "phone",
+		"ddi": "55",
+		"ddd": "011",
+		"number": "99991111",
+		"id": 37488
+	},
+	"address": {
+		"object": "address",
+		"street": "AddressStreet",
+		"complementary": "AddressComplementary",
+		"street_number": "123",
+		"neighborhood": "AddressNeighborhood",
+		"city": "São Paulo",
+		"state": "SP",
+		"zipcode": "01311300",
+		"country": "Brasil",
+		"id": 41253
+	},
+	"customer": {
+		"object": "customer",
+		"document_number": "17107537903",
+		"document_type": "cpf",
+		"name": "Teste PagarMe",
+		"email": "teste@pagar.me",
+		"born_at": "1976-09-13T03:00:00.000Z",
+		"gender": "M",
+		"date_created": "2016-06-09T20:21:05.513Z",
+		"id": 72900
+	},
 	"card": {
 		"object": "card",
-		"id": "card_ci6l9fx8f0042rt16rtb477gj",
-		"date_created": "2015-02-25T21:54:56.000Z",
-		"date_updated": "2015-02-25T21:54:56.000Z",
-		"brand": "mastercard",
+		"id": "card_cip8r1ldm000uuk6dew9h2ysk",
+		"date_created": "2016-06-09T20:21:05.540Z",
+		"date_updated": "2016-07-25T01:11:21.748Z",
+		"brand": "visa",
 		"holder_name": "Teste PagarMe",
-		"first_digits": "548045",
-		"last_digits": "3123",
-		"fingerprint": "HSiLJan2nqwn",
-		"valid": null
+		"first_digits": "424242",
+		"last_digits": "4242",
+		"country": "US",
+		"fingerprint": "9zuwCp0U7A/e",
+		"valid": true,
+		"expiration_date": "0919"
 	},
-	"metadata": {
-		"nome": "Teste PagarMe",
-		"id": 13
-	}
+	"split_rules": null,
+	"metadata": {},
+	"antifraud_metadata": {}
 }
 ```
 
@@ -131,10 +168,21 @@ POST /transactions
 
 #### Exemplo de requisição:
 ```curl
+# Criando uma transação de cartão já existente
 curl -X POST https://api.pagar.me/1/transactions \
 -d 'api_key=ak_test_grXijQ4GicOa2BLGZrDRTR5qNQxJW0' \
 -d 'amount=3100' \
--d 'card_id=card_ci6l9fx8f0042rt16rtb477gj' \
+-d 'card_id=card_ci6l9fx8f0042rt16rtb477gj'  \
+-d 'customer[name]=Teste PagarMe' \
+-d 'customer[document_number]=82218612437' \
+-d 'customer[email]=teste@pagar.me' \
+-d 'customer[address][street]=AddressStreet' \
+-d 'customer[address][street_number]=213' \
+-d 'customer[address][complementary]=AddressComplementary' \
+-d 'customer[address][neighborhood]=AddressNeighborhood' \
+-d 'customer[address][zipcode]=01311300' \
+-d 'customer[phone][ddd]=11' \
+-d 'customer[phone][number]=12345678' \
 -d 'postback_url=http://requestb.in/pkt7pgpk' \
 -d 'metadata[idProduto]=13933139'
 ```
@@ -147,6 +195,22 @@ PagarMe.api_key = "ak_test_e1QGU2gL98MDCHZxHLJ9sofPUFJ7tH"
 transaction = PagarMe::Transaction.new({
 	amount: 3100,
 	card_id: "card_ci6l9fx8f0042rt16rtb477gj",
+	customer: PagarMe::Customer.new({
+		name: "Teste PagarMe",
+		document_number: "82218612437",
+		email: "teste@pagar.me",
+		address: {
+			street: "AddressStreet",
+			street_number: "123",
+			complementary: "Complementary",
+			neighborhood: "AddressNighborhood",
+			zipcode: "01311300"
+		},
+		phone: {
+			ddd: "11",
+			number: "12345678"
+		}
+	}),
 	postback_url: "http://requestb.in/pkt7pgpk",
 	metadata: {
 		idProduto: 13933139
@@ -163,6 +227,22 @@ PagarMe::setApiKey("ak_test_e1QGU2gL98MDCHZxHLJ9sofPUFJ7tH");
 $transaction = new PagarMe_Transaction(array(
 	"amount" => 3100,
 	"card_id" => "card_ci6l9fx8f0042rt16rtb477gj",
+	"customer" => array(
+		"name" => "Teste PagarMe",
+		"document_number" => "82218612437",
+		"email" => "teste@pagar.me",
+		"address" => array(
+			"street" => "AddressStreet",
+			"street_number" => "123",
+			"complementary" => "AddressComplementary",
+			"neighborhood" => "AddressNeighborhood",
+			"zipcode" => "01311300"
+		),
+		"phone" => array(
+			"ddd" => "11",
+			"number" => "12345678"
+		)
+	),
 	"postback_url" =>  "http://requestb.in/pkt7pgpk",
 	"metadata" => array(
 		"idProduto" => 13933139
@@ -180,6 +260,25 @@ Transaction transaction = new Transaction()
 {
 	Amount = 3100,
 	CardId = "card_ci6l9fx8f0042rt16rtb477gj",
+	Customer = new Customer()
+	{
+		Name = "Teste PagarMe",
+		DocumentNumber = "82218612437",
+		Email = "teste@pagar.me",
+		Address = new Address()
+		{
+			Street = "AddressStreet",
+			StreetNumber = 123,
+			Complementary = "AddressComplementary",
+			Neighborhood = "AddressNeighborhood",
+			Zipcode = "01311300"
+		},
+		Phone = new Phone()
+		{
+			Ddd = "11",
+			Number = "12345678"
+		}
+	},
 	PostbackUrl = "http://requestb.in/pkt7pgpk",
 	Metadata = new AbstractModel(PagarMeService.GetDefaultService())
 	{
@@ -193,48 +292,86 @@ transaction.Save();
 
 ```json
 {
-  "object": "transaction",
-  "status": "processing",
-  "refuse_reason": null,
-  "status_reason": "acquirer",
-  "acquirer_response_code": null,
-  "authorization_code": null,
-  "soft_descriptor": "testeDeAPI",
-  "tid": null,
-  "nsu": null,
-  "date_created": "2015-02-25T21:54:56.000Z",
-  "date_updated": "2015-02-25T21:54:56.000Z",
-  "amount": 310000,
-  "installments": 5,
-  "id": 184220,
-  "cost": 0,
-  "postback_url": "http://requestb.in/pkt7pgpk",
-  "payment_method": "credit_card",
-  "antifraud_score": null,
-  "boleto_url": null,
-  "boleto_barcode": null,
-  "boleto_expiration_date": null,
-  "referer": "api_key",
-  "ip": "189.8.94.42",
-  "subscription_id": null,
-  "phone": null,
-  "address": null,
-  "customer": null,
-  "card": {
-    "object": "card",
-    "id": "card_ci6l9fx8f0042rt16rtb477gj",
-    "date_created": "2015-02-25T21:54:56.000Z",
-    "date_updated": "2015-02-25T21:54:56.000Z",
-    "brand": "mastercard",
-    "holder_name": "Api Customer",
-    "first_digits": "548045",
-    "last_digits": "3123",
-    "fingerprint": "HSiLJan2nqwn",
-    "valid": null
-  },
-  "metadata": {
-    "idProduto": "13933139"
-  }
+	"object": "transaction",
+	"status": "paid",
+	"refuse_reason": null,
+	"status_reason": "acquirer",
+	"acquirer_response_code": "00",
+	"acquirer_name": "pagarme",
+	"authorization_code": "496703",
+	"soft_descriptor": null,
+	"tid": 586425,
+	"nsu": 586425,
+	"date_created": "2016-07-25T01:11:21.760Z",
+	"date_updated": "2016-07-25T01:11:22.260Z",
+	"amount": 1000,
+	"authorized_amount": 1000,
+	"paid_amount": 1000,
+	"refunded_amount": 0,
+	"installments": 1,
+	"id": 586425,
+	"cost": 50,
+	"card_holder_name": "Teste PagarMe",
+	"card_last_digits": "4242",
+	"card_first_digits": "424242",
+	"card_brand": "visa",
+	"postback_url": null,
+	"payment_method": "credit_card",
+	"capture_method": "ecommerce",
+	"antifraud_score": null,
+	"boleto_url": null,
+	"boleto_barcode": null,
+	"boleto_expiration_date": null,
+	"referer": "api_key",
+	"ip": "191.5.241.176",
+	"subscription_id": null,
+	"phone": {
+		"object": "phone",
+		"ddi": "55",
+		"ddd": "011",
+		"number": "99991111",
+		"id": 37488
+	},
+	"address": {
+		"object": "address",
+		"street": "AddressStreet",
+		"complementary": "AddressComplementary",
+		"street_number": "123",
+		"neighborhood": "AddressNeighborhood",
+		"city": "São Paulo",
+		"state": "SP",
+		"zipcode": "01311300",
+		"country": "Brasil",
+		"id": 41253
+	},
+	"customer": {
+		"object": "customer",
+		"document_number": "17107537903",
+		"document_type": "cpf",
+		"name": "Teste PagarMe",
+		"email": "teste@pagar.me",
+		"born_at": "1976-09-13T03:00:00.000Z",
+		"gender": "M",
+		"date_created": "2016-06-09T20:21:05.513Z",
+		"id": 72900
+	},
+	"card": {
+		"object": "card",
+		"id": "card_cip8r1ldm000uuk6dew9h2ysk",
+		"date_created": "2016-06-09T20:21:05.540Z",
+		"date_updated": "2016-07-25T01:11:21.748Z",
+		"brand": "visa",
+		"holder_name": "Teste PagarMe",
+		"first_digits": "424242",
+		"last_digits": "4242",
+		"country": "US",
+		"fingerprint": "9zuwCp0U7A/e",
+		"valid": true,
+		"expiration_date": "0919"
+	},
+	"split_rules": null,
+	"metadata": {},
+	"antifraud_metadata": {}
 }
 ```
 
@@ -285,36 +422,86 @@ Transaction transaction = PagarMeService.GetDefaultService().Transactions.Find("
 #### Exemplo de resposta 
 ```json
 {
-    "object": "transaction",
-    "status": "paid",
-    "refuse_reason": null,
-    "status_reason": "acquirer",
-    "acquirer_response_code": null,
-    "acquirer_name": "development",
-    "authorization_code": null,
-    "soft_descriptor": null,
-    "tid": null,
-    "nsu": null,
-    "date_created": "2015-02-26T15:35:32.000Z",
-    "date_updated": "2015-02-26T15:35:47.000Z",
-    "amount": 25000,
-    "installments": 1,
-    "id": 184270,
-    "cost": 115,
-    "postback_url": null,
-    "payment_method": "boleto",
-    "antifraud_score": null,
-    "boleto_url": "https://pagar.me",
-    "boleto_barcode": "1234 5678",
-    "boleto_expiration_date": "2015-03-02T03:00:00.000Z",
-    "referer": "session_id",
-    "ip": "189.8.94.42",
-    "subscription_id": null,
-    "phone": null,
-    "address": null,
-    "customer": null,
-    "card": null,
-	"metadata": {}
+	"object": "transaction",
+	"status": "paid",
+	"refuse_reason": null,
+	"status_reason": "acquirer",
+	"acquirer_response_code": "00",
+	"acquirer_name": "pagarme",
+	"authorization_code": "496703",
+	"soft_descriptor": null,
+	"tid": 586425,
+	"nsu": 586425,
+	"date_created": "2016-07-25T01:11:21.760Z",
+	"date_updated": "2016-07-25T01:11:22.260Z",
+	"amount": 1000,
+	"authorized_amount": 1000,
+	"paid_amount": 1000,
+	"refunded_amount": 0,
+	"installments": 1,
+	"id": 586425,
+	"cost": 50,
+	"card_holder_name": "Teste PagarMe",
+	"card_last_digits": "4242",
+	"card_first_digits": "424242",
+	"card_brand": "visa",
+	"postback_url": null,
+	"payment_method": "credit_card",
+	"capture_method": "ecommerce",
+	"antifraud_score": null,
+	"boleto_url": null,
+	"boleto_barcode": null,
+	"boleto_expiration_date": null,
+	"referer": "api_key",
+	"ip": "191.5.241.176",
+	"subscription_id": null,
+	"phone": {
+		"object": "phone",
+		"ddi": "55",
+		"ddd": "011",
+		"number": "99991111",
+		"id": 37488
+	},
+	"address": {
+		"object": "address",
+		"street": "AddressStreet",
+		"complementary": "AddressComplementary",
+		"street_number": "123",
+		"neighborhood": "AddressNeighborhood",
+		"city": "São Paulo",
+		"state": "SP",
+		"zipcode": "01311300",
+		"country": "Brasil",
+		"id": 41253
+	},
+	"customer": {
+		"object": "customer",
+		"document_number": "17107537903",
+		"document_type": "cpf",
+		"name": "Teste PagarMe",
+		"email": "teste@pagar.me",
+		"born_at": "1976-09-13T03:00:00.000Z",
+		"gender": "M",
+		"date_created": "2016-06-09T20:21:05.513Z",
+		"id": 72900
+	},
+	"card": {
+		"object": "card",
+		"id": "card_cip8r1ldm000uuk6dew9h2ysk",
+		"date_created": "2016-06-09T20:21:05.540Z",
+		"date_updated": "2016-07-25T01:11:21.748Z",
+		"brand": "visa",
+		"holder_name": "Teste PagarMe",
+		"first_digits": "424242",
+		"last_digits": "4242",
+		"country": "US",
+		"fingerprint": "9zuwCp0U7A/e",
+		"valid": true,
+		"expiration_date": "0919"
+	},
+	"split_rules": null,
+	"metadata": {},
+	"antifraud_metadata": {}
 }
 ```
 
@@ -339,8 +526,8 @@ PUT /transactions/{id}
 # Retornando uma transação
 curl -X GET https://api.pagar.me/1/transactions \
 -u "ak_test_e1QGU2gL98MDCHZxHLJ9sofPUFJ7tH:x" \
--u "count=3" \
--u "page=3"
+-u "count=1" \
+-u "page=1"
 ```
 
 ```ruby
@@ -348,7 +535,7 @@ require "pagarme"
 
 PagarMe.api_key = "ak_test_e1QGU2gL98MDCHZxHLJ9sofPUFJ7tH"
 
-transaction = PagarMe::Transaction.all(3, 3)
+transaction = PagarMe::Transaction.all(1, 1)
 ```
 
 ```php
@@ -356,7 +543,7 @@ require("pagarme-php/Pagarme.php");
 
 PagarMe::setApiKey("ak_test_e1QGU2gL98MDCHZxHLJ9sofPUFJ7tH");
 
-$transaction = PagarMe_Transaction->all(3, 3);
+$transaction = PagarMe_Transaction->all(1, 1);
 ```
 
 ```csharp
@@ -370,36 +557,86 @@ List<Transaction> transactions = PagarMeService.GetDefaultService().Transactions
 #### Exemplo de resposta 
 ```json
 {
-    "object": "transaction",
-    "status": "paid",
-    "refuse_reason": null,
-    "status_reason": "acquirer",
-    "acquirer_response_code": null,
-    "acquirer_name": "development",
-    "authorization_code": null,
-    "soft_descriptor": null,
-    "tid": null,
-    "nsu": null,
-    "date_created": "2015-02-26T15:35:32.000Z",
-    "date_updated": "2015-02-26T15:35:47.000Z",
-    "amount": 25000,
-    "installments": 1,
-    "id": 184270,
-    "cost": 115,
-    "postback_url": null,
-    "payment_method": "boleto",
-    "antifraud_score": null,
-    "boleto_url": "https://pagar.me",
-    "boleto_barcode": "1234 5678",
-    "boleto_expiration_date": "2015-03-02T03:00:00.000Z",
-    "referer": "session_id",
-    "ip": "189.8.94.42",
-    "subscription_id": null,
-    "phone": null,
-    "address": null,
-    "customer": null,
-    "card": null,
-	"metadata": {}
+	"object": "transaction",
+	"status": "paid",
+	"refuse_reason": null,
+	"status_reason": "acquirer",
+	"acquirer_response_code": "00",
+	"acquirer_name": "pagarme",
+	"authorization_code": "496703",
+	"soft_descriptor": null,
+	"tid": 586425,
+	"nsu": 586425,
+	"date_created": "2016-07-25T01:11:21.760Z",
+	"date_updated": "2016-07-25T01:11:22.260Z",
+	"amount": 1000,
+	"authorized_amount": 1000,
+	"paid_amount": 1000,
+	"refunded_amount": 0,
+	"installments": 1,
+	"id": 586425,
+	"cost": 50,
+	"card_holder_name": "Teste PagarMe",
+	"card_last_digits": "4242",
+	"card_first_digits": "424242",
+	"card_brand": "visa",
+	"postback_url": null,
+	"payment_method": "credit_card",
+	"capture_method": "ecommerce",
+	"antifraud_score": null,
+	"boleto_url": null,
+	"boleto_barcode": null,
+	"boleto_expiration_date": null,
+	"referer": "api_key",
+	"ip": "191.5.241.176",
+	"subscription_id": null,
+	"phone": {
+		"object": "phone",
+		"ddi": "55",
+		"ddd": "011",
+		"number": "99991111",
+		"id": 37488
+	},
+	"address": {
+		"object": "address",
+		"street": "AddressStreet",
+		"complementary": "AddressComplementary",
+		"street_number": "123",
+		"neighborhood": "AddressNeighborhood",
+		"city": "São Paulo",
+		"state": "SP",
+		"zipcode": "01311300",
+		"country": "Brasil",
+		"id": 41253
+	},
+	"customer": {
+		"object": "customer",
+		"document_number": "17107537903",
+		"document_type": "cpf",
+		"name": "Teste PagarMe",
+		"email": "teste@pagar.me",
+		"born_at": "1976-09-13T03:00:00.000Z",
+		"gender": "M",
+		"date_created": "2016-06-09T20:21:05.513Z",
+		"id": 72900
+	},
+	"card": {
+		"object": "card",
+		"id": "card_cip8r1ldm000uuk6dew9h2ysk",
+		"date_created": "2016-06-09T20:21:05.540Z",
+		"date_updated": "2016-07-25T01:11:21.748Z",
+		"brand": "visa",
+		"holder_name": "Teste PagarMe",
+		"first_digits": "424242",
+		"last_digits": "4242",
+		"country": "US",
+		"fingerprint": "9zuwCp0U7A/e",
+		"valid": true,
+		"expiration_date": "0919"
+	},
+	"split_rules": null,
+	"metadata": {},
+	"antifraud_metadata": {}
 }
 ```
 
