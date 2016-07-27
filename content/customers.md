@@ -2,51 +2,36 @@
 
 ### Objeto customer
 
-Propriedade | Tipo | Descrição
----|---|---
-`addresses` **=>** | `array` | Lista de endereços do cliente
-`city` | `string` | Cidade do cliente
-`complementary` | `string` | Complemento do endereço
-`country` | `string` | País do cliente
-`id` | `integer` | Id do endereço do cliente
-`neighborhood` | `string` | Bairro do cliente
-`object` | `string` | Nome do tipo do objeto criado/modificado.
-`state` | `string` | Estado do cliente
-`street` | `string` | Rua do cliente
-`street_number` | `string` | Número da rua do cliente
-`zipcode` | `string` | Código postal (CEP) do cliente
----|---|---
-`born_at` | `date` | Data de nascimento do cliente no formato ISODate
-`date_created` | `date` | Data de criação do cliente no formato ISODate
-`document_number` | `string` | Número do CPF ou CNPJ do cliente
-`document_type` | `string` | Tipo do documento do cliente
-`email` | `string` | E-mail do cliente
-`gender` | `string` | Gênero do cliente
-`id` | `integer` | Id do cliente
-`name` | `string` | Data de nascimento do cliente
-`object` | `string` | Nome do tipo do objeto criado/modificado.
----|---|---
-`phones` **=>** | `array` | Lista de telefones do cliente
-`ddd` | `string` | DDD (Discagem Direta à Distância) do cliente
-`ddi` | `string` | DDI (Discagem Direta Internacional)
-`id` | `integer` | Id do telefone do cliente
-`number` | `string` | Telefone do cliente
-`object` | `string` | Nome do tipo do objeto criado/modificado.
+Ao criar um customer, esse será o objeto que irá guardar suas informações.
 
-#### Exemplo do objeto
+Propriedade        | Tipo      | Descrição
+---                | ---       | ---
+`object`           | `String`  | Nome do tipo do objeto criado/modificado.
+`document_number`  | `String`  | Número do CPF ou CNPJ do cliente
+`document_type`    | `String`  | Tipo do documento do cliente
+`name`             | `String`  | Data de nascimento do cliente
+`email`            | `String`  | E-mail do cliente
+`born_at`          | `Date`    | Data de nascimento do cliente no formato ISODate
+`gender`           | `String`  | Gênero do cliente
+`date_created`     | `Date`    | Data de criação do cliente no formato ISODate
+`id`               | `Integer` | Id do cliente
+`phones`     | `Array[Object]`   | Lista de telefones do cliente
+`addresses`  | `Array[Object]`   | Lista de endereços do cliente
+
+#### Exemplo de objeto
 
 ```json
 {
     "addresses": [
         {
-            "city": "Richardland",
+            "city": "Cidade",
             "complementary": "Apartamento 8",
             "country": "Lordaeron",
             "id": 30264,
-            "neighborhood": "Bairro do Richard",
+            "neighborhood": "Bairro de exemplo",
             "object": "address",
             "state": "Lordaeron",
-            "street": "Rua do Richard",
+            "street": "Rua de exemplo",
             "street_number": "808",
             "zipcode": "80808080"
         }
@@ -55,10 +40,10 @@ Propriedade | Tipo | Descrição
     "date_created": "2016-05-16T21:04:33.218Z",
     "document_number": "80802694594",
     "document_type": "cpf",
-    "email": "richard.deschamps@example.com",
+    "email": "example@exampl.com",
     "gender": "M",
     "id": 64912,
-    "name": "Richard Deschamps",
+    "name": "Name",
     "object": "customer",
     "phones": [
         {
@@ -71,31 +56,69 @@ Propriedade | Tipo | Descrição
     ]
 }
 ```
+### Objeto phone
+
+Ao criar um customer, é nesse objeto que ficam os dados referentes aos seus numeros de telefone.
+
+Propriedade | Tipo | Descrição
+---|---|---
+`object` | `String` | Nome do objeto criado
+`ddi` | `String` | Número do DDI do telefone
+`ddd` | `String` | Numero do DDD do telefone
+`number` | `String` | Numero do telefone do cliente
+`id` | `Integer` | Id gerado pelo sistema para o telefone criado
+
+
+#### Exemplo do objeto
+
+```json
+{
+     "ddi": "88",
+     "id": 29717,
+     "number": "808080808",
+     "object": "phone"
+}
+```
+
+### Objeto address
+
+o criar um customer, é nesse objeto que ficam os dados referentes aos seus endereços.
+
+Parâmetros | Tipo | Descrição
+---|---|---
+`object` | `String` | Nome do objeto criado
+`street` | `String` | Logradouro do cliente
+`complementary` | `String` | Complemento do endereço do cliente
+`street_number` | `String` | Numero do endereço do cliente
+`neighborhood` | `String` | Bairro do cliente
+`city` | `String` | Cidade do endereço do cliente
+`state` | `String` | Estado do endereço do cliente
+`zipcode` | `String` | CEP do cliente
+`country` | `String` | País do endereço do cliente
 
 ### Criar um cliente
 
 Através dessa rota você pode salvar os dados de um cliente no nosso banco de dados.
 
-Parâmetro | Descrição
----|---
-`name` (**Obrigatório**) | Nome ou razão social do cliente
-`email` (**Obrigatório**) | E-mail do cliente
-`document_number` | Número do CPF ou CNPJ do cliente
-`gender` | Gênero do cliente
-`born_at` | Data de nascimento do cliente
----|---
-`address[street]` (**Obrigatório**) | Nome da rua do cliente
-`address[street_number]` (**Obrigatório**) | Número da rua do cliente
-`address[neighborhood]` (**Obrigatório**) | Bairro do cliente
-`address[complementary]` | Complemento do endereço
-`address[city]` | Cidade do cliente
-`address[state]` | Estado do cliente
-`address[zipcode]` (**Obrigatório**) | Código postal (CEP) do cliente
-`address[country]` | País do cliente
----|---
-`phone[ddi]` | DDI (Discagem Direta Internacional)
-`phone[ddd]` (**Obrigatório**) | DDD (Discagem Direta à Distância)
-`phone[number]` (**Obrigatório**) | Número do telefone (máximo de 9 dígitos, apenas números)
+Parâmetro                                       | Tipo     | Descrição
+---                                             | ---      | ---
+`api_key` | `String` | Chave da API, disponivel em seu Dashboard
+`name` <br /> **Obrigatório**                   | `String` | Nome ou razão social do cliente
+`email` <br /> **Obrigatório**                  | `String` | E-mail do cliente
+`document_number`                               | `String` | Número do CPF ou CNPJ do cliente
+`gender`                                        | `String` | Gênero do cliente
+`born_at`                                       | `String` | Data de nascimento do cliente
+`address[street]` <br /> **Obrigatório**        | `String` | Nome da rua do cliente
+`address[street_number]` <br /> **Obrigatório** | `String` | Número da rua do cliente
+`address[neighborhood]` <br /> **Obrigatório**  | `String` | Bairro do cliente
+`address[complementary]`                        | `String` | Complemento do endereço
+`address[city]`                                 | `String` | Cidade do cliente
+`address[state]`                                | `String` | Estado do cliente
+`address[zipcode]` <br /> **Obrigatório**       | `String` | Código postal (CEP) do cliente
+`address[country]`                              | `String` | País do cliente
+`phone[ddi]`                                    | `String` | DDI (Discagem Direta Internacional)
+`phone[ddd]` <br /> **Obrigatório**             | `String` | DDD (Discagem Direta à Distância)
+`phone[number]` <br /> **Obrigatório**          | `String` | Número do telefone (máximo de 9 dígitos, apenas números)
 
 ```endpoint
 POST /customers
@@ -107,16 +130,16 @@ POST /customers
 # Criando um cliente
 curl -X POST https://api.pagar.me/1/customers \
 -u "ak_test_e1QGU2gL98MDCHZxHLJ9sofPUFJ7tH:x" \
--d "name=Richard Deschamps" \
--d "email=richard.deschamps@example.com" \
+-d "name=Name" \
+-d "email=example@example.com" \
 -d "document_number=80802694594" \
 -d "gender=M" \
 -d "born_at=09-22-2015" \
--d "address[street]=Rua do Richard" \
+-d "address[street]=Rua de exemplo" \
 -d "address[street_number]=808" \
--d "address[neighborhood]=Bairro do Richard" \
+-d "address[neighborhood]=Bairro de exemplo" \
 -d "address[complementary]=Apartamento 8" \
--d "address[city]=Richardland" \
+-d "address[city]=Cidade" \
 -d "address[state]=Lordaeron" \
 -d "address[zipcode]=80808080" \
 -d "address[country]=Lordaeron" \
@@ -132,25 +155,25 @@ require 'pagarme'
 PagarMe.api_key = "ak_test_e1QGU2gL98MDCHZxHLJ9sofPUFJ7tH"
 
 customer = PagarMe::Customer.new({
-    "name" => "Richard Deschamps",
-	"email" => "richard.deschamps@example.com",
-	"document_number" => "80802694594",
-	"gender" => "M",
-	"born_at" => "09-22-2015",
-	"address" => {
-		"street" => "Rua do Richard",
-		"street_number" => "808",
-		"neighborhood" => "Bairro do Richard",
-		"complementary" => "Apartamento 8",
-		"city" => "Richardland",
-		"state" => "Lordaeron",
-		"zipcode" => "80808080",
-		"country" => "Lordaeron"
+    name: "Name",
+	email: "example@example.com",
+	document_number: "80802694594",
+	gender: "M",
+	born_at: "09-22-2015",
+	address: {
+		street: "Rua de exemplo",
+		street_number: "808",
+		neighborhood: "Bairro de exemplo",
+		complementary: "Apartamento 8",
+		city: "Cidade",
+		state: "Lordaeron",
+		zipcode: "80808080",
+		country: "Lordaeron"
 	},
-	"phone" => {
-		"ddi" => "88",
-		"ddd" => "88",
-		"number" => "808080808"
+	phone: {
+		ddi: "88",
+		ddd: "88",
+		number: "808080808"
 	}
 })
 
@@ -166,17 +189,17 @@ require("pagarme-php/Pagarme.php");
 Pagarme::setApiKey("ak_test_e1QGU2gL98MDCHZxHLJ9sofPUFJ7tH");
 
 $customer = new PagarMe_Customer(array(
-  	"name" => "Richard Deschamps",
-	"email" => "richard.deschamps@example.com",
+  	"name" => "Name",
+	"email" => "example@example.com",
 	"document_number" => "80802694594",
 	"gender" => "M",
 	"born_at" => "09-22-2015",
 	"address" => array(
-		"street" => "Rua do Richard",
+		"street" => "Rua de exemplo",
 		"street_number" => "808",
-		"neighborhood" => "Bairro do Richard",
+		"neighborhood" => "Bairro de exemplo",
 		"complementary" => "Apartamento 8",
-		"city" => "Richardland",
+		"city" => "Cidade",
 		"state" => "Lordaeron",
 		"zipcode" => "80808080",
 		"country" => "Lordaeron"
@@ -197,23 +220,21 @@ PagarMeService.DefaultApiKey = "ak_test_e1QGU2gL98MDCHZxHLJ9sofPUFJ7tH";
 
 Customer customer = new Customer();
 
-customer.Name = "Richard Deschamps";
-customer.Email = "richard.deschamps@example.com";
+customer.Name = "Name";
+customer.Email = "example@example.com";
 customer.DocumentNumber = "80802694594";
 customer.Gender = "M";
 customer.BornAt = "09-22-2015";
-
 customer.Address = new Address() {
-    Street = "Rua do Richard",
+    Street = "Rua de exemplo",
 	StreetNumber = "808",
-	Neighborhood = "Bairro do Richard"
+	Neighborhood = "Bairro de exemplo"
 	Complementary = "Apartamento 8",
-	City = "Richardland",
+	City = "Cidade",
 	State = "Lordaeron",
 	Zipcode = "80808080"
 	Country = "Lordaeron"
 };
-
 customer.Phone = new Phone() {
 	Ddi = "88"
 	Ddd = "88"
@@ -229,14 +250,14 @@ customer.Save();
 {
     "addresses": [
         {
-            "city": "Richardland",
+            "city": "Cidade",
             "complementary": "Apartamento 8",
             "country": "Lordaeron",
             "id": 30264,
-            "neighborhood": "Bairro do Richard",
+            "neighborhood": "Bairro de exemplo",
             "object": "address",
             "state": "Lordaeron",
-            "street": "Rua do Richard",
+            "street": "Rua de exemplo",
             "street_number": "808",
             "zipcode": "80808080"
         }
@@ -245,10 +266,10 @@ customer.Save();
     "date_created": "2016-05-16T21:04:33.218Z",
     "document_number": "80802694594",
     "document_type": "cpf",
-    "email": "richard.deschamps@example.com",
+    "email": "example@example.com",
     "gender": "M",
     "id": 64912,
-    "name": "Richard Deschamps",
+    "name": "Name",
     "object": "customer",
     "phones": [
         {
@@ -264,16 +285,17 @@ customer.Save();
 
 ### Retornar um cliente
 
-Através da rota `/customers/{id}` você recebe todos os dados do seu cliente, previamente cadastrado na realização de uma transação, quando os dados deste é passado pelos parâmetros `customer[nomeDaPropriedade]`.
+Através da rota `/customers/{id}` você recebe todos os dados do seu cliente, previamente cadastrado na realização de uma transação, quando os dados deste são passados pelos parâmetros `customer[nomeDaPropriedade]`.
 
-Parâmetro | Descrição
----|---
-`id` (**Obrigatório**) | Id do cliente
+Parâmetro | Tipo  | Descrição
+---|---|---
+`api_key` | `String` | Chave da API, disponivel em seu Dashboard
+`id` <br /> **Obrigatório** | `String` | Id do cliente
 
 ```endpoint
 GET /customers/{id}
 ```
-
+ 
 #### Exemplo de requisição
 
 ```curl
@@ -315,14 +337,14 @@ var customer = PagarMeService.GetDefaultService().Customers.Find(64912);
 {
     "addresses": [
         {
-            "city": "Richardland",
+            "city": "Cidade",
             "complementary": "Apartamento 8",
             "country": "Lordaeron",
             "id": 30264,
-            "neighborhood": "Bairro do Richard",
+            "neighborhood": "Bairro de exemplo",
             "object": "address",
             "state": "Lordaeron",
-            "street": "Rua do Richard",
+            "street": "Rua de exemplo",
             "street_number": "808",
             "zipcode": "80808080"
         }
@@ -331,10 +353,10 @@ var customer = PagarMeService.GetDefaultService().Customers.Find(64912);
     "date_created": "2016-05-16T21:04:33.218Z",
     "document_number": "80802694594",
     "document_type": "cpf",
-    "email": "richard.deschamps@example.com",
+    "email": "example@example.com",
     "gender": "M",
     "id": 64912,
-    "name": "Richard Deschamps",
+    "name": "Name",
     "object": "customer",
     "phones": [
         {
@@ -352,10 +374,11 @@ var customer = PagarMeService.GetDefaultService().Customers.Find(64912);
 
 Retorna todos os clientes cadastrados em sua conta.
 
-Parâmetro | Descrição
----|---
-`page` (**Padrão: 1**) | Útil para implementação de uma paginação de resultados
-`count` (**Padrão: 10**) | Retorna `n` objetos de `customer`
+Parâmetro | Tipo | Descrição
+---|---|---
+`api_key` | `String` | Chave da API, disponivel em seu Dashboard
+`page` <br /> **Padrão: 1** | `Integer` | Útil para implementação de uma paginação de resultados
+`count` <br /> **Padrão: 10** | `Integer` | Retorna `n` objetos de `customer`
 
 ```endpoint
 GET /customers
@@ -405,14 +428,14 @@ var customer = PagarMeService.GetDefaultService().Customers.FindAll(1, 1);
     {
         "addresses": [
             {
-                "city": "Richardland",
+                "city": "Cidade",
                 "complementary": "Apartamento 8",
                 "country": "Lordaeron",
                 "id": 30265,
-                "neighborhood": "Bairro do Richard",
+                "neighborhood": "Bairro de exemplo",
                 "object": "address",
                 "state": "Lordaeron",
-                "street": "Rua do Richard",
+                "street": "Rua de exemplo",
                 "street_number": "808",
                 "zipcode": "80808080"
             }
@@ -421,10 +444,10 @@ var customer = PagarMeService.GetDefaultService().Customers.FindAll(1, 1);
         "date_created": "2016-05-16T21:07:43.748Z",
         "document_number": "80802694594",
         "document_type": "cpf",
-        "email": "richard.deschamps@example.com",
+        "email": "example@example.com",
         "gender": "M",
         "id": 64913,
-        "name": "Richard Deschamps",
+        "name": "Name",
         "object": "customer",
         "phones": [
             {
