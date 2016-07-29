@@ -684,7 +684,7 @@ var subscription = PagarMeService.GetDefaultService().Subscriptions.Find("14858"
 ### Atualizando uma assinatura
 
 Após criar uma assinatura, você pode atualizar os dados do método do pagamento e o plano que essa assinatura está atrelada.
-**IMPORTANTE:** Ao atualizar os dados de pagamento de um cartão de crédito, memso que não tenha alteração no método, é necessário enviar o campo `payment_method` novamente.
+**IMPORTANTE:** Ao alterar os dados de um cartão de crédito, é necessário enviar o campo `payment_method` novamente, mesmo que não exista uma alteração nele.
 
 Parâmetro                                    | Tipo      | Descrição
 ---                                          | ---       | ---
