@@ -1393,13 +1393,13 @@ Parâmetro | Tipo | Descrição
 `api_key` <br /> **Obrigatório** | `String` | Chave de API, pode ser encontrada em sua dashboard 
 `:id` <br /> **Obrigatório** | `Integer` | Id da transação a ser estornada
 `bank_account_id` <br /> **Obrigatório** | `String` | Se você tiver o id de uma conta previamente criada, você pode passar apenas seu id. Caso a conta ainda não exista, você pode [criar uma conta](https://docs.pagar.me/#criando-uma-conta-bancaria) ou passar os dados da conta via parâmetros
-`bank_code`(&) | `String` | Dígitos que identificam cada banco. Confira a lista dos bancos [aqui](http://www.febraban.org.br/arquivo/bancos/sitebancos2-0.asp)
-`agencia`(&) | `String` | Número da agência bancária
+`bank_code` <br /> **Obrigatório** | `String` | Dígitos que identificam cada banco. Confira a lista dos bancos [aqui](http://www.febraban.org.br/arquivo/bancos/sitebancos2-0.asp)
+`agencia` <br /> **Obrigatório** | `String` | Número da agência bancária
 `agencia_dv` | `String` | Digito verificador da agência. Obrigatório caso o banco o utilize
-`conta`(&) | `String` | Número da conta
-`conta_dv`(&) | (S) | Dígito verificador da conta. Obrigatório caso o banco o utilize
-`document_number`(&) | (S) | CPF ou CNPJ do favorecido
-`legal_name`(&) | (S) | Nome/razão social do favorecido
+`conta` <br /> **Obrigatório** | `String` | Número da conta
+`conta_dv` <br /> **Obrigatório** | `String` | Dígito verificador da conta. Obrigatório caso o banco o utilize
+`document_number` <br /> **Obrigatório** | `String` | CPF ou CNPJ do favorecido
+`legal_name` <br /> **Obrigatório** | `String` | Nome/razão social do favorecido
 
 #### Exemplos de requisição:
 
@@ -1609,9 +1609,9 @@ O estorno parcial obedece as mesmas regras de um estorno total, e usa o parâmet
 
 Propriedade | Tipo | Descrição
 --- | --- | ---
-`api_key`(&) | (S) | Chave de API, pode ser encontrada em seu dashboard
-`id`(&) | (S) | Id da transação a ser estornada
-`amount`(&) | `Integer` | Valor que deseja que seja estornado
+`api_key` <br /> **Obrigatório** | `String` | Chave de API, pode ser encontrada em seu dashboard
+`id` <br /> **Obrigatório** | `String` | Id da transação a ser estornada
+`amount` <br /> **Obrigatório** | `Integer` | Valor que deseja que seja estornado
 
 ### Notificando cliente sobre boleto a ser pago
 
@@ -1625,8 +1625,8 @@ POST https://api.pagar.me/1/transactions/:id/collect_payment
 Parâmetro | Tipo | Descrição
 --- | --- | ---
 `api_key` <br /> **Obrigatório** | `String` | Chave de API, pode ser encontrada em sua dashboard 
-`:id`(&) | `Integer` | Id da transação da qual o boleto foi gerado
-`email`(&) | `String` | Email do cliente
+`:id` <br /> **Obrigatório** | `Integer` | Id da transação da qual o boleto foi gerado
+`email` <br /> **Obrigatório** | `String` | Email do cliente
 
 #### Exemplo de requisição
 
@@ -1755,11 +1755,11 @@ GET https://api.pagar.me/1/transactions/calculate_installments_amount
 
 Propriedade | Tipo | Descrição
 --- | --- | ---
-`api_key`(&) | (S) | Chave de API, pode ser encontrada em sua dashborad
+`api_key` <br /> **Obrigatório** | `String` | Chave de API, pode ser encontrada em sua dashborad
 `max_installments` <br /> **Default:** 12 | `Integer` | Valor máximo de parcelas
 `free_installments` <br /> **Default:** 1 | `Integer` | Número máximo de parcelas
-`interest_rate`(&) | `Integer` | Valor da taxa de juros
-`amount`(&) | `Integer` | Valor do produto **em centavos**
+`interest_rate` <br /> **Obrigatório** | `Integer` | Valor da taxa de juros
+`amount` <br /> **Obrigatório** | `Integer` | Valor do produto **em centavos**
 
 #### Exemplo de requisição
 
@@ -1822,8 +1822,8 @@ PUT https://api.pagar.me/1/transactions/:id
 
 Propriedade | Tipo | Descrição
 --- | --- | ---
-`api_key`(&) | (S) | Chave de API, pode ser encontrada em sua dashboard
-`status`(&) | (S) | Utilize o valor paid para simular o pagamento
+`api_key` <br /> **Obrigatório** | `String` | Chave de API, pode ser encontrada em sua dashboard
+`status` <br /> **Obrigatório** | `String` | Utilize o valor paid para simular o pagamento
 
 #### Exemplo de requisição
 
@@ -1908,8 +1908,8 @@ GET https://api.pagar.me/1/transactions/card_hash_key
 Propriedade | Tipo | Descrição
 --- | --- | ---
 `id` | `Integer` | id retornado que será utilizado posterirormente para compor o card_hash, por isso é importante que você o salve
-`public_key` | (S) | Chave pública utilizada para criptografar os dados do cartão de crédito
-`ip` | (S) | IP de onde o request foi realizado
+`public_key` | `String` | Chave pública utilizada para criptografar os dados do cartão de crédito
+`ip` | `String` | IP de onde o request foi realizado
 
 #### Exemplo de requisição
 
