@@ -6,17 +6,17 @@ Sempre que você faz uma requisição através da nossa API nós guardamos as in
 
 Propriedade | Tipo | Descrição
 ---|---|---
-`brand` | `string` | Bandeira do cartão
-`country` | `string` | País do cartão
-`customer` | `object` | Cliente associado ao cartão
+`object` | `string` | Nome do tipo do objeto criado/modificado.
+`id` | `string` | Id do cartão
 `date_created` | `string` | Data de criação do cartão no formato ISODate
 `date_updated` | `string` | Data de atualização cartão no formato ISODate
-`fingerprint` | `string` | Identificador do cartão na nossa base
-`first_digits` | `string` | Primeiros digitos do cartão
+`brand` | `string` | Bandeira do cartão
 `holder_name` | `string` | Nome do portador do cartão
-`id` | `string` | Id do cartão
+`first_digits` | `string` | Primeiros digitos do cartão
 `last_digits` | `string` | Últimos digitos do cartão
-`object` | `string` | Nome do tipo do objeto criado/modificado.
+`country` | `string` | País do cartão
+`customer` | `object` | Cliente associado ao cartão
+`fingerprint` | `string` | Identificador do cartão na nossa base
 `valid` | `boolean` | Indicador de cartão válido
 
 #### Exemplo do objeto
@@ -30,7 +30,7 @@ Propriedade | Tipo | Descrição
     "date_updated": "2016-03-23T03:52:59.435Z",
     "fingerprint": "VpmCgO7Ub/rS",
     "first_digits": "424242",
-    "holder_name": "Richard Deschamps",
+    "holder_name": "José",
     "id": "card_cim4aweld001po96d8blu6prb",
     "last_digits": "4242",
     "object": "card",
@@ -42,15 +42,14 @@ Propriedade | Tipo | Descrição
 
 Você pode armazenar os dados do cartão do seu cliente através da rota `/cards`, assim você poderá usar o `id` do objeto gerado para realizar futuras transações, no lugar do `card_hash`.
 
-Parâmetro | Descrição
----|---
-`card_number` (**Obrigatório sem card_hash**) | Número do cartão
-`card_holder_name` (**Obrigatório sem card_hash**) | Nome escrito no cartão
-`card_expiration_date` (**Obrigatório sem card_hash**) | Data de expiração do cartão no formato `MMYY`
----|---
-`card_hash` | Dados do cartão criptografados.
----|---
-`customer_id` | Id do cliente para associar ao cartão
+Parâmetro | Tipo | Descrição
+---|---|---
+`api_key` <br /> **Obrigatório** | `String` | Chave da API, pode ser encontrado em sua dashboard
+`card_number` <br /> **Obrigatório sem Card_hash** | `String` | Número do cartão
+`card_holder_name` <br /> **Obrigatório sem Card_hash** | `String` | Nome escrito no cartão
+`card_expiration_date` <br /> **Obrigatório sem Card_hash** | `String` | Data de expiração do cartão no formato `MMYY`
+`card_hash` | `String` | Dados do cartão criptografados.
+`customer_id` <br /> **Obrigatório** | `String` | Id do cliente para associar ao cartão
 
 ```endpoint
 POST /cards
@@ -63,7 +62,7 @@ POST /cards
 curl -X POST https://api.pagar.me/1/cards \
 -u "ak_test_e1QGU2gL98MDCHZxHLJ9sofPUFJ7tH:x" \
 -d "card_number=4242424242424242" \
--d "card_holder_name=Richard Deschamps" \
+-d "card_holder_name=José" \
 -d "card_expiration_date=0818" \
 -d "customer_id=64912"
 
@@ -81,10 +80,11 @@ require 'pagarme'
 PagarMe.api_key = "ak_test_e1QGU2gL98MDCHZxHLJ9sofPUFJ7tH"
 
 card = PagarMe::Card.new({
-    "card_number" => "4242424242424242",
-    "card_holder_name" => "Richard Deschamps",
-    "card_expiration_month" => "08",
-    "card_expiration_year" => "18"
+    :card_number => '4242424242424242',
+    :card_holder_name => 'Jose da Silva II',
+    :card_expiration_month => '10',
+    :card_expiration_year => '18',
+    :card_cvv => '134'
 })
 
 card.create
@@ -100,7 +100,7 @@ Pagarme::setApiKey("ak_test_e1QGU2gL98MDCHZxHLJ9sofPUFJ7tH");
 
 $card = new PagarMe_Card(array(
 	"card_number" => "4242424242424242",
-    "card_holder_name" => "Richard Deschamps",
+    "card_holder_name" => "José",
     "card_expiration_month" => "08",
     "card_expiration_year" => "18"
 ));
@@ -114,7 +114,7 @@ PagarMeService.DefaultApiKey = "ak_test_e1QGU2gL98MDCHZxHLJ9sofPUFJ7tH";
 
 Card card = new Card();
 card.Number = "4242424242424242";
-card.HolderName = "Richard Deschamps";
+card.HolderName = "José";
 card.ExpirationDate = "0818";
 
 card.Create();
@@ -131,7 +131,7 @@ card.Create();
     "date_updated": "2016-05-17T20:58:49.277Z",
     "fingerprint": "oumREH8fvtXY",
     "first_digits": "424242",
-    "holder_name": "Richard Deschamps",
+    "holder_name": "José",
     "id": "card_ciobx9il100c3306ev0hmuxvx",
     "last_digits": "4242",
     "object": "card",
@@ -143,9 +143,10 @@ card.Create();
 
 Use a rota `/cards/:id` para retornar os dados de um cartão previamente salvo.
 
-Parâmetro | Descrição
----|---
-`id` (**Obrigatório**) | Id do cartão
+Parâmetro | Tipo| Descrição
+---|---|---
+`api_key` <br /> **Obrigatório** | `String` | Chave da API, pode ser encontrado em sua dashboard
+`id` <br /> **Obrigatório** | `String` | Id do cartão
 
 ```endpoint
 GET /cards/{id}
@@ -197,7 +198,7 @@ var card = PagarMeService.GetDefaultService().Cards.Find("card_ciobx9il100c3306e
     "date_updated": "2016-05-17T20:58:49.277Z",
     "fingerprint": "oumREH8fvtXY",
     "first_digits": "424242",
-    "holder_name": "Richard Deschamps",
+    "holder_name": "José",
     "id": "card_ciobx9il100c3306ev0hmuxvx",
     "last_digits": "4242",
     "object": "card",
