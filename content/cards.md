@@ -206,3 +206,68 @@ var card = PagarMeService.GetDefaultService().Cards.Find("card_ciobx9il100c3306e
 }
 ```
 
+### Retornar todos os cartões
+
+Use a rota `/cards` para retornar os dados de todos os cartões previamente salvos.
+
+Parâmetro | Tipo| Descrição
+---|---|---
+`api_key` <br /> **Obrigatório** | `String` | Chave da API, pode ser encontrado em sua dashboard
+
+```endpoint
+GET /cards
+```
+
+#### Exemplo de requisição
+
+```curl
+# Retornando um cartão
+curl -X GET https://api.pagar.me/1/cards \
+-u "ak_test_e1QGU2gL98MDCHZxHLJ9sofPUFJ7tH:x"
+```
+
+```ruby
+```
+
+```php
+```
+
+```csharp
+```
+
+#### Exemplo de resposta
+
+```json
+[
+  {
+    "object": "card",
+    "id": "card_cism17quf000tdk6d5bocbdvm",
+    "date_created": "2016-09-02T17:25:56.010Z",
+    "date_updated": "2016-09-02T17:25:56.386Z",
+    "brand": "visa",
+    "holder_name": "Jose",
+    "first_digits": "424242",
+    "last_digits": "4242",
+    "country": "US",
+    "fingerprint": "d0BMujK+aqRx",
+    "customer": null,
+    "valid": true,
+    "expiration_date": "0219"
+  },
+  {
+    "object": "card",
+    "id": "card_cirqv0cfc00uadz6de3k91o81",
+    "date_created": "2016-08-11T21:51:21.578Z",
+    "date_updated": "2016-08-11T21:51:21.777Z",
+    "brand": "visa",
+    "holder_name": "jose",
+    "first_digits": "424242",
+    "last_digits": "4242",
+    "country": "US",
+    "fingerprint": "0vgDr03pBjGQ",
+    "customer": null,
+    "valid": true,
+    "expiration_date": "1020"
+  }
+]
+```
