@@ -12,7 +12,7 @@ Propriedade | Tipo | Descrição
 `id` | `string` | Id do recebedor
 `last_transfer` | `string` | Data da última transferência no formato ISODate
 `object` | `string` | Nome do tipo do objeto criado/modificado
-`transfer_day` | `integer` | Dia no qual o recebedor vai ser pago. Para cada `transfer_day`, existe uma faixa de pagamento possível. `weekly`: 1 a 5, onde 1 é segunda-feira e 5 é sexta-feira e `monthly`: 1 a 31
+`transfer_day` | `integer` | Dia no qual o recebedor vai ser pago. Para cada `transfer_day`, existe uma faixa de pagamento possível.`daily`: sempre 0. `weekly`: 1 a 5, onde 1 é segunda-feira e 5 é sexta-feira e `monthly`: 1 a 31
 `transfer_enabled` | `boolean` | Identifica se o recebedor está habilitado para receber automaticamente ou não
 `transfer_interval` | `string` | Frequência na qual o recebedor irá ser pago. **Valores possíveis:** `daily`, `weekly`, `monthly`
 
@@ -54,7 +54,7 @@ Com essa rota você consegue criar um recebedor, definindo o período que ele ir
 Parâmetro | Descrição
 ---|---
 `transfer_interval` (**Obrigatório**) | Frequência na qual o recebedor irá ser pago. **Valores possíveis:** `daily`, `weekly` e `monthly`
-`transfer_day` (**Obrigatório**) | Dia no qual o recebedor vai ser pago
+`transfer_day` (**Obrigatório**) | Dia no qual o recebedor vai ser pago. <br /> **Obrigatório:** Em caso de `daily`, o valor deve ser sempre zero.
 `transfer_enabled` | Indica se o recebedor pode receber os pagamentos automaticamente
 `bank_account_id` | Id de uma conta bancária previamente criada. Caso você não tenha essa informação, você pode passar os parâmetros necessários para [criação de uma conta bancária](/#criar-uma-conta-bancária)
 `anticipatable_volume_percentage` | Valor em porcentagem do quanto é possível antecipar
