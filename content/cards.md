@@ -208,11 +208,13 @@ var card = PagarMeService.GetDefaultService().Cards.Find("card_ciobx9il100c3306e
 
 ### Retornar todos os cartões
 
-Use a rota `/cards` para retornar os dados de todos os cartões previamente salvos.
+Use a rota `/cards` para retornar os dados de todos os cartões previamente salvos. <br /> **Obs.:** O retorno é paginado.
 
-Parâmetro | Tipo| Descrição
+Parâmetro | Tipo | Descrição
 ---|---|---
 `api_key` <br /> **Obrigatório** | `String` | Chave da API, pode ser encontrado em sua dashboard
+`page` <br /> **Obrigatório** | `Integer` | O numero da pagina que você quer receber
+`count` <br /> **Obrigatório** | `Integer` | A quantidade de itens por pagína que você quer receber
 
 ```endpoint
 GET /cards
@@ -223,16 +225,36 @@ GET /cards
 ```curl
 # Retornando um cartão
 curl -X GET https://api.pagar.me/1/cards \
--u "ak_test_e1QGU2gL98MDCHZxHLJ9sofPUFJ7tH:x"
+-u "ak_test_e1QGU2gL98MDCHZxHLJ9sofPUFJ7tH:x" \
+-d "page=1" \
+-d "count=1"
 ```
 
 ```ruby
+# Retornando todas os cartões
+require 'pagarme'
+
+PagarMe.api_key = "ak_test_e1QGU2gL98MDCHZxHLJ9sofPUFJ7tH"
+
+account = PagarMe::Card.all(1, 1)
 ```
 
 ```php
+// Retornando todas as contas bancárias
+<?php
+
+require("pagarme-php/Pagarme.php");
+
+Pagarme::setApiKey("ak_test_e1QGU2gL98MDCHZxHLJ9sofPUFJ7tH");
+
+$account = PagarMe_Card::all(1, 1);
 ```
 
 ```csharp
+// Retornando todas os cartões
+PagarMeService.DefaultApiKey = "ak_test_e1QGU2gL98MDCHZxHLJ9sofPUFJ7tH";
+
+var account = PagarMeService.GetDefaultService().Card.FindAll(1, 1);
 ```
 
 #### Exemplo de resposta
