@@ -122,7 +122,7 @@ account.Agencia = "0808";
 account.AgenciaDv = "8";
 account.Conta = "08808";
 account.ContaDv = "8";
-account.DocumentNumaccounter = "80802694594";
+account.DocumentNumber = "80802694594";
 account.LegalName = "José";
 
 account.Save();
