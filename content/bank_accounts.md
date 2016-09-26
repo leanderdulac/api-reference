@@ -1,22 +1,23 @@
 ## Contas bancárias
 
 ### Objeto bank_account
+Contém os dados de uma conta bancária.
 
-Propriedade | Tipo | Descrição
----|---|---
-`agencia` | `string` | Agência bancária
-`agencia_dv` | `string` | Dígito verificador da agência bancária
-`bank_code` | `string` | Código do banco
-`charge_transfer_fees` | `boolean` | **Deprecado**
-`conta` | `string` | Número da conta bancária
-`conta_dv` | `string` | Dígito verificador da conta bancária
-`date_created` | `string` | Data de criação da conta no formato ISODate
-`document_number` | `string` | Documento identificador do titular da conta (CPF ou CNPJ)
-`document_type` | `string` | Tipo do documento identificador do titular da conta
-`holder_name` | `string` | Nome do portador do cartão
-`id` | `string` | Id da conta bancária
-`legal_name` | `string` | Nome completo (se pessoa física) ou razão social (se pessoa jurídica)
-`object` | `string` | Nome do tipo do objeto criado/modificado
+Propriedade            | Tipo      | Descrição
+---                    | ---       | ---
+`agencia`              | `String`  | Agência bancária
+`agencia_dv`           | `String`  | Dígito verificador da agência bancária
+`bank_code`            | `String`  | Código do banco
+`charge_transfer_fees` | `Boolean` | **Deprecado**
+`conta`                | `String`  | Número da conta bancária
+`conta_dv`             | `String`  | Dígito verificador da conta bancária
+`date_created`         | `String`  | Data de criação da conta no formato ISODate
+`document_number`      | `String`  | Documento identificador do titular da conta (CPF ou CNPJ)
+`document_type`        | `String`  | Tipo do documento identificador do titular da conta
+`holder_name`          | `String`  | Nome do portador do cartão
+`id`                   | `String`  | Id da conta bancária
+`legal_name`           | `String`  | Nome completo (se pessoa física) ou razão social (se pessoa jurídica)
+`object`               | `String`  | Nome do tipo do objeto criado/modificado
 
 #### Exemplo do objeto
 
@@ -32,7 +33,7 @@ Propriedade | Tipo | Descrição
     "document_number": "80802694594",
     "document_type": "cpf",
     "id": 13459415,
-    "legal_name": "RICHARD DESCHAMPS",
+    "legal_name": "JOSÉ COMPANY",
     "object": "bank_account"
 }
 ```
@@ -41,15 +42,16 @@ Propriedade | Tipo | Descrição
 
 Você pode criar uma conta bancária para receber futuros pagamentos através da rota `/bank_accounts`, assim você poderá usar o `id` do objeto gerado para criar recebedores.
 
-Parâmetro | Descrição
----|---
-`bank_code` (**Obrigatório**) | Código do banco
-`agencia` (**Obrigatório**) | Agência bancária onde a conta foi criada
-`agencia_dv` (**Obrigatório**) | Dígito verificador da agência bancária
-`conta` (**Obrigatório**) | Número da conta bancária
-`conta_dv` (**Obrigatório**) | Dígito verificador da conta bancária
-`document_number` (**Obrigatório**) | Documento identificador do titular da conta (CPF ou CNPJ).
-`legal_name` (**Obrigatório**) | Nome completo (se pessoa física) ou razão social (se pessoa jurídica)
+Parâmetro | Tipo | Descrição
+---|---|---
+`api_key` <br /> **Obrigatório** | `String` | Chave da API, pode ser encontrado em sua dashboard
+`bank_code` <br /> **Obrigatório** | `String` | Código do banco
+`agencia` <br /> **Obrigatório** | `String` | Agência bancária onde a conta foi criada
+`agencia_dv` <br /> **Obrigatório** | `String` | Dígito verificador da agência bancária
+`conta` <br /> **Obrigatório** | `String` | Número da conta bancária
+`conta_dv` <br /> **Obrigatório** | `String` | Dígito verificador da conta bancária
+`document_number` <br /> **Obrigatório** | `String` | Documento identificador do titular da conta (CPF ou CNPJ).
+`legal_name` <br /> **Obrigatório** | `String` | Nome completo (se pessoa física) ou razão social (se pessoa jurídica)
 
 ```endpoint
 POST /bank_accounts
@@ -67,7 +69,7 @@ curl -X POST https://api.pagar.me/1/bank_accounts \
 -d "conta=08808" \
 -d "conta_dv=8" \
 -d "document_number=80802694594" \
--d "legal_name=Richard Deschamps"
+-d "legal_name=José"
 ```
 
 ```ruby
@@ -77,13 +79,13 @@ require 'pagarme'
 PagarMe.api_key = "ak_test_e1QGU2gL98MDCHZxHLJ9sofPUFJ7tH"
 
 account = PagarMe::BankAccount.new({
-    "bank_code" => "184",
-    "agencia" => "0808",
-    "agencia_dv" => "8",
-    "conta" => "08808",
-    "conta_dv" => "8",
-    "document_number" => "80802694594",
-    "legal_name" => "Richard Deschamps"
+    :bank_code       => "184" ,
+    :agencia         => "0808" ,
+    :agencia_dv      => "8" ,
+    :conta           => "08808" ,
+    :conta_dv        => "8" ,
+    :document_number => "80802694594" ,
+    :legal_name      => "José"
 })
 
 account.create
@@ -104,7 +106,7 @@ $account = new Pagarme_Bank_Account(array(
     "conta" => "08808",
     "conta_dv" => "8",
     "document_number" => "80802694594",
-    "legal_name" => "Richard Deschamps"
+    "legal_name" => "José"
 ));
 
 $account->create();
@@ -120,8 +122,8 @@ account.Agencia = "0808";
 account.AgenciaDv = "8";
 account.Conta = "08808";
 account.ContaDv = "8";
-account.DocumentNumaccounter = "80802694594";
-account.LegalName = "Richard Deschamps";
+account.DocumentNumber = "80802694594";
+account.LegalName = "José";
 
 account.Save();
 ```
@@ -140,7 +142,7 @@ account.Save();
     "document_number": "80802694594",
     "document_type": "cpf",
     "id": 13459415,
-    "legal_name": "RICHARD DESCHAMPS",
+    "legal_name": "JOSÉ COMPANY",
     "object": "bank_account"
 }
 ```
@@ -150,8 +152,9 @@ account.Save();
 Use a rota `/bank_accounts/:id` para retornar os dados de uma conta bancária.
 
 Parâmetro | Descrição
----|---
-`id` (**Obrigatório**) | Id da conta bancária
+---|---|---
+`api_key` <br /> **Obrigatório** | `String` | Chave da API, pode ser encontrado em sua dashboard
+`id` <br /> **Obrigatório** | `String` | Id da conta bancária
 
 ```endpoint
 GET /bank_accounts/{id}
@@ -206,7 +209,7 @@ var account = PagarMeService.GetDefaultService().BankAccounts.Find(13459415);
     "document_number": "80802694594",
     "document_type": "cpf",
     "id": 13459415,
-    "legal_name": "RICHARD DESCHAMPS",
+    "legal_name": "JOSÉ COMPANY",
     "object": "bank_account"
 }
 ```
@@ -215,10 +218,10 @@ var account = PagarMeService.GetDefaultService().BankAccounts.Find(13459415);
 
 Use a rota `/bank_accounts` para retornar todas as contas bancárias.
 
-Parâmetro | Descrição
----|---
-`page` (**Padrão: 1**) | Útil para implementação de uma paginação de resultados
-`count` (**Padrão: 10**) | Retorna `n` objetos de `bank_account`
+Parâmetro | Tipo | Descrição
+---|---|---
+`page` <br /> **Padrão: 1** | `Integer` | Útil para implementação de uma paginação de resultados
+`count` <br /> **Padrão: 10** | `Integer` | Retorna `n` objetos de `bank_account`
 
 ```endpoint
 GET /bank_accounts
@@ -276,7 +279,7 @@ var account = PagarMeService.GetDefaultService().BankAccounts.FindAll(1, 1);
         "document_number": "80802694594",
         "document_type": "cpf",
         "id": 13459415,
-        "legal_name": "RICHARD DESCHAMPS",
+        "legal_name": "JOSÉ COMPANY",
         "object": "bank_account"
     }
 ]
