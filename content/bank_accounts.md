@@ -45,11 +45,11 @@ Você pode criar uma conta bancária para receber futuros pagamentos através da
 Parâmetro | Tipo | Descrição
 ---|---|---
 `api_key` <br /> **Obrigatório** | `String` | Chave da API, pode ser encontrado em sua dashboard
-`bank_code` <br /> **Obrigatório** | `String` | Código do banco
-`agencia` <br /> **Obrigatório** | `String` | Agência bancária onde a conta foi criada
-`agencia_dv` <br /> **Obrigatório** | `String` | Dígito verificador da agência bancária
-`conta` <br /> **Obrigatório** | `String` | Número da conta bancária
-`conta_dv` <br /> **Obrigatório** | `String` | Dígito verificador da conta bancária
+`bank_code` <br /> **Obrigatório** | `String` | Código do banco <br /> **OBS**: Deve conter 3 caracteres, apenas números
+`agencia` <br /> **Obrigatório** | `String` | Agência bancária onde a conta foi criada <br /> **OBS**: Limite de 5 caracteres, apenas números
+`agencia_dv` <br /> **Obrigatório** | `String` | Dígito verificador da agência bancária <br /> **OBS**: Deve conter 1 dígito, apenas números
+`conta` <br /> **Obrigatório** | `String` | Número da conta bancária <br /> **OBS**: Limite de 13 caracteres, apenas números
+`conta_dv` <br /> **Obrigatório** | `String` | Dígito verificador da conta bancária <br /> **OBS**: Limite de 2 caracteres, apenas alfanuméricos
 `document_number` <br /> **Obrigatório** | `String` | Documento identificador do titular da conta (CPF ou CNPJ).
 `legal_name` <br /> **Obrigatório** | `String` | Nome completo (se pessoa física) ou razão social (se pessoa jurídica)
 
